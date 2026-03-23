@@ -67,8 +67,10 @@ void Error_Handler(void);
 #define ASR_PA4_GPIO_Port GPIOA
 #define Key1_Pin GPIO_PIN_0
 #define Key1_GPIO_Port GPIOB
+#define Key1_EXTI_IRQn EXTI0_IRQn
 #define Key2_Pin GPIO_PIN_1
 #define Key2_GPIO_Port GPIOB
+#define Key2_EXTI_IRQn EXTI1_IRQn
 #define TFT_RES_Pin GPIO_PIN_10
 #define TFT_RES_GPIO_Port GPIOB
 #define TFT_DC_Pin GPIO_PIN_11
@@ -83,6 +85,7 @@ void Error_Handler(void);
 #define ASR_RX_GPIO_Port GPIOA
 #define Key3_Pin GPIO_PIN_3
 #define Key3_GPIO_Port GPIOB
+#define Key3_EXTI_IRQn EXTI3_IRQn
 #define Buzzer_Pin GPIO_PIN_5
 #define Buzzer_GPIO_Port GPIOB
 #define LightSensor_SCL_Pin GPIO_PIN_6
