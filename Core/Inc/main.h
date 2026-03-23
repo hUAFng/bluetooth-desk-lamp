@@ -111,6 +111,11 @@ void Error_Handler(void);
 #define LightSensor_SDK_Pin GPIO_PIN_7
 #define LightSensor_SDK_GPIO_Port GPIOB
 
+/* ---------------------------------LED ---------------------------- */
+#define LED_B_Pin GPIO_PIN_14
+#define LED_B_GPIO_Port GPIOB
+#define LED_G_Pin GPIO_PIN_15
+#define LED_G_GPIO_Port GPIOB
 
 /* USER CODE BEGIN Private defines */
 
