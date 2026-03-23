@@ -804,7 +804,7 @@ I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h)(0x699D7811)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h)(0x699D7811)
 F (..\BSP\Driverlayer\key.h)(0x69C14FE1)()
 F (..\BSP\Driverlayer\led.c)(0x69C15094)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ..\BSP-I.\RTE\_bluetooth_desk_lamp-ID:\keil5\keil_V5.40\package\ARM\CMSIS\6.2.0\CMSIS\Core\Include-ID:\keil5\keil_V5.40\package\Keil\STM32F1xx_DFP\2.4.1\Device\Include-D__UVISION_VERSION="543" -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o bluetooth_desk_lamp\led.o --omf_browse bluetooth_desk_lamp\led.crf --depend bluetooth_desk_lamp\led.d)
-I (..\BSP\Driverlayer\led.h)(0x69C15096)
+I (..\BSP\Driverlayer\led.h)(0x69C15170)
 I (../Core/Inc/main.h)(0x69C14F89)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h)(0x699D7811)
 I (../Core/Inc/stm32f1xx_hal_conf.h)(0x69C1070F)
@@ -835,4 +835,38 @@ I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_spi.h)(0x699D7811)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h)(0x699D7811)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h)(0x699D7811)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h)(0x699D7811)
-F (..\BSP\Driverlayer\led.h)(0x69C15096)()
+F (..\BSP\Driverlayer\led.h)(0x69C15170)()
+F (..\BSP\Driverlayer\i2c_drv.c)(0x69C15AF3)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ..\BSP-I.\RTE\_bluetooth_desk_lamp-ID:\keil5\keil_V5.40\package\ARM\CMSIS\6.2.0\CMSIS\Core\Include-ID:\keil5\keil_V5.40\package\Keil\STM32F1xx_DFP\2.4.1\Device\Include-D__UVISION_VERSION="543" -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o bluetooth_desk_lamp\i2c_drv.o --omf_browse bluetooth_desk_lamp\i2c_drv.crf --depend bluetooth_desk_lamp\i2c_drv.d)
+I (..\BSP\Driverlayer\i2c_drv.h)(0x69C155C9)
+I (../Core/Inc/main.h)(0x69C14F89)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h)(0x699D7811)
+I (../Core/Inc/stm32f1xx_hal_conf.h)(0x69C1070F)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc.h)(0x699D7811)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_def.h)(0x699D7811)
+I (../Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f1xx.h)(0x699D7811)
+I (../Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xb.h)(0x699D7811)
+I (../Drivers/CMSIS/Include/core_cm3.h)(0x699D77D9)
+I (D:\keil5\keil_V5.40\ARM\ARMCC\include\stdint.h)(0x56FE42DE)
+I (../Drivers/CMSIS/Include/cmsis_version.h)(0x699D77D9)
+I (../Drivers/CMSIS/Include/cmsis_compiler.h)(0x699D77D9)
+I (../Drivers/CMSIS/Include/cmsis_armcc.h)(0x699D77D9)
+I (../Drivers/CMSIS/Device/ST/STM32F1xx/Include/system_stm32f1xx.h)(0x699D7811)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy/stm32_hal_legacy.h)(0x699D7811)
+I (D:\keil5\keil_V5.40\ARM\ARMCC\include\stddef.h)(0x56FE42DE)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc_ex.h)(0x699D7811)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_gpio.h)(0x699D7811)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_gpio_ex.h)(0x699D7811)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_exti.h)(0x699D7811)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_dma.h)(0x699D7811)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_dma_ex.h)(0x699D7811)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_cortex.h)(0x699D7811)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash.h)(0x699D7811)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash_ex.h)(0x699D7811)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_i2c.h)(0x699D7811)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h)(0x699D7811)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_spi.h)(0x699D7811)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h)(0x699D7811)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h)(0x699D7811)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h)(0x699D7811)
+I (../Core/Inc/i2c.h)(0x69C1070E)
+F (..\BSP\Driverlayer\i2c_drv.h)(0x69C155C9)()

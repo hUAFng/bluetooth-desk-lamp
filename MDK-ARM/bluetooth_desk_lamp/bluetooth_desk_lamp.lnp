@@ -27,6 +27,7 @@
 "bluetooth_desk_lamp\system_stm32f1xx.o"
 "bluetooth_desk_lamp\key.o"
 "bluetooth_desk_lamp\led.o"
+"bluetooth_desk_lamp\i2c_drv.o"
 --library_type=microlib --strict --scatter "bluetooth_desk_lamp\bluetooth_desk_lamp.sct"
 --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers

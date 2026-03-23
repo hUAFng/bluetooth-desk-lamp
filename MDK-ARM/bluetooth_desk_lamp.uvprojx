@@ -10,6 +10,7 @@
       <TargetName>bluetooth_desk_lamp</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
+      <pCCUsed>5060183::V5.06 update 2 (build 183)::.\ARMCC</pCCUsed>
       <uAC6>0</uAC6>
       <TargetOption>
         <TargetCommonOption>
@@ -558,6 +559,16 @@
               <FileName>led.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\BSP\Driverlayer\led.h</FilePath>
+            </File>
+            <File>
+              <FileName>i2c_drv.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\BSP\Driverlayer\i2c_drv.c</FilePath>
+            </File>
+            <File>
+              <FileName>i2c_drv.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\BSP\Driverlayer\i2c_drv.h</FilePath>
             </File>
           </Files>
         </Group>
