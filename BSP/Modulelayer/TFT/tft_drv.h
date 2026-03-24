@@ -6,6 +6,8 @@
 #include "main.h"
 #include "Driverlayer/spi_drv.h"
 #include "spi.h"
+#include "tft_fonts.h"
+
 
 extern SPI_HandleTypeDef hspi1;
 
@@ -61,12 +63,19 @@ extern SPI_HandleTypeDef hspi1;
 #define SPI_ENABLE HAL_GPIO_WritePin(TFT_CS_GPIO_Port, TFT_CS_Pin, GPIO_PIN_RESET) // CS=0, 使能SPI
 #define SPI_DISABLE HAL_GPIO_WritePin(TFT_CS_GPIO_Port, TFT_CS_Pin, GPIO_PIN_SET)  // CS=1, 禁用SPI
 
+/* 定义字体大小(像素)*/
+#define FONT_8X16_WIDTH  8
+#define FONT_8X16_HEIGHT 16
+
 
 /* --------------------------------------function-------------------------------------------------------*/
-void tft_WriteCmd(uint8_t cmd);
-void tft_WriteData(uint8_t* data,uint8_t len);
 
-
+void tft_Init(void);
+void tft_DisplayChar(uint8_t x,uint8_t y,char ch,uint16_t fg_color,uint16_t bg_color);
+void tft_DisplayString(uint8_t x,uint8_t y,const char* str,uint16_t fg_color,uint16_t bg_color);
+void tft_DisplayNum(uint16_t x,uint16_t y,int32_t num,uint16_t num_bit,uint16_t fg_color,uint16_t bg_color);
+void tft_ClearScreen(uint16_t color);
+void tft_DrawLine(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, uint16_t color);
 
 
 #endif

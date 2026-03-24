@@ -76,10 +76,15 @@ virtualFolder:
       files: []
       folders: []
     - name: Modulelayer
-      files:
-        - path: ../BSP/Modulelayer/tft_drv.c
-        - path: ../BSP/Modulelayer/tft_drv.h
-      folders: []
+      files: []
+      folders:
+        - name: TFT
+          files:
+            - path: ../BSP/Modulelayer/TFT/tft_drv.c
+            - path: ../BSP/Modulelayer/TFT/tft_drv.h
+            - path: ../BSP/Modulelayer/TFT/tft_fonts.c
+            - path: ../BSP/Modulelayer/TFT/tft_fonts.h
+          folders: []
 dependenceList: []
 outDir: build
 miscInfo:
