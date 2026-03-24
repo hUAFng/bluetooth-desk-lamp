@@ -8,7 +8,8 @@
         "files.associations": {
             "i2c_drv.h": "c",
             "string": "c",
-            "string.h": "c"
+            "string.h": "c",
+            "spi_drv.h": "c"
         }
     },
     "extensions": {}

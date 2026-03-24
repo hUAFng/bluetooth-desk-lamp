@@ -69,6 +69,8 @@ virtualFolder:
         - path: ../BSP/Driverlayer/led.h
         - path: ../BSP/Driverlayer/i2c_drv.c
         - path: ../BSP/Driverlayer/i2c_drv.h
+        - path: ../BSP/Driverlayer/spi_drv.c
+        - path: ../BSP/Driverlayer/spi_drv.h
       folders: []
     - name: ::CMSIS
       files: []
