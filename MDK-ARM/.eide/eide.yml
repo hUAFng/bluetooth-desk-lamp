@@ -56,7 +56,8 @@ virtualFolder:
             - path: ../Core/Src/system_stm32f1xx.c
           folders: []
     - name: Applayer
-      files: []
+      files:
+        - path: ../BSP/Applayer/创新选拔大赛（电赛类）D题 智能桌面氛围灯.pdf
       folders: []
     - name: Modulelayer
       files: []
@@ -71,6 +72,8 @@ virtualFolder:
         - path: ../BSP/Driverlayer/i2c_drv.h
         - path: ../BSP/Driverlayer/spi_drv.c
         - path: ../BSP/Driverlayer/spi_drv.h
+        - path: ../BSP/Driverlayer/uart_drv.c
+        - path: ../BSP/Driverlayer/uart_drv.h
       folders: []
     - name: ::CMSIS
       files: []
