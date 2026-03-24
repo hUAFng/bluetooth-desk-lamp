@@ -76,7 +76,9 @@ virtualFolder:
       files: []
       folders: []
     - name: Modulelayer
-      files: []
+      files:
+        - path: ../BSP/Modulelayer/tft_drv.c
+        - path: ../BSP/Modulelayer/tft_drv.h
       folders: []
 dependenceList: []
 outDir: build
@@ -95,6 +97,9 @@ targets:
         - ../Drivers/CMSIS/Device/ST/STM32F1xx/Include
         - ../Drivers/CMSIS/Include
         - ../BSP
+        - ../BSP/Driverlayer
+        - ../BSP/Modulelayer
+        - ../BSP/Applayer
         - .cmsis/include
         - RTE/_bluetooth_desk_lamp
       libList: []
