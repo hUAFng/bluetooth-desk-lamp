@@ -59,9 +59,6 @@ virtualFolder:
       files:
         - path: ../BSP/Applayer/创新选拔大赛（电赛类）D题 智能桌面氛围灯.pdf
       folders: []
-    - name: Modulelayer
-      files: []
-      folders: []
     - name: Driverlayer
       files:
         - path: ../BSP/Driverlayer/key.c
@@ -76,6 +73,9 @@ virtualFolder:
         - path: ../BSP/Driverlayer/uart_drv.h
       folders: []
     - name: ::CMSIS
+      files: []
+      folders: []
+    - name: Modulelayer
       files: []
       folders: []
 dependenceList: []
