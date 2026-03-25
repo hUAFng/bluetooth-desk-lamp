@@ -15,5 +15,6 @@ typedef enum
 }led_e;
 
 void led_work(led_e led_num);
+void led_Init(void);
 
 #endif

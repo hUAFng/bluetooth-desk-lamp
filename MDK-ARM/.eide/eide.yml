@@ -71,6 +71,10 @@ virtualFolder:
         - path: ../BSP/Driverlayer/spi_drv.h
         - path: ../BSP/Driverlayer/uart_drv.c
         - path: ../BSP/Driverlayer/uart_drv.h
+        - path: ../BSP/Driverlayer/buzzer_drv.c
+        - path: ../BSP/Driverlayer/buzzer_drv.h
+        - path: ../BSP/Driverlayer/drv_layer.c
+        - path: ../BSP/Driverlayer/drv_layer.h
       folders: []
     - name: ::CMSIS
       files: []
