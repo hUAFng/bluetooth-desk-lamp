@@ -85,6 +85,11 @@ virtualFolder:
             - path: ../BSP/Modulelayer/TFT/tft_fonts.c
             - path: ../BSP/Modulelayer/TFT/tft_fonts.h
           folders: []
+        - name: Light_Sensor
+          files:
+            - path: ../BSP/Modulelayer/Light_Sensor/light_sensor_drv.c
+            - path: ../BSP/Modulelayer/Light_Sensor/light_sensor_drv.h
+          folders: []
 dependenceList: []
 outDir: build
 miscInfo:
