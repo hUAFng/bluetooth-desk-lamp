@@ -91,7 +91,11 @@ virtualFolder:
             - path: ../BSP/Modulelayer/Light_Sensor/light_sensor_drv.h
           folders: []
         - name: RGB
-          files: []
+          files:
+            - path: ../BSP/Modulelayer/RGB/rgb_drv.c
+            - path: ../BSP/Modulelayer/RGB/rgb_drv.h
+            - path: ../BSP/Modulelayer/RGB/DWT.c
+            - path: ../BSP/Modulelayer/RGB/DWT.h
           folders: []
 dependenceList: []
 outDir: build
