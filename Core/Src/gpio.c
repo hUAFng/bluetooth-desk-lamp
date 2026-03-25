@@ -50,8 +50,11 @@ void MX_GPIO_Init(void)
   __HAL_RCC_GPIOB_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOB, TFT_RES_Pin|TFT_DC_Pin|TFT_CS_Pin|Buzzer_Pin
-                          |TFT_BL_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOB, TFT_CS_Pin|TFT_DC_Pin|TFT_RES_Pin|LED_B_Pin
+                          |LED_G_Pin|Buzzer_Pin|TFT_BL_Pin, GPIO_PIN_RESET);
+
+  /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(RGB_GPIO_Port, RGB_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pins : ASR_PA1_Pin ASR_PA4_Pin */
   GPIO_InitStruct.Pin = ASR_PA1_Pin|ASR_PA4_Pin;
@@ -65,14 +68,21 @@ void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_PULLUP;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : TFT_RES_Pin TFT_DC_Pin TFT_CS_Pin Buzzer_Pin
-                           TFT_BL_Pin */
-  GPIO_InitStruct.Pin = TFT_RES_Pin|TFT_DC_Pin|TFT_CS_Pin|Buzzer_Pin
-                          |TFT_BL_Pin;
+  /*Configure GPIO pins : TFT_CS_Pin TFT_DC_Pin TFT_RES_Pin LED_B_Pin
+                           LED_G_Pin Buzzer_Pin TFT_BL_Pin */
+  GPIO_InitStruct.Pin = TFT_CS_Pin|TFT_DC_Pin|TFT_RES_Pin|LED_B_Pin
+                          |LED_G_Pin|Buzzer_Pin|TFT_BL_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+
+  /*Configure GPIO pin : RGB_Pin */
+  GPIO_InitStruct.Pin = RGB_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(RGB_GPIO_Port, &GPIO_InitStruct);
 
   /*Configure GPIO pin : ASR_PB9_Pin */
   GPIO_InitStruct.Pin = ASR_PB9_Pin;
