@@ -94,8 +94,8 @@ virtualFolder:
           files:
             - path: ../BSP/Modulelayer/RGB/rgb_drv.c
             - path: ../BSP/Modulelayer/RGB/rgb_drv.h
-            - path: ../BSP/Modulelayer/RGB/DWT.c
-            - path: ../BSP/Modulelayer/RGB/DWT.h
+            - path: ../BSP/Modulelayer/RGB/dwt.c
+            - path: ../BSP/Modulelayer/RGB/dwt.h
           folders: []
 dependenceList: []
 outDir: build

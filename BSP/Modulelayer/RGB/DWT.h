@@ -7,7 +7,7 @@
 
 #define SYSTEM_CLOCK 72000000
 
-void DWT_Init(void);
+void dwt_Init(void);
 void delay_us(uint16_t us);
 
 #endif

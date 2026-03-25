@@ -5,9 +5,9 @@
 */
 
 
-#include "DWT.h"
+#include "dwt.h"
 
-void DWT_Init(void)
+void dwt_Init(void)
 {
     // 开启DWT时钟
     CoreDebug->DEMCR |= CoreDebug_DEMCR_TRCENA_Msk;
