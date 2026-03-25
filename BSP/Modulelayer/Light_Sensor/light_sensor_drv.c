@@ -9,14 +9,13 @@
 
 HAL_StatusTypeDef ls_WriteByte(uint8_t byte)
 {
-    return I2C_WriteRaw(&LS_I2C_Handle,LS_I2C_ADDR,&byte,1);
+    return  I2C_WriteRaw(&LS_I2C_Handle,LS_I2C_ADDR,&byte,1);
 }
-
 HAL_StatusTypeDef ls_Readdata(uint8_t* buf , uint8_t len)
 {
     return I2C_ReadRaw(&LS_I2C_Handle,LS_I2C_ADDR,buf,len);
-}
 
+}
 void ls_Init(void)
 {
     ls_WriteByte(LS_POWON);      //上电
@@ -35,17 +34,14 @@ void ls_Init(void)
  */
 HAL_StatusTypeDef ls_SetMode(LS_MODE mode)
 {
-    if (mode < LS_MODE_HRES1 || mode > LS_MODE_SINGLE_MEAS) return HAL_ERROR; // 无效
-    
     uint8_t temp = 0;
     if (mode == LS_MODE_HRES1) temp = LS_HRES_MODE1;
     else if (mode == LS_MODE_HRES2) temp = LS_HRES_MODE2;
     else if (mode == LS_MODE_LRES) temp = LS_LRES_MODE;
     else if (mode == LS_MODE_SINGLE_MEAS) temp = LS_SINGLE_MEAS_MODE;
+    else return HAL_ERROR; // 无效模式
     
     if (ls_WriteByte(temp) != HAL_OK) return HAL_ERROR;
-
-    HAL_Delay(120);
 
     return HAL_OK;
 }
@@ -57,7 +53,7 @@ HAL_StatusTypeDef ls_SetMode(LS_MODE mode)
  */
 HAL_StatusTypeDef ls_MeasureLight(LS_MODE mode,float* lux)
 {
-    if(lux == NULL) return HAL_ERROR;
+    if(lux == NULL || mode < LS_MODE_HRES1 || mode > LS_MODE_SINGLE_MEAS) return HAL_ERROR;
 
     uint8_t buf[2] = {0};
     uint16_t lux_raw = 0;
@@ -80,18 +76,19 @@ HAL_StatusTypeDef ls_MeasureLight(LS_MODE mode,float* lux)
  * @param lux : 光照强度指针
  * @param cnt_mode : 当前模式
  */
-void ls_ChangeModeByLus(float* lux,LS_MODE cnt_mode)
+HAL_StatusTypeDef ls_ChangeModeByLus(float* lux,LS_MODE cnt_mode)
 {
-    if (lux == NULL) return;
+    if (lux == NULL) return HAL_ERROR;
 
     if (cnt_mode == LS_MODE_HRES1) // 1lx分辨率
     {
-        if (*lux < LOW_LUS_THRESHOLD) ls_SetMode(LS_MODE_HRES2); // 0.5lx分辨率,提高弱光环境的测量精度
+        if (*lux <= LOW_LUS_THRESHOLD) return ls_SetMode(LS_MODE_HRES2); // 0.5lx分辨率,提高弱光环境的测量精度
     }
     else if (cnt_mode == LS_MODE_HRES2) // 0.5lx分辨率
     {
-        if (*lux >= HIGH_LUS_THRESHOLD) ls_SetMode(LS_MODE_HRES1); // 1lx分辨率
+        if (*lux >= HIGH_LUS_THRESHOLD) return ls_SetMode(LS_MODE_HRES1); // 1lx分辨率
     }
+    return HAL_OK;
 }
 
 void ls_Poweroff(void)

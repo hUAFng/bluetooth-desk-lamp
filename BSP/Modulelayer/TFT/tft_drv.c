@@ -18,8 +18,7 @@ void tft_WriteCmd(uint8_t cmd)
 
 /*
 * @brief TFT写入字节
-* @param data 数据
-* @param len 数据长度
+* @param byte 数据
 */
 void tft_WriteByte(uint8_t byte)
 {
@@ -54,6 +53,7 @@ void tft_WriteData_16Bit(uint16_t data)
 void tft_SetAddrWindow(uint16_t x1,uint16_t y1,uint16_t x2,uint16_t y2)
 { 
     if (x1 >= TFT_WIDTH || y1 >= TFT_HEIGHT || x2 >= TFT_WIDTH || y2 >= TFT_HEIGHT) return;
+    if (x1 > x2 || y1 > y2) return; // 起始坐标不能大于结束坐标
 
     tft_WriteCmd(CMD_CASET);
     tft_WriteData_16Bit(x1);
@@ -179,7 +179,7 @@ void tft_DisplayString(uint8_t x,uint8_t y,const char* str,uint16_t fg_color,uin
     {
         if(*str < 0x20 || *str > 0x7E) return;
 
-        if(x_cnt + FONT_8X16_WIDTH > TFT_WIDTH)
+        if(x_cnt + FONT_8X16_WIDTH > TFT_WIDTH)  // 如果下一个字符超出屏幕宽度 则换行
         {
             x_cnt = x;
             y_cnt += FONT_8X16_HEIGHT; // 换行
@@ -209,27 +209,13 @@ void tft_DisplayString(uint8_t x,uint8_t y,const char* str,uint16_t fg_color,uin
 /**
  * @brief 展示整数（含负数）
  * @param num 待显示的数字
- * @param num_bit 数字的位数
  */
-void tft_DisplayNum(uint16_t x,uint16_t y,int32_t num,uint16_t num_bit,uint16_t fg_color,uint16_t bg_color)
+void tft_DisplayNum(uint16_t x,uint16_t y,int32_t num,uint16_t fg_color,uint16_t bg_color)
 {
-    char str[11]; // 10位数字 + 1位结束符
-    uint16_t index = 0;
+    char str[12]; 
 
-    if (num < 0)
-    {
-        str[index++] = '-';
-        num = -num;
+    sprintf(str, "%d", num); // 将数字转换为字符串（自动处理负数 + 末尾结束符）
 
-        sprintf(str + 1, "%d", num); // 将数字转换为字符串
-    }
-    else
-    {
-        sprintf(str, "%d", num); // 将数字转换为字符串
-    }
-
-    index += num_bit; // 移动索引到数字末尾
-    str[index] = '\0'; // 添加字符串结束符
     tft_DisplayString(x, y, str, fg_color, bg_color);
 }
 

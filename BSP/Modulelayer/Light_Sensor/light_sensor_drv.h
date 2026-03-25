@@ -37,7 +37,7 @@ typedef enum
 void ls_Init(void);
 HAL_StatusTypeDef ls_SetMode(LS_MODE mode);
 HAL_StatusTypeDef ls_MeasureLight(LS_MODE mode,float* lux);
-void ls_ChangeModeByLus(float* lux,LS_MODE cnt_mode);
+HAL_StatusTypeDef ls_ChangeModeByLus(float* lux,LS_MODE cnt_mode);
 void ls_Poweroff(void);
 
 
