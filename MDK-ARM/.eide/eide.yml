@@ -101,6 +101,11 @@ virtualFolder:
             - path: ../BSP/Modulelayer/RGB/dwt.c
             - path: ../BSP/Modulelayer/RGB/dwt.h
           folders: []
+        - name: Asrpro
+          files:
+            - path: ../BSP/Modulelayer/Asrpro/asrpro_drv.c
+            - path: ../BSP/Modulelayer/Asrpro/asrpro_drv.h
+          folders: []
 dependenceList: []
 outDir: build
 miscInfo:
