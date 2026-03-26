@@ -30,18 +30,24 @@ void rgb_ClearBuffer(void)
     }
 }
 
+/**
+* @brief 关闭灯带
+*/
 void rgb_Off(void)
 {
-    __disable_irp();
+    __disable_irp(); // 关闭全局中断，保护时序完整
     for (uint8_t i = 0; i < RGB_LED_NUM; i++)
     {
         rgb_WriteByte(0);
         rgb_WriteByte(0);
         rgb_WriteByte(0);
     }
-    __enable_irp();
+    __enable_irp(); // 恢复全局中断
 }
 
+/**
+* @brief 灯带初始化，默认关闭状态，需按下按键启动灯带
+*/
 void rgb_Init(void)
 {
     HAL_GPIO_WritePin(RGB_GPIO_Port, RGB_Pin, GPIO_PIN_RESET);
