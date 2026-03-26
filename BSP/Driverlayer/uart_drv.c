@@ -38,7 +38,4 @@ int fputc(int ch,FILE* f)
     return ch;
 }
 
-void uart_Init(void)
-{
-    // 开启中断
-}
+/*  note：串口中断开启以及接收中断处理函数已在asrpro_drv.c中实现  */
