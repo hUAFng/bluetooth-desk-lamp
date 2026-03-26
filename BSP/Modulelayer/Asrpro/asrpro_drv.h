@@ -6,6 +6,7 @@
 
 #include "main.h"
 #include "uart_drv.h"
+#include "string.h"
 
 /*--------------------------------------------define--------------------------------------------*/
 #define ASR_UART_Handle huart1
@@ -23,10 +24,12 @@
 typedef struct 
 {
     uint8_t asr_rx_buf[ASR_RX_BUF_SIZE]; // 串口中断接收缓冲区
-    uint8_t asr_rc_cmd_id; // 接收命令ID
+    uint8_t asr_rx_cmd_id; // 接收命令ID
+    uint8_t asr_rx_ready_flag; // 接收就绪标志 0：未就绪 1：就绪接收
     uint8_t asr_rx_flag; // 接收标志 0：未接收 1：已接收
     uint32_t prev_cmd_time; // 上一次接收命令时间 （ms） 用于处理消抖 初始为最大值
 
+    uint8_t asr_rx_err_num; // 错误接收次数 , 用于处理异常情况
 
 }asr_rx_t;
 
@@ -36,5 +39,9 @@ extern UART_HandleTypeDef huart1;
 void asrpro_ReadCmdID(uint8_t* cmd_id);
 void asrpro_Reset(void);
 void asrpro_Init(void);
+uint8_t asrpro_IsReady(void);
+
+
 
 #endif
+
