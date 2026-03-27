@@ -75,6 +75,8 @@ virtualFolder:
         - path: ../BSP/Driverlayer/buzzer_drv.h
         - path: ../BSP/Driverlayer/drv_layer.c
         - path: ../BSP/Driverlayer/drv_layer.h
+        - path: ../BSP/Driverlayer/adc_drv.c
+        - path: ../BSP/Driverlayer/adc_drv.h
       folders: []
     - name: ::CMSIS
       files: []
@@ -105,6 +107,11 @@ virtualFolder:
           files:
             - path: ../BSP/Modulelayer/Asrpro/asrpro_drv.c
             - path: ../BSP/Modulelayer/Asrpro/asrpro_drv.h
+          folders: []
+        - name: MIC
+          files:
+            - path: ../BSP/Modulelayer/MIC/mic_drv.c
+            - path: ../BSP/Modulelayer/MIC/mic_drv.h
           folders: []
 dependenceList: []
 outDir: build

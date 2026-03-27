@@ -57,6 +57,8 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
+#define MIC_ADC_Pin GPIO_PIN_0
+#define MIC_ADC_GPIO_Port GPIOA
 #define BT_TX_Pin GPIO_PIN_2
 #define BT_TX_GPIO_Port GPIOA
 #define BT_RX_Pin GPIO_PIN_3
