@@ -2,6 +2,8 @@
 
 ## 目录结构
 
+```c
+
 [bluetooth-desk-lamp]/
 ├── Core/                          # 系统配置文件目录
 │   ├── main.c                     # 主函数
@@ -34,5 +36,7 @@
 │   └── processed/                 # 处理后的数据（可用于后续分析/输出）
 ├── bluetooth_desk_lamp.ioc        # cubemx的配置文件
 └── README.md                      # 说明文档
+
+```
 
     
