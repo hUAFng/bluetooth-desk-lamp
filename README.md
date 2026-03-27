@@ -9,6 +9,7 @@
 │   
 ├── BSP/                           # 代码存放文件夹
 │   ├── Applayer/                  # 上层业务应用逻辑
+
 │   ├── Modulelayer/               # 中层外设模块逻辑
 |          ├── TFT/                # TFT的相关驱动与封装
 |               ├── tft_drv.c
@@ -18,7 +19,12 @@
 |          ├── RGB/                # 灯带
 |               ├── DWT.c          # 灯带时序的微秒级延时函数来源
 |               ├── rgb_drv.c      # 灯带的驱动代码
-|   ├── Driverlayer/               # 底层驱动
+|          ├── MIC/                # 麦克风音乐律动模块
+|               ├── MIC_drv.c      # 麦克风驱动代码
+|          ├── AsrPro/             # 离线语音识别模块
+|               ├── asrpro_drv.c   # 语音模块驱动代码
+|
+|   └── Driverlayer/               # 底层驱动
 |          ├── i2c_drv.c           # I2C驱动与封装
 |          ├── key.c               # 按键驱动
 |          ├── led.c               # led 驱动
