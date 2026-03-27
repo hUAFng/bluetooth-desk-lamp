@@ -154,6 +154,21 @@ void rgb_SetBrightness(uint8_t brightness)
     rgb_SetAllLed(rgb.cnt_color,brightness);
 }
 
+/** 
+ * @brief 循环调节亮度
+ */
+void rgb_SetBrightness_Circle(void)
+{
+    rgb.cnt_brightness += RGB_KEY_BRIGHTNESS_STEP;
+
+    // 循环调整亮度
+    if (rgb.cnt_brightness > RGB_MAX_BRIGHTNESS) rgb.cnt_brightness = RGB_MAX_BRIGHTNESS;
+    else if (rgb.cnt_brightness == RGB_MAX_BRIGHTNESS) rgb.cnt_brightness = RGB_MIN_BRIGHTNESS;
+
+    rgb_SetBrightness(rgb.cnt_brightness);
+}
+
+
 /**
  * @brief 仅设置所有LED的颜色
  * @param color 颜色枚举值
@@ -162,4 +177,19 @@ void rgb_SetColor(RGB_Color_e color)
 {
     rgb_SetAllLed(color,rgb.cnt_brightness);
 }
+
+
+/**
+ * @brief 循环调节颜色
+ */
+void rgb_SetColor_Circle(void)
+{
+    rgb.cnt_color++;
+    
+    // 循环调整颜色
+    if (rgb.cnt_color >= Num_of_Colors) rgb.cnt_color = 0;
+    
+    rgb_SetColor(rgb.cnt_color);
+}
+
 
