@@ -9,7 +9,8 @@
             "i2c_drv.h": "c",
             "string": "c",
             "string.h": "c",
-            "spi_drv.h": "c"
+            "spi_drv.h": "c",
+            "stdio.h": "c"
         }
     },
     "extensions": {}

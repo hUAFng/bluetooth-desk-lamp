@@ -113,6 +113,11 @@ virtualFolder:
             - path: ../BSP/Modulelayer/MIC/mic_drv.c
             - path: ../BSP/Modulelayer/MIC/mic_drv.h
           folders: []
+        - name: HC05
+          files:
+            - path: ../BSP/Modulelayer/HC05/HC05_drv.c
+            - path: ../BSP/Modulelayer/HC05/HC05_drv.h
+          folders: []
 dependenceList: []
 outDir: build
 miscInfo:
