@@ -2,14 +2,14 @@
 
 ## 目录结构
 
-```c
-
+```c   
 [bluetooth-desk-lamp]/
 ├── Core/                          # 系统配置文件目录
 │   ├── main.c                     # 主函数
 │   
 ├── BSP/                           # 代码存放文件夹
 │   ├── Applayer/                  # 上层业务应用逻辑
+
 │   ├── Modulelayer/               # 中层外设模块逻辑
 |          ├── TFT/                # TFT的相关驱动与封装
 |               ├── tft_drv.c
