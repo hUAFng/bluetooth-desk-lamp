@@ -19,12 +19,11 @@
 |          ├── RGB/                # 灯带
 |               ├── DWT.c          # 灯带时序的微秒级延时函数来源
 |               ├── rgb_drv.c      # 灯带的驱动代码
+|          ├── ASRPRO/             # 语音识别模块
+|               ├── asrpro_drv.c   # 语音识别模块的驱动代码
 |          ├── MIC/                # 麦克风音乐律动模块
-|               ├── MIC_drv.c      # 麦克风驱动代码
-|          ├── AsrPro/             # 离线语音识别模块
-|               ├── asrpro_drv.c   # 语音模块驱动代码
-|
-|   └── Driverlayer/               # 底层驱动
+|               ├── mic_drv.c      # 麦克风驱动
+|   ├── Driverlayer/               # 底层驱动
 |          ├── i2c_drv.c           # I2C驱动与封装
 |          ├── key.c               # 按键驱动
 |          ├── led.c               # led 驱动
@@ -39,3 +38,5 @@
 └── README.md                      # 说明文档
 
 ```
+
+    
