@@ -35,6 +35,8 @@ typedef struct
 /*-----------------------------------------function--------------------------------------*/
 
 uint8_t BT_isReceive(void);
-void BT_GetReceiveData(uint8_t* data,uint16_t len);
+void BT_GetReceiveData(uint8_t* data,uint16_t* len);
+void BT_Init(void);
+void BT_Reset(void);
 
 #endif

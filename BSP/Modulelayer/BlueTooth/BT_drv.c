@@ -94,7 +94,7 @@ void HAL_UARTEx_RxEventCallback(UART_HandleTypeDef *huart, uint16_t Size)
         bt.uart_rx_data_len = Size;
         bt.uart_rx_flag = 1;
 
-        if (Size > 0 && bt.state == BT_STATE_DISCONNECTED) bt.state = BT_STATE_CONNECTED;
+        if (bt.state == BT_STATE_DISCONNECTED && Size > 0) bt.state = BT_STATE_CONNECTED;
 
         HAL_UARTEx_ReceiveToIdle_DMA(&BT_UART_HANDLE,bt.uart_rx_buf,BT_UART_RX_BUF_LEN); // 重启DMA接收-空闲中断
     }

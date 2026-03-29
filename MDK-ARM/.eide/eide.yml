@@ -97,6 +97,11 @@ virtualFolder:
             - path: ../BSP/Modulelayer/BlueTooth/BT_drv.c
             - path: ../BSP/Modulelayer/BlueTooth/BT_drv.h
           folders: []
+        - name: Module
+          files:
+            - path: ../BSP/Modulelayer/Module/module_drv.c
+            - path: ../BSP/Modulelayer/Module/module_drv.h
+          folders: []
     - name: Application
       files: []
       folders:
@@ -137,6 +142,13 @@ targets:
         - ../BSP
         - ../BSP/Driverlayer
         - ../BSP/Modulelayer
+        - ../BSP/Modulelayer/BlueTooth
+        - ../BSP/Modulelayer/RGB
+        - ../BSP/Modulelayer/TFT
+        - ../BSP/Modulelayer/MIC
+        - ../BSP/Modulelayer/Asrpro
+        - ../BSP/Modulelayer/Module
+        - ../BSP/Modulelayer/Light_Sensor
         - ../BSP/Applayer
         - .cmsis/include
         - RTE/_bluetooth_desk_lamp
