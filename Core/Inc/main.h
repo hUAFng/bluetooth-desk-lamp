@@ -59,6 +59,8 @@ void Error_Handler(void);
 /* Private defines -----------------------------------------------------------*/
 #define MIC_ADC_Pin GPIO_PIN_0
 #define MIC_ADC_GPIO_Port GPIOA
+#define BT_EN_Pin GPIO_PIN_1
+#define BT_EN_GPIO_Port GPIOA
 #define BT_TX_Pin GPIO_PIN_2
 #define BT_TX_GPIO_Port GPIOA
 #define BT_RX_Pin GPIO_PIN_3
@@ -77,6 +79,8 @@ void Error_Handler(void);
 #define TFT_DC_GPIO_Port GPIOB
 #define TFT_RES_Pin GPIO_PIN_12
 #define TFT_RES_GPIO_Port GPIOB
+#define BT_State_Pin GPIO_PIN_13
+#define BT_State_GPIO_Port GPIOB
 #define LED_B_Pin GPIO_PIN_14
 #define LED_B_GPIO_Port GPIOB
 #define LED_G_Pin GPIO_PIN_15

@@ -8,27 +8,6 @@ virtualFolder:
   name: <virtual_root>
   files: []
   folders:
-    - name: Application
-      files: []
-      folders:
-        - name: MDK-ARM
-          files:
-            - path: startup_stm32f103xb.s
-          folders: []
-        - name: User
-          files: []
-          folders:
-            - name: Core
-              files:
-                - path: ../Core/Src/main.c
-                - path: ../Core/Src/gpio.c
-                - path: ../Core/Src/i2c.c
-                - path: ../Core/Src/spi.c
-                - path: ../Core/Src/tim.c
-                - path: ../Core/Src/usart.c
-                - path: ../Core/Src/stm32f1xx_it.c
-                - path: ../Core/Src/stm32f1xx_hal_msp.c
-              folders: []
     - name: Drivers
       files: []
       folders:
@@ -113,11 +92,32 @@ virtualFolder:
             - path: ../BSP/Modulelayer/MIC/mic_drv.c
             - path: ../BSP/Modulelayer/MIC/mic_drv.h
           folders: []
-        - name: HC05
+        - name: BlueTooth
           files:
-            - path: ../BSP/Modulelayer/HC05/HC05_drv.c
-            - path: ../BSP/Modulelayer/HC05/HC05_drv.h
+            - path: ../BSP/Modulelayer/BlueTooth/BT_drv.c
+            - path: ../BSP/Modulelayer/BlueTooth/BT_drv.h
           folders: []
+    - name: Application
+      files: []
+      folders:
+        - name: MDK-ARM
+          files:
+            - path: startup_stm32f103xb.s
+          folders: []
+        - name: User
+          files: []
+          folders:
+            - name: Core
+              files:
+                - path: ../Core/Src/main.c
+                - path: ../Core/Src/gpio.c
+                - path: ../Core/Src/i2c.c
+                - path: ../Core/Src/spi.c
+                - path: ../Core/Src/tim.c
+                - path: ../Core/Src/usart.c
+                - path: ../Core/Src/stm32f1xx_it.c
+                - path: ../Core/Src/stm32f1xx_hal_msp.c
+              folders: []
 dependenceList: []
 outDir: build
 miscInfo:

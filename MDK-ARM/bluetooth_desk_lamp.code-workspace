@@ -10,7 +10,10 @@
             "string": "c",
             "string.h": "c",
             "spi_drv.h": "c",
-            "stdio.h": "c"
+            "stdio.h": "c",
+            "main.h": "c",
+            "uart_drv.h": "c",
+            "bt_drv.h": "c"
         }
     },
     "extensions": {}
