@@ -10,7 +10,7 @@
 #define RGB_LED_NUM 30           // 灯带灯珠数量
 #define RGB_COLOR_NUM 10         // 灯带颜色数量
 
-#define RGB_MAX_BRIGHTNESS 140  //定义最大亮度为140 （过大刺眼）
+#define RGB_MAX_BRIGHTNESS 160  //定义最大亮度为140 （过大刺眼）
 #define RGB_MIN_BRIGHTNESS 20   //定义最小亮度为20
 #define RGB_KEY_BRIGHTNESS_STEP 25  // 按键控制亮度步长 
 
@@ -50,12 +50,13 @@ typedef struct
 /* ---------------------------------------function---------------------------------------*/
 void rgb_Init(void);
 void rgb_Display(RGB_Color_e color,uint8_t brightness);
-void rgb_Off(void);
+void rgb_PowerOff(void);
+void rgb_PowerOn(void);
 void rgb_SetColor(RGB_Color_e color);
 void rgb_SetBrightness(uint8_t brightness);
 void rgb_Update(void);
-void rgb_SetColor_Circle(void);
-void rgb_SetBrightness_Circle(void);
+void rgb_SetColor_Circle(RGB_Color_e* color);
+void rgb_SetBrightness_Circle(uint8_t* brightness);
 
 
 #endif

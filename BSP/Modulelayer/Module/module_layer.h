@@ -10,6 +10,9 @@
 #include "light_sensor_drv.h"
 #include "asrpro_drv.h"
 
+#include "drv_layer.h"
+
+
 void module_Init(void);
 
 #endif

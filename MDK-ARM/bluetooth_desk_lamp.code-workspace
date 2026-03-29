@@ -15,7 +15,14 @@
             "uart_drv.h": "c",
             "bt_drv.h": "c",
             "asrpro_drv.h": "c",
-            "module_drv.h": "c"
+            "module_drv.h": "c",
+            "adc_drv.h": "c",
+            "drv_layer.h": "c",
+            "light_sensor_drv.h": "c",
+            "tft_drv.h": "c",
+            "app_modes.h": "c",
+            "app_manager.h": "c",
+            "app_common.h": "c"
         }
     },
     "extensions": {}

@@ -37,6 +37,17 @@ virtualFolder:
     - name: Applayer
       files:
         - path: ../BSP/Applayer/创新选拔大赛（电赛类）D题 智能桌面氛围灯.pdf
+        - path: ../BSP/Applayer/app_common.h
+        - path: ../BSP/Applayer/app_config.h
+        - path: ../BSP/Applayer/app_manager.c
+        - path: ../BSP/Applayer/app_manager.h
+        - path: ../BSP/Applayer/app_modes.c
+        - path: ../BSP/Applayer/app_modes.h
+        - path: ../BSP/Applayer/app_ui.c
+        - path: ../BSP/Applayer/app_ui.h
+        - path: ../BSP/Applayer/app_common.c
+        - path: ../BSP/Applayer/app_algorithm.c
+        - path: ../BSP/Applayer/app_algorithm.h
       folders: []
     - name: Driverlayer
       files:
@@ -99,8 +110,8 @@ virtualFolder:
           folders: []
         - name: Module
           files:
-            - path: ../BSP/Modulelayer/Module/module_drv.c
-            - path: ../BSP/Modulelayer/Module/module_drv.h
+            - path: ../BSP/Modulelayer/Module/module_layer.c
+            - path: ../BSP/Modulelayer/Module/module_layer.h
           folders: []
     - name: Application
       files: []
@@ -118,7 +129,6 @@ virtualFolder:
                 - path: ../Core/Src/gpio.c
                 - path: ../Core/Src/i2c.c
                 - path: ../Core/Src/spi.c
-                - path: ../Core/Src/tim.c
                 - path: ../Core/Src/usart.c
                 - path: ../Core/Src/stm32f1xx_it.c
                 - path: ../Core/Src/stm32f1xx_hal_msp.c

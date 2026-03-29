@@ -24,14 +24,14 @@ void mic_ClearBuf(void)
 void mic_Init(void)
 {
     mic_ClearBuf();
-    mic_Stop();
+    mic_PowerOff();
 }
 
 
 /**
  * @brief 启动ADC采集，已在mic_Work中调用，可选手动调用
  */
-void mic_Start(void)
+void mic_PowerOn(void)
 {
     mic_ClearBuf();
 
@@ -50,7 +50,7 @@ void mic_Start(void)
 /**
  * @brief 停止ADC采集
  */
-void mic_Stop(void)
+void mic_PowerOff(void)
 {
     HAL_ADC_Stop_DMA(&MIC_ADC_CHANNEL);
 }
@@ -185,7 +185,7 @@ void mic_Work(uint8_t brightness_max,uint8_t* loudness,uint8_t* fq)
 
     if (!mic.mic_work_flag) // 首次调用，启动麦克风 只进行一次
     {
-        mic_Start(); //自动校准
+        mic_PowerOn(); //自动校准
 
         // 未校准，或者未工作
         if (mic.calibrated_flag == 0 || !mic.mic_work_flag) return;

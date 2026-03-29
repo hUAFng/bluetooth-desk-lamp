@@ -33,7 +33,7 @@ void rgb_ClearBuffer(void)
 /**
 * @brief 关闭灯带
 */
-void rgb_Off(void)
+void rgb_PowerOff(void)
 {
     __disable_irp(); // 关闭全局中断，保护时序完整
     for (uint8_t i = 0; i < RGB_LED_NUM; i++)
@@ -52,7 +52,7 @@ void rgb_Init(void)
 {
     HAL_GPIO_WritePin(RGB_GPIO_Port, RGB_Pin, GPIO_PIN_RESET);
     rgb_ClearBuffer();
-    rgb_Off();
+    rgb_PowerOff();
 }
 
 void rgb_WriteBit(uint8_t bit) //只看最低位 （灯带的时序逻辑）
@@ -157,13 +157,17 @@ void rgb_SetBrightness(uint8_t brightness)
 /** 
  * @brief 循环调节亮度
  */
-void rgb_SetBrightness_Circle(void)
+void rgb_SetBrightness_Circle(uint8_t* brightness)
 {
+    if (brightness == NULL) return;
+
     rgb.cnt_brightness += RGB_KEY_BRIGHTNESS_STEP;
 
     // 循环调整亮度
     if (rgb.cnt_brightness > RGB_MAX_BRIGHTNESS) rgb.cnt_brightness = RGB_MAX_BRIGHTNESS;
     else if (rgb.cnt_brightness == RGB_MAX_BRIGHTNESS) rgb.cnt_brightness = RGB_MIN_BRIGHTNESS;
+
+    *brightness = rgb.cnt_brightness;
 
     rgb_SetBrightness(rgb.cnt_brightness);
 }
@@ -182,14 +186,20 @@ void rgb_SetColor(RGB_Color_e color)
 /**
  * @brief 循环调节颜色
  */
-void rgb_SetColor_Circle(void)
+void rgb_SetColor_Circle(RGB_Color_e* color)
 {
+    if (color == NULL) return;
     rgb.cnt_color++;
     
     // 循环调整颜色
     if (rgb.cnt_color >= Num_of_Colors) rgb.cnt_color = 0;
+    *color = rgb.cnt_color;
     
     rgb_SetColor(rgb.cnt_color);
 }
 
+void rgb_PowerOn(void)
+{
+    rgb_Update();
+}
 

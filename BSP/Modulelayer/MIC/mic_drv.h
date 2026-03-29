@@ -44,8 +44,8 @@ typedef struct
 
 /* -------------------------------------------------functions-------------------------------------------------*/
 void mic_Init(void);
-void mic_Stop(void);
-void mic_Start(void); // 已在mic_Work中调用，可选手动调用
+void mic_PowerOff(void);
+void mic_PowerOn(void); // 已在mic_Work中调用，可选手动调用
 void mic_Calibrate(void); //调用开始函数自动校准
 void mic_Work(uint8_t brightness_max,uint8_t* loudness,uint8_t* fq);
 uint8_t mic_GetFreqLevel(void);

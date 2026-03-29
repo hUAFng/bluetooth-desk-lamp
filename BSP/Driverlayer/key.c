@@ -33,24 +33,30 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 */
 key_e key_read(void)
 {
+    __disable_irq();
     if (key.key1_flag == 1)
     {
         key.key1_flag = 0;
+        __enable_irq();
         return KEY1_ON;
     }
     else if (key.key2_flag == 1)
     {
         key.key2_flag = 0;
+        __enable_irq();
         return KEY2_ON;
     }
     else if (key.key3_flag == 1)
     {
         key.key3_flag = 0;
+        __enable_irq();
         return KEY3_ON;
     }
     else
     {
+        __enable_irq();
         return KEY_NONE_ON;
     }
+
 }
 

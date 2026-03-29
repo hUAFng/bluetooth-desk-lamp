@@ -28,6 +28,10 @@ void ls_Init(void)
     HAL_Delay(120);              //等待测量完成
 }
 
+void ls_PowerOn(void)
+{
+    ls_Init();
+}
 /**
  * @brief 切换测量模式
  * @param mode : 使用LS_MODE枚举
@@ -51,9 +55,9 @@ HAL_StatusTypeDef ls_SetMode(LS_MODE mode)
  * @param mode : 测量模式
  * @param lux :  存储测量结果的指针(光照强度单位为lx)
  */
-HAL_StatusTypeDef ls_MeasureLight(LS_MODE mode,float* lux)
+HAL_StatusTypeDef ls_MeasureLight(LS_MODE* mode,uint16_t* lux)
 {
-    if(lux == NULL || mode < LS_MODE_HRES1 || mode > LS_MODE_SINGLE_MEAS) return HAL_ERROR;
+    if(mode == NULL || lux == NULL || *mode < LS_MODE_HRES1 || *mode > LS_MODE_SINGLE_MEAS) return HAL_ERROR;
 
     uint8_t buf[2] = {0};
     uint16_t lux_raw = 0;
@@ -63,8 +67,10 @@ HAL_StatusTypeDef ls_MeasureLight(LS_MODE mode,float* lux)
     lux_raw = (buf[0] << 8) | buf[1]; //合成16位原始数据
 
     // 计算公式
-    if (mode == LS_MODE_HRES2) *lux = (float)lux_raw / 1.2f / 2.0f; // 0.5lx分辨率 
-    else *lux = (float)lux_raw / 1.2f; // 其他模式分辨率
+    if (*mode == LS_MODE_HRES2) *lux = lux_raw / 1.2f / 2.0f; // 0.5lx分辨率 
+    else *lux = lux_raw / 1.2f; // 其他模式分辨率
+
+    ls_ChangeModeByLus(lux,*mode);
 
     HAL_Delay(130); // 测量间隔（周期）低精度可小点，这里统一处理
 
@@ -74,26 +80,44 @@ HAL_StatusTypeDef ls_MeasureLight(LS_MODE mode,float* lux)
 /**
  * @brief 根据环境的测量结果来切换测量模式，适应不同的光照强度范围与测量精度，增强灯珠的控制效果
  * @param lux : 光照强度指针
- * @param cnt_mode : 当前模式
+ * @param cnt_mode : 当前模式指针
  */
-HAL_StatusTypeDef ls_ChangeModeByLus(float* lux,LS_MODE cnt_mode)
+HAL_StatusTypeDef ls_ChangeModeByLus(float* lux,LS_MODE* cnt_mode)
 {
-    if (lux == NULL) return HAL_ERROR;
+    if (lux == NULL || cnt_mode == NULL) return HAL_ERROR;
 
-    if (cnt_mode == LS_MODE_HRES1) // 1lx分辨率
+    if (*cnt_mode == LS_MODE_HRES1) // 1lx分辨率
     {
-        if (*lux <= LOW_LUS_THRESHOLD) return ls_SetMode(LS_MODE_HRES2); // 0.5lx分辨率,提高弱光环境的测量精度
+        if (*lux <= LOW_LUS_THRESHOLD) 
+        {
+            *cnt_mode = LS_MODE_HRES2;
+            return ls_SetMode(LS_MODE_HRES2); // 0.5lx分辨率,提高弱光环境的测量精度
+        }
     }
-    else if (cnt_mode == LS_MODE_HRES2) // 0.5lx分辨率
+    else if (*cnt_mode == LS_MODE_HRES2) // 0.5lx分辨率
     {
-        if (*lux >= HIGH_LUS_THRESHOLD) return ls_SetMode(LS_MODE_HRES1); // 1lx分辨率
+        if (*lux >= HIGH_LUS_THRESHOLD) 
+        {
+            *cnt_mode = LS_MODE_HRES1;
+            return ls_SetMode(LS_MODE_HRES1); // 1lx分辨率
+        }
     }
+    else return HAL_ERROR;
+
     return HAL_OK;
 }
 
-void ls_Poweroff(void)
+void ls_PowerOff(void)
 {
     // 关闭光线传感器电源
     ls_WriteByte(LS_POWOFF);
 }
 
+void ls_Reset(void)
+{
+    ls_Poweroff();
+
+    HAL_Delay(10);
+
+    ls_Init();
+}
