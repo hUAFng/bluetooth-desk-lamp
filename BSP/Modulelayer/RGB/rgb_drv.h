@@ -29,13 +29,13 @@ typedef enum
     Green,
     Blue,
     White,
-    Black,
+    WarmWhite,
     Yellow,
     Purple,
     Cyan,
     Orange,
-    Pink = 9,
-    Num_of_Colors = 10
+    Pink ,
+    Num_of_Colors
 }RGB_Color_e;
 
 typedef struct 
@@ -51,12 +51,13 @@ typedef struct
 void rgb_Init(void);
 void rgb_Display(RGB_Color_e color,uint8_t brightness);
 void rgb_PowerOff(void);
-void rgb_PowerOn(void);
+void rgb_PowerOn(RGB_Color_e color,uint8_t brightness);
 void rgb_SetColor(RGB_Color_e color);
 void rgb_SetBrightness(uint8_t brightness);
 void rgb_Update(void);
 void rgb_SetColor_Circle(RGB_Color_e* color);
 void rgb_SetBrightness_Circle(uint8_t* brightness);
-
+void rgb_SetBrightnessOn(uint8_t* brightness);
+void rgb_SetBrightnessOff(uint8_t* brightness);
 
 #endif

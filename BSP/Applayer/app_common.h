@@ -26,6 +26,25 @@ typedef struct
     uint16_t lux;
 }LightSensor_data_t;
 
+// 蓝牙数据
+typedef struct
+{
+    Cmd_e cmd;
+}bt_data_t;
+
+// 语音数据
+typedef struct
+{
+    Cmd_e cmd;
+}asr_data_t;
+
+
+// 用于判断命令来源的枚举 在system_Control中使用
+typedef enum 
+{
+    BT_Cmd = 0,
+    Asr_Cmd = 1,
+}Cmd_Type_e;
 
 /*------------------------------------------------------------*/
 /*------------------------------系统--------------------------*/
@@ -44,6 +63,8 @@ typedef struct
 {
     rgb_data_t rgb_data;
     LightSensor_data_t ls_data;
+    bt_data_t bt_data;
+    asr_data_t asr_data;
 }system_data_t;
 
 
@@ -55,5 +76,8 @@ typedef struct
 }System_t;
 
 extern System_t system;
+
+
+void system_valiable_Init(void);
 
 #endif

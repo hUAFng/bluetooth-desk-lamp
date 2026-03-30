@@ -38,7 +38,6 @@ virtualFolder:
       files:
         - path: ../BSP/Applayer/创新选拔大赛（电赛类）D题 智能桌面氛围灯.pdf
         - path: ../BSP/Applayer/app_common.h
-        - path: ../BSP/Applayer/app_config.h
         - path: ../BSP/Applayer/app_manager.c
         - path: ../BSP/Applayer/app_manager.h
         - path: ../BSP/Applayer/app_modes.c

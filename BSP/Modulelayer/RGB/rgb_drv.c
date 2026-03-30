@@ -11,7 +11,7 @@ static const RGB_ColorTypeDef_t rgb_color[] =  // GRB顺序
     {255,   0,  0 }, // GREEN   
     {  0,   0, 255 }, // BLUE    
     {255, 255, 255 }, // WHITE   
-    {  0,   0,  0 }, // BLACK   
+    {255, 223, 186}, // WARM_WHITE 暖白 
     {255, 255,  0 }, // YELLOW  
     {  0, 255, 255 }, // PURPLE  紫色 
     {255,   0, 255 }, // CYAN    青色 
@@ -51,6 +51,7 @@ void rgb_PowerOff(void)
 void rgb_Init(void)
 {
     HAL_GPIO_WritePin(RGB_GPIO_Port, RGB_Pin, GPIO_PIN_RESET);
+
     rgb_ClearBuffer();
     rgb_PowerOff();
 }
@@ -142,6 +143,7 @@ void rgb_Display(RGB_Color_e color,uint8_t brightness)
     rgb_Update();                         // 刷新显示
 
     HAL_GPIO_WritePin(RGB_GPIO_Port,RGB_Pin,GPIO_PIN_RESET); // 低电平复位持续1ms（刷新显示）
+    
     HAL_Delay(1);
 }
 
@@ -160,18 +162,46 @@ void rgb_SetBrightness(uint8_t brightness)
 void rgb_SetBrightness_Circle(uint8_t* brightness)
 {
     if (brightness == NULL) return;
-
-    rgb.cnt_brightness += RGB_KEY_BRIGHTNESS_STEP;
+    
+    *brightness += RGB_KEY_BRIGHTNESS_STEP;
 
     // 循环调整亮度
-    if (rgb.cnt_brightness > RGB_MAX_BRIGHTNESS) rgb.cnt_brightness = RGB_MAX_BRIGHTNESS;
-    else if (rgb.cnt_brightness == RGB_MAX_BRIGHTNESS) rgb.cnt_brightness = RGB_MIN_BRIGHTNESS;
+    if (*brightness > RGB_MAX_BRIGHTNESS) *brightness = RGB_MAX_BRIGHTNESS;
+    else if (*brightness == RGB_MAX_BRIGHTNESS) *brightness = RGB_MIN_BRIGHTNESS;
 
-    *brightness = rgb.cnt_brightness;
+    rgb.cnt_brightness = *brightness;
 
     rgb_SetBrightness(rgb.cnt_brightness);
 }
 
+
+// 调亮亮度
+void rgb_SetBrightnessOn(uint8_t* brightness)
+{
+    if (brightness == NULL) return;
+
+    *brightness += RGB_KEY_BRIGHTNESS_STEP; 
+
+    if (*brightness > RGB_MAX_BRIGHTNESS) *brightness = RGB_MAX_BRIGHTNESS;
+
+    rgb.cnt_brightness = *brightness;
+    
+    rgb_SetBrightness(rgb.cnt_brightness);
+}
+
+// 调暗亮度
+void rgb_SetBrightnessOff(uint8_t* brightness)
+{
+    if (brightness == NULL) return;
+
+    *brightness -= RGB_KEY_BRIGHTNESS_STEP;
+    
+    if (*brightness < RGB_MIN_BRIGHTNESS) *brightness = RGB_MIN_BRIGHTNESS;
+
+    rgb.cnt_brightness = *brightness;
+
+    rgb_SetBrightness(rgb.cnt_brightness);
+}
 
 /**
  * @brief 仅设置所有LED的颜色
@@ -189,17 +219,18 @@ void rgb_SetColor(RGB_Color_e color)
 void rgb_SetColor_Circle(RGB_Color_e* color)
 {
     if (color == NULL) return;
-    rgb.cnt_color++;
+    *color++;
     
     // 循环调整颜色
-    if (rgb.cnt_color >= Num_of_Colors) rgb.cnt_color = 0;
-    *color = rgb.cnt_color;
-    
+    if (*color >= RGB_COLOR_NUM) *color = 0;
+
+    rgb.cnt_color = *color;
     rgb_SetColor(rgb.cnt_color);
 }
 
-void rgb_PowerOn(void)
+void rgb_PowerOn(RGB_Color_e color,uint8_t brightness)
 {
-    rgb_Update();
+    rgb_ClearBuffer();
+    rgb_Display(color,brightness);
 }
 

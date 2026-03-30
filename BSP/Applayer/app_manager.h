@@ -5,13 +5,12 @@
 
 #include "module_layer.h"
 #include "app_modes.h"
+#include "app_algorithm.h"
 
 
 
-
-
-void app_Init(void);
-void app_Run(void);
+void system_Init(void);
+void system_Run(void);
 
 
 
