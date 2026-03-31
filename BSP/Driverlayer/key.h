@@ -15,14 +15,13 @@ typedef struct
 
 typedef enum 
 {
-    KEY_NONE_ON = 0,
-    KEY1_ON = 1,
-    KEY2_ON = 2,
-    KEY3_ON = 3,
+    KEY1 = 0,
+    KEY2 = 1,
+    KEY3 = 2,
 }key_e;
 
 
-key_e key_read(void);
+uint8_t key_Read(key_e KEY);
 
 #endif
 

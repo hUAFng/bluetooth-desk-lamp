@@ -8,16 +8,30 @@
 
 void sys_mode_Manual_Init() 
 {
-    
+    sys_valiables_Init(); // 系统模式已经在app_algorithm.c中赋值为手动模式
+
+    rgb_PowerOn(system.system_data.rgb_data.color,system.system_data.rgb_data.brightness); 
+    ls_PowerOff(); // 手动模式不使用光线传感器
+    mic_PowerOff(); // 手动模式不使用麦克风
+
 }
 
 void sys_mode_Auto_Init()
 {
+    sys_valiables_Init(); // 系统模式已经在app_algorithm.c中赋值为自动模式
+
+    rgb_PowerOn(system.system_data.rgb_data.color,system.system_data.rgb_data.brightness); 
+    ls_PowerOn();  // 自动模式使用光线传感器
+    mic_PowerOff(); // 自动模式不使用麦克风
 }
 
 void sys_mode_Music_Init()
 {
+    sys_valiables_Init(); // 系统模式已经在app_algorithm.c中赋值为音乐模式
 
+    rgb_PowerOn(system.system_data.rgb_data.color,system.system_data.rgb_data.brightness); 
+    ls_PowerOff();
+    mic_PowerOn();
 }
 
 
@@ -27,13 +41,11 @@ void sys_mode_Music_Init()
  */
 void sys_mode_Manual(void)
 {
-    key_e key = key_read();
-
-    if (key == KEY2_ON) // 按键2 调节亮度，循环调节
+    if (key_Read(KEY2)) // 按键2 调节亮度，循环调节
     {
         rgb_SetBrightness_Circle(&system.system_data.rgb_data.brightness);
     }
-    else if (key == KEY3_ON) // 按键3 调节颜色，循环调节
+    else if (key_Read(KEY3)) // 按键3 调节颜色，循环调节
     {
         rgb_SetColor_Circle(&system.system_data.rgb_data.color);
     }
@@ -48,7 +60,7 @@ void sys_mode_Manual(void)
 void sys_mode_Auto(void)
 {
     
-    if (key_read() == KEY3_ON) rgb_SetColor_Circle(&system.system_data.rgb_data.color); // 按键3 调节颜色，循环调节
+    if (key_Read(KEY3)) rgb_SetColor_Circle(&system.system_data.rgb_data.color); // 按键3 调节颜色，循环调节
 
     if(ls_MeasureLight(&system.system_data.ls_data.mode,&system.system_data.ls_data.lux) == HAL_OK) // 测量光照强度 根据环境光强自动转换模式
     {
@@ -59,11 +71,10 @@ void sys_mode_Auto(void)
 }
 
 
-void sys_mode_PowerOff(void)
+void sys_mode_Music(void)
 {
-    system_PowerOff();
+    
 }
-
 
 
 

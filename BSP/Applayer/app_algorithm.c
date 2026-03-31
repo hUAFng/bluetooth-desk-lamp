@@ -38,12 +38,12 @@ void Sys_Control_By_BTorASR(Cmd_e cmd)
                 system.mode = Sys_Mode_Manual;
                 break;
             case CMD_AutoMode:
-                system.mode = Sys_Mode_Auto;
                 sys_mode_Auto_Init();
+                system.mode = Sys_Mode_Auto;
                 break;
             case CMD_MusicMode:
-                system.mode = Sys_Mode_Music;
                 sys_mode_Music_Init();
+                system.mode = Sys_Mode_Music;
                 break;
             case CMD_CHANGE_COLOR:
                 rgb_SetColor_Circle(&system.system_data.rgb_data.color); // 改变颜色(循环切换)

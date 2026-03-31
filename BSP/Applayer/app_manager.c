@@ -26,35 +26,6 @@
 #include "app_manager.h"
 
 
-/**
- * @brief 代指从系统模式为System_Mode_PowerOff切换到上电 或者 初始化后上电（初始化不工作）
- */
-void system_PowerOn(void)
-{
-    system.mode = Sys_Mode_Manual;
-
-    system_valiable_Init();
-
-    rgb_PowerOn(system.system_data.rgb_data.color,system.system_data.rgb_data.brightness); 
-    tft_PowerOn();
-    ls_PowerOn();
-    
-}
-
-
-/**
- * @brief 代指从系统模式为工作模式切换到关机，可由蓝牙或者语音、按键1唤醒
- */
-void system_PowerOff(void)
-{
-    system.mode = System_Mode_PowerOff;
-
-    rgb_PowerOff(); // 灯带关闭
-    tft_PowerOff(); // TFT关闭
-    ls_PowerOff();  // 光线传感器关闭
-    mic_PowerOff(); // 麦克风关闭
-    // 按键1、蓝牙、语音工作，可唤醒
-}
 
 /**
  * @brief 系统电源控制
@@ -62,9 +33,7 @@ void system_PowerOff(void)
  */
 void system_power_Control_key(void)
 {
-    key_e key = key_Read();
-
-    if (key == KEY1_ON)
+    if (key_Read(KEY1)) //按键按下
     {
         if (system.mode == System_Mode_PowerOff) system_PowerOn();
 
@@ -98,8 +67,35 @@ void system_Init()
 {
     system_valiable_Init(); // 系统变量初始化
     module_Init();          // 模块初始化
-    system_PowerOn();       // 系统上电
 }    
+
+/**
+ * @brief 代指从系统模式为System_Mode_PowerOff切换到上电 或者 初始化后上电（初始化不工作）-> 手动模式
+ */
+void system_PowerOn(void)
+{
+    system_valiable_Init();
+
+    system.mode = Sys_Mode_Manual;
+
+    rgb_PowerOn(system.system_data.rgb_data.color,system.system_data.rgb_data.brightness); 
+    tft_PowerOn(); 
+}
+
+
+/**
+ * @brief 代指从系统模式为工作模式切换到关机，可由蓝牙或者语音、按键1唤醒
+ */
+void system_PowerOff(void)
+{
+    system.mode = System_Mode_PowerOff;
+
+    rgb_PowerOff(); // 灯带关闭
+    tft_PowerOff(); // TFT关闭
+    ls_PowerOff();  // 光线传感器关闭
+    mic_PowerOff(); // 麦克风关闭
+    // 按键1、蓝牙、语音工作，可唤醒
+}
 
 // 系统运行
 void system_Run(void)
@@ -120,12 +116,6 @@ void system_Run(void)
             sys_mode_Auto();
             
             break;
-            
-        case System_Mode_PowerOff:// 关机模式处理
-            
-            sys_mode_PowerOff();
-
-            break;
 
         case Sys_Mode_Music:// 音乐律动模式处理
             
@@ -135,7 +125,6 @@ void system_Run(void)
 
         default:
             break;
-
     }
 }
 

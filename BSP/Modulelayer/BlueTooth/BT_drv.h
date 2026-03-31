@@ -1,16 +1,16 @@
 
 
-#ifndef __HC05_DRV_H__
-#define __HC05_DRV_H__
+#ifndef __BT_DRV_H__
+#define __BT_DRV_H__
 
 #include "main.h"
 #include "uart_drv.h"
 #include "string.h"
 #include "asrpro_drv.h"
 
-extern UART_HandleTypeDef huart1;
+extern UART_HandleTypeDef huart2;
 
-#define BT_UART_HANDLE huart1
+#define BT_UART_HANDLE huart2
 #define BT_UART_RX_BUF_LEN 64
 
 #define BT_CMD_BUF_MAX_LEN 16 // 每条命令最大长度

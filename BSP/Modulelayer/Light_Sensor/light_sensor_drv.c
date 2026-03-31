@@ -24,13 +24,19 @@ void ls_Init(void)
     ls_WriteByte(LS_RESET);      //重置
     HAL_Delay(10);
 
-    ls_WriteByte(LS_HRES_MODE1); //连续高分辨率模式 - 1lx分辨率
-    HAL_Delay(120);              //等待测量完成
+    ls_PowerOff(); // 默认不进入工作模式，保持功耗最低
 }
 
 void ls_PowerOn(void)
 {
-    ls_Init();
+    ls_WriteByte(LS_POWON);      //上电
+    HAL_Delay(10); 
+
+    ls_WriteByte(LS_RESET);      //重置
+    HAL_Delay(10);
+
+    ls_WriteByte(LS_HRES_MODE1); //连续高分辨率模式 - 1lx分辨率
+    HAL_Delay(120);              //等待测量完成
 }
 /**
  * @brief 切换测量模式

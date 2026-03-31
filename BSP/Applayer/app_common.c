@@ -10,7 +10,7 @@ void system_valiable_Init(void)
 {
     system = (System_t)
     {
-        .mode = Sys_Mode_Manual, // 默认初始模式为手动模式
+        .mode = System_Mode_PowerOff, // 默认初始模式为关机
 
         .system_data = 
         {
