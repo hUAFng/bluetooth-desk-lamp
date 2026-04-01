@@ -4,6 +4,7 @@
 #define __APP_COMMON_H__
 
 #include "module_layer.h"
+#include "app_ui.h"
 
 /* --------------------------------------variables-------------------------------------- */
 
@@ -23,7 +24,7 @@ typedef struct
 typedef struct
 {
     LS_MODE mode;
-    uint16_t lux;
+    float lux;
 }LightSensor_data_t;
 
 // 蓝牙数据
@@ -55,7 +56,7 @@ typedef enum
     Sys_Mode_Auto = 1, // 自动模式(传感器模式)
     Sys_Mode_Music = 2, // 音乐律动模式
 
-    System_Mode_PowerOff = 3 // 灯带灭，蓝牙、语音可唤醒，TFT熄灭，传感器不工作，麦克风不工作
+    Sys_Mode_PowerOff = 3 // 灯带灭，蓝牙、语音可唤醒，TFT熄灭，传感器不工作，麦克风不工作
 }system_mode_e;
 
 // 系统数据

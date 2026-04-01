@@ -52,12 +52,11 @@ void mic_Calibrate(void)
     mic.calibrated_flag = 1;
 }
 
-inline uint8_t mic_isCalibrate(void)
+uint8_t mic_isCalibrate(void)
 {
     return mic.calibrated_flag;
 }
-
-inline uint8_t mic_isWorking(void)
+uint8_t mic_isWorking(void)
 {
     return mic.mic_work_flag;
 }

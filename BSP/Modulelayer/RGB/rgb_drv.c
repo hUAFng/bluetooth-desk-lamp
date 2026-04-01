@@ -30,20 +30,6 @@ void rgb_ClearBuffer(void)
     }
 }
 
-/**
-* @brief 关闭灯带
-*/
-void rgb_PowerOff(void)
-{
-    __disable_irp(); // 关闭全局中断，保护时序完整
-    for (uint8_t i = 0; i < RGB_LED_NUM; i++)
-    {
-        rgb_WriteByte(0);
-        rgb_WriteByte(0);
-        rgb_WriteByte(0);
-    }
-    __enable_irp(); // 恢复全局中断
-}
 
 /**
 * @brief 灯带初始化，默认关闭状态，需按下按键启动灯带
@@ -78,10 +64,27 @@ void rgb_WriteBit(uint8_t bit) //只看最低位 （灯带的时序逻辑）
 void rgb_WriteByte(uint8_t byte)
 {
     __disable_irp();
-    for (uint8_t i = 0;i < 8;i++) rgb_WriteBit(byte >> (7-i));
+
+    for (uint8_t i = 0;i < 8;i++) rgb_WriteBit((byte >> (7-i)) & 0x01);
+
     __enable_irp();
 }
 
+/**
+* @brief 关闭灯带
+*/
+void rgb_PowerOff(void)
+{
+    __disable_irp(); // 关闭全局中断，保护时序完整
+    
+    for (uint8_t i = 0; i < RGB_LED_NUM; i++)
+    {
+        rgb_WriteByte(0);
+        rgb_WriteByte(0);
+        rgb_WriteByte(0);
+    }
+    __enable_irp(); // 恢复全局中断
+}
 
 /**
  * @brief 设置单一LED状态（包括颜色和亮度）

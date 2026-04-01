@@ -21,7 +21,7 @@ void remap_lux_to_brightness(void)
 // 系统控制：蓝牙、语音控制处理算法，由system_Control()调用
 void Sys_Control_By_BTorASR(Cmd_e cmd)
 {
-    if(system.mode == System_Mode_PowerOff)
+    if(system.mode == Sys_Mode_PowerOff)
     {
         if(cmd == CMD_POWER_ON) system_PowerOn(); // 只有在关机模式下才处理开机命令
         else return; // 其他命令在关机模式下不处理

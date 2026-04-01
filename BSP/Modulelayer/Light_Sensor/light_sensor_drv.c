@@ -61,12 +61,12 @@ HAL_StatusTypeDef ls_SetMode(LS_MODE mode)
  * @param mode : 测量模式
  * @param lux :  存储测量结果的指针(光照强度单位为lx)
  */
-HAL_StatusTypeDef ls_MeasureLight(LS_MODE* mode,uint16_t* lux)
+HAL_StatusTypeDef ls_MeasureLight(LS_MODE* mode,float* lux)
 {
     if(mode == NULL || lux == NULL || *mode < LS_MODE_HRES1 || *mode > LS_MODE_SINGLE_MEAS) return HAL_ERROR;
 
     uint8_t buf[2] = {0};
-    uint16_t lux_raw = 0;
+    float lux_raw = 0.0f;
 
     if (ls_Readdata(buf,2) != HAL_OK) return HAL_ERROR;
 
@@ -76,7 +76,7 @@ HAL_StatusTypeDef ls_MeasureLight(LS_MODE* mode,uint16_t* lux)
     if (*mode == LS_MODE_HRES2) *lux = lux_raw / 1.2f / 2.0f; // 0.5lx分辨率 
     else *lux = lux_raw / 1.2f; // 其他模式分辨率
 
-    ls_ChangeModeByLus(lux,*mode);
+    ls_ChangeModeByLus(lux,mode);
 
     HAL_Delay(130); // 测量间隔（周期）低精度可小点，这里统一处理
 

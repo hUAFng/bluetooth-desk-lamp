@@ -5,6 +5,10 @@
 
 #include "app_common.h"
 
+void system_show(void);
+void system_show_Init(void);
+
+
 #endif 
 
 

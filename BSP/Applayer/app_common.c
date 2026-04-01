@@ -10,7 +10,7 @@ void system_valiable_Init(void)
 {
     system = (System_t)
     {
-        .mode = System_Mode_PowerOff, // 默认初始模式为关机
+        .mode = Sys_Mode_PowerOff, // 默认初始模式为关机
 
         .system_data = 
         {
@@ -18,7 +18,7 @@ void system_valiable_Init(void)
             {
                 .brightness = 80, // 默认初始亮度
                 .color = WarmWhite, // 默认初始颜色为暖白
-                .filter_lux = 0.3f,    // 默认初始滤波系数
+                .filter_lux = 0.7f,    // 默认初始滤波系数
             },
 
             .ls_data = 

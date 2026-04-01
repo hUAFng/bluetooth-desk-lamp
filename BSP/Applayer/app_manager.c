@@ -35,7 +35,7 @@ void system_power_Control_key(void)
 {
     if (key_Read(KEY1)) //按键按下
     {
-        if (system.mode == System_Mode_PowerOff) system_PowerOn();
+        if (system.mode == Sys_Mode_PowerOff) system_PowerOn();
 
         else system_PowerOff();
     }
@@ -74,12 +74,16 @@ void system_Init()
  */
 void system_PowerOn(void)
 {
+    led_work(LED_G_ON); // 绿灯表示正常工作
+
     system_valiable_Init();
 
     system.mode = Sys_Mode_Manual;
 
     rgb_PowerOn(system.system_data.rgb_data.color,system.system_data.rgb_data.brightness); 
     tft_PowerOn(); 
+
+    system_show_Init();
 }
 
 
@@ -88,7 +92,9 @@ void system_PowerOn(void)
  */
 void system_PowerOff(void)
 {
-    system.mode = System_Mode_PowerOff;
+    system.mode = Sys_Mode_PowerOff;
+
+    led_work(LED_G_OFF); // 绿灯表示系统关闭
 
     rgb_PowerOff(); // 灯带关闭
     tft_PowerOff(); // TFT关闭
@@ -126,6 +132,10 @@ void system_Run(void)
         default:
             break;
     }
+
+    system_Control();
+    
+    system_show();
 }
 
 

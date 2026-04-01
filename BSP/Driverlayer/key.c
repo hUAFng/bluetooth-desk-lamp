@@ -48,6 +48,7 @@ uint8_t key_Read(key_e KEY)
             if(key.key2_flag == 1)
             {
                 key.key2_flag = 0;
+                buzzer_work();
                 return 1;
             }
             break;
@@ -55,6 +56,7 @@ uint8_t key_Read(key_e KEY)
             if(key.key3_flag == 1)
             {
                 key.key3_flag = 0;
+                buzzer_work();
                 return 1;
             }
             break; 

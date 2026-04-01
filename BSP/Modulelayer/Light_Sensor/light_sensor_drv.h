@@ -38,8 +38,8 @@ typedef enum
 /* -------------------------------------function-------------------------------------- */
 void ls_Init(void);
 HAL_StatusTypeDef ls_SetMode(LS_MODE mode);
-HAL_StatusTypeDef ls_MeasureLight(LS_MODE* mode,uint16_t* lux);
-HAL_StatusTypeDef ls_ChangeModeByLus(uint16_t* lux,LS_MODE* cnt_mode);
+HAL_StatusTypeDef ls_MeasureLight(LS_MODE* mode,float* lux);
+HAL_StatusTypeDef ls_ChangeModeByLus(float* lux,LS_MODE* cnt_mode);
 void ls_Reset(void);
 void ls_PowerOff(void);
 void ls_PowerOn(void);

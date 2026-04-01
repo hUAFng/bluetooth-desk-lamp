@@ -115,6 +115,7 @@ void asrpro_GetCmd(Cmd_e* cmd)
     {
         if(asrpro_CheckCmdValid())
         {
+            buzzer_work();
             *cmd = asr_rx.asr_rx_cmd;
             asr_rx.asr_rx_ready_flag = 0; // 读取命令后清除就绪标志，等待下一次接收
         }
