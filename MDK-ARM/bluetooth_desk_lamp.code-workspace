@@ -22,7 +22,12 @@
             "tft_drv.h": "c",
             "app_modes.h": "c",
             "app_manager.h": "c",
-            "app_common.h": "c"
+            "app_common.h": "c",
+            "app_algorithm.h": "c",
+            "math.h": "c",
+            "module_layer.h": "c",
+            "mic_drv.h": "c",
+            "tim.h": "c"
         }
     },
     "extensions": {}

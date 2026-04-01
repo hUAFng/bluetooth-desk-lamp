@@ -4,6 +4,8 @@
 
 void module_Init(void)
 {
+    drv_layer_Init();
+
     asrpro_Init();
 
     BT_Init();

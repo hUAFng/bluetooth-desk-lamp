@@ -111,7 +111,8 @@ float mic_fft_GetMaxfreq()
     float max_freq = 0;
     float max_freq_index = 0;
 
-    for (uint16_t i = 0; i < MIC_ADC_DMA_BUF_LEN / 2;i++) // 虚实交替为一个元素
+    // 从第五个出发，去低频
+    for (uint16_t i = 5; i < MIC_ADC_DMA_BUF_LEN / 2;i++) // 虚实交替为一个元素
     {
         float temp  = mic.fft_Output[i*2] * mic.fft_Output[i*2] + mic.fft_Output[i*2+1] * mic.fft_Output[i*2+1];
 
@@ -127,9 +128,9 @@ float mic_fft_GetMaxfreq()
 }
 
 /*
- * @brief 获取FFT结果中的响度,返回响度
+ * @brief 获取FFT结果中的响度
  */
-float mic_fft_Getloudness()
+void mic_fft_Getloudness()
 {
     float energy = 0;
 
@@ -152,7 +153,7 @@ void mic_loudness_mapto_brightness(uint8_t brightness_max,uint8_t brightness_min
 {
     if(brightness == NULL) return;
 
-    *brightness = mic.loudness * brightness_max / MIC_LOUDNESS_MAX ;
+    *brightness = (uint8_t)((uint32_t)mic.loudness * brightness_max / MIC_LOUDNESS_MAX);
 
     if (*brightness > brightness_max) *brightness = brightness_max;
     else if (*brightness < brightness_min) *brightness = brightness_min;
@@ -209,7 +210,7 @@ void mic_freq_filter(float* cnt_freq)
         // 4. 获取响度
         mic_fft_Getloudness();
 
-        HAL_Delay(10);
+        HAL_Delay(5);
     }
 }
 

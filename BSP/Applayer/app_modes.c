@@ -8,7 +8,7 @@
 
 void sys_mode_Manual_Init() 
 {
-    sys_valiables_Init(); // 系统模式已经在app_algorithm.c中赋值为手动模式
+    system_valiable_Init(); // 系统模式已经在app_algorithm.c中赋值为手动模式
 
     rgb_PowerOn(system.system_data.rgb_data.color,system.system_data.rgb_data.brightness); 
     ls_PowerOff(); // 手动模式不使用光线传感器
@@ -18,7 +18,7 @@ void sys_mode_Manual_Init()
 
 void sys_mode_Auto_Init()
 {
-    sys_valiables_Init(); // 系统模式已经在app_algorithm.c中赋值为自动模式
+    system_valiable_Init(); // 系统模式已经在app_algorithm.c中赋值为自动模式
 
     rgb_PowerOn(system.system_data.rgb_data.color,system.system_data.rgb_data.brightness); 
     ls_PowerOn();  // 自动模式使用光线传感器
@@ -27,7 +27,7 @@ void sys_mode_Auto_Init()
 
 void sys_mode_Music_Init()
 {
-    sys_valiables_Init(); // 系统模式已经在app_algorithm.c中赋值为音乐模式
+    system_valiable_Init(); // 系统模式已经在app_algorithm.c中赋值为音乐模式
 
     rgb_PowerOn(system.system_data.rgb_data.color,system.system_data.rgb_data.brightness); 
     ls_PowerOff();
@@ -59,7 +59,8 @@ void sys_mode_Manual(void)
  */
 void sys_mode_Auto(void)
 {
-    
+    static uint8_t ls_error_count = 0;
+
     if (key_Read(KEY3)) rgb_SetColor_Circle(&system.system_data.rgb_data.color); // 按键3 调节颜色，循环调节
 
     if(ls_MeasureLight(&system.system_data.ls_data.mode,&system.system_data.ls_data.lux) == HAL_OK) // 测量光照强度 根据环境光强自动转换模式
@@ -67,6 +68,16 @@ void sys_mode_Auto(void)
         remap_lux_to_brightness();
 
         rgb_Display(system.system_data.rgb_data.color,system.system_data.rgb_data.brightness);
+    }
+    else 
+    {
+        ls_error_count++;
+
+        if (ls_error_count >= 5)
+        {
+            ls_Reset();
+            ls_error_count = 0;
+        }
     }
 }
 

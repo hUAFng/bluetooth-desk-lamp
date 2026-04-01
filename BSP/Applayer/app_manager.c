@@ -13,18 +13,7 @@
 //                                           |
 //                                        模式工作
 
-
-
-
-
-
-
-
-
-
-
 #include "app_manager.h"
-
 
 
 /**
@@ -137,5 +126,4 @@ void system_Run(void)
     
     system_show();
 }
-
 

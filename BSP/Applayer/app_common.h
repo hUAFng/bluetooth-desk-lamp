@@ -16,7 +16,7 @@ typedef struct
     uint8_t brightness;
     RGB_Color_e color;
 
-    float filter_lux; // 滤波系数，0-1，需要根据实际情况调整,越小响应越慢也越平滑
+    float filter_lux; // （自动模式下）滤波系数，0-1，需要根据实际情况调整,越小响应越慢也越平滑
 
 }rgb_data_t;
 

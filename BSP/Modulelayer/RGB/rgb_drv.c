@@ -222,7 +222,7 @@ void rgb_SetColor(RGB_Color_e color)
 void rgb_SetColor_Circle(RGB_Color_e* color)
 {
     if (color == NULL) return;
-    *color++;
+    (*color)++;
     
     // 循环调整颜色
     if (*color >= RGB_COLOR_NUM) *color = 0;
@@ -262,18 +262,18 @@ void rgb_brightness_filter(uint8_t *brightness)
 {
     if (brightness == NULL) return;
 
-    uint8_t delta_bright = *brightness - rgb.cnt_brightness;
+    int16_t delta_bright = *brightness - rgb.cnt_brightness;
 
     float Up_filter = 0.6f;
     float Down_filter = 0.85f;
 
     if (delta_bright > 0)
     {
-        rgb.cnt_brightness = Up_filter * rgb.cnt_brightness + (1 - Up_filter) * *brightness;
+        rgb.cnt_brightness = (uint8_t)(Up_filter * rgb.cnt_brightness + (1 - Up_filter) * *brightness);
     }
     else 
     {
-        rgb.cnt_brightness = Down_filter * rgb.cnt_brightness + (1 - Down_filter) * *brightness;
+        rgb.cnt_brightness = (uint8_t)(Down_filter * rgb.cnt_brightness + (1 - Down_filter) * *brightness);
     }
 
 

@@ -8,7 +8,6 @@
 #include "app_algorithm.h"
 
 
-
 void system_Init(void);
 void system_Run(void);
 void system_PowerOn(void);

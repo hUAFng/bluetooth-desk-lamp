@@ -121,9 +121,6 @@ void ls_PowerOff(void)
 
 void ls_Reset(void)
 {
-    ls_Poweroff();
-
+    ls_WriteByte(LS_RESET);      //重置
     HAL_Delay(10);
-
-    ls_Init();
 }
