@@ -31,10 +31,10 @@ void Sys_Control_By_BTorASR(Cmd_e cmd)
         switch(cmd)
         {
             case CMD_POWER_OFF:
-                if (system.mode != System_Mode_PowerOff) system_PowerOff(); // 只有在非关机模式下才处理关机命令
+                system_PowerOff(); // 只有在非关机模式下才处理关机命令
                 break;
             case CMD_ManualMode:
-                if(system.mode != System_Mode_PowerOff) sys_mode_Manual_Init(); //从其他工作模式切换到手动模式，需要初始化
+                sys_mode_Manual_Init(); //从其他工作模式切换到手动模式，需要初始化
                 system.mode = Sys_Mode_Manual;
                 break;
             case CMD_AutoMode:

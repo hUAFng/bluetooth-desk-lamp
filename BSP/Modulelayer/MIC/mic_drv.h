@@ -7,19 +7,22 @@
 #include "adc_drv.h"
 #include "string.h"
 #include "stdio.h"
-
+#include "tim.h"
+#include "arm_math.h"
 
 extern ADC_HandleTypeDef hadc1;
-
+extern TIM_HandleTypeDef htim3;
 
 /* -------------------------------------------------define---------------------------------------------------*/
 #define MIC_ADC_CHANNEL hadc1
 
-#define MIC_ADC_DMA_BUF_LEN 32  // DMA的缓冲区长度
+#define MIC_ADC_DMA_BUF_LEN 256  // DMA的缓冲区长度,使用FFT方案需要是间为2的幂数，数字越大分辨率越高
 #define MIC_ADC_OFFSET 2048 // ADC的基准量 ， 静音时，ADC值为2048（恒定）
 #define MIC_FQ_MAX 100 // 最大频率值
 #define MIC_MAX_REMAP_VALUE 255
 #define MIC_MAX_NOSIE_FLOOR_ADC_VALUE 200 // 正常环境的最大的噪声值ADC值偏移量 目的是防止未校准之前就播放音乐，干扰校准结果
+
+#define SAMPLE_RATE 10000 // 采样率 10KHz = 72M / (100 * 100) 定时器溢出频率
 
 // 需要调节的参数：
 #define MIC_LOW_PASS_FILTER 0.35 // 低通滤波系数，用于平滑ADC值，减少冲击
@@ -29,6 +32,10 @@ extern ADC_HandleTypeDef hadc1;
 typedef struct 
 {
     uint16_t adc_dma_buf[MIC_ADC_DMA_BUF_LEN]; // dma缓冲区，用于求均值滤波，储存ADC值（0-4095）对应0-3.3V
+
+    float adc_dma_buf_float[MIC_ADC_DMA_BUF_LEN]; // dma缓冲区，储存ADC值，储存ADC值（0-3.3V）
+    float fft_Output[MIC_ADC_DMA_BUF_LEN * 2]; // FFT 输出，储存FFT结果,每个数是占两个字节-实部和虚部
+
     uint16_t adc_avg; // 平滑后的ADC平均值
 
     uint8_t mic_work_flag; // 0-不工作，1-工作 用于调用一次mic_Start();

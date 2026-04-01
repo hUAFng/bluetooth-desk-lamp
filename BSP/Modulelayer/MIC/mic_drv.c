@@ -9,6 +9,8 @@
 
 static mic_t mic ;
 
+static arm_rfft_fast_instance_f32 fft_inst; //FFT 实例
+
 
 void mic_ClearBuf(void)
 {
@@ -25,6 +27,8 @@ void mic_Init(void)
 {
     mic_ClearBuf();
     mic_PowerOff();
+
+    arm_rfft_fast_init_f32(&fft_inst, MIC_ADC_DMA_BUF_LEN); // 初始化
 }
 
 
@@ -43,7 +47,7 @@ void mic_PowerOn(void)
 
     HAL_Delay(100); // 延时100ms，等待数据稳定
 
-    mic_Calibrate();
+    // mic_Calibrate();
 }
 
 
@@ -54,6 +58,7 @@ void mic_PowerOff(void)
 {
     HAL_ADC_Stop_DMA(&MIC_ADC_CHANNEL);
 }
+
 
 
 /**
@@ -196,3 +201,85 @@ void mic_Work(uint8_t brightness_max,uint8_t* loudness,uint8_t* fq)
     *loudness = mic.loudness;
     *fq = mic.freq;
 }
+
+
+
+/*-----------------------------------------------------------------------------------------
+ *                                      FFT 方案
+ ------------------------------------------------------------------------------------------*/
+
+
+ // 定时器采用TIM3溢出触发ADC转换，相对于直接触发ADC转换，可以减少ADC转换的次数，降低转换频率，节省CPU。
+void mic_PowerOn(void)
+{
+    HAL_TIM_Base_Start(&htim3); // 开启定时器3，用于触发ADC转换（TRGO）
+
+    HAL_ADC_DMA_Start(&MIC_ADC_CHANNEL);
+
+    HAL_Delay(100);
+}
+
+void mic_PowerOff(void)
+{
+    HAL_TIM_Base_Stop(&htim3); // 关闭定时器3
+
+    HAL_ADC_DMA_Stop(&MIC_ADC_CHANNEL);
+}
+
+
+
+ /**
+  * @brief 将DMA缓冲区的uint16_t数据转换为float数据，用于FFT处理,含去直流偏置（-2048）处理
+  */
+void mic_dma_buf_to_float(void)
+{
+    for (uint16_t i = 0; i < MIC_ADC_DMA_BUF_LEN; i++)
+    {
+        mic.adc_dma_buf_float[i] = (float)(mic.adc_dma_buf[i] - 2048);
+    }
+}
+
+
+/*
+ * @brief 获取FFT结果中的最大频率
+ */
+void mic_fft_GetMaxfreq()
+{
+    float max_freq = 0;
+    float max_freq_index = 0;
+
+    for (uint16_t i = 0; i < MIC_ADC_DMA_BUF_LEN / 2;i++) // 虚实交替为一个元素
+    {
+        float temp  = mic.fft_Output[i*2] * mic.fft_Output[i*2] + mic.fft_Output[i*2+1] * mic.fft_Output[i*2+1];
+
+        if (temp > max_freq)
+        {
+            max_freq = temp;
+            max_freq_index = i;
+        }
+        
+        mic.freq = (float)max_freq_index * SAMPLE_RATE / MIC_ADC_DMA_BUF_LEN;
+
+    }
+
+}
+
+void 
+
+ void mic_Run()
+ {
+    if ()
+    // 1. 转换为float数据
+    mic_dma_buf_to_float();
+
+    // 2. FFT 处理
+    arm_rfft_fast_f32(&fft_inst, mic.adc_dma_buf_float, mic.fft_Output, 0);
+
+    // 3. 获取最大频率
+    mic_fft_GetMaxfreq();
+
+    HAL_Delay(20);
+
+
+
+ }

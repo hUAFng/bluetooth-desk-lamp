@@ -9,7 +9,6 @@
 void sys_mode_Manual(void);
 void sys_mode_Auto(void);
 void sys_mode_Music(void);
-void sys_mode_PowerOff(void);
 
 
 //进入模式时的初始化函数
