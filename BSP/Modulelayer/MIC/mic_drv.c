@@ -8,13 +8,14 @@
 #include "mic_drv.h"
 
 static mic_t mic ;
-
 static arm_rfft_fast_instance_f32 fft_inst; //FFT 实例
 
 
 void mic_ClearBuf(void)
 {
     memset(mic.adc_dma_buf, 0, sizeof(mic.adc_dma_buf));
+    memset(mic.adc_dma_buf_float, 0, sizeof(mic.adc_dma_buf_float));
+    memset(mic.fft_Output, 0, sizeof(mic.fft_Output));
     mic.adc_avg = 0;
     mic.mic_work_flag = 0; 
     mic.noise_floor = 0;
@@ -27,37 +28,11 @@ void mic_Init(void)
 {
     mic_ClearBuf();
     mic_PowerOff();
-
     arm_rfft_fast_init_f32(&fft_inst, MIC_ADC_DMA_BUF_LEN); // 初始化
 }
 
 
-/**
- * @brief 启动ADC采集，已在mic_Work中调用，可选手动调用
- */
-void mic_PowerOn(void)
-{
-    mic_ClearBuf();
 
-    if (HAL_ADC_Start_DMA(&MIC_ADC_CHANNEL, (uint32_t *)mic.adc_dma_buf, MIC_ADC_DMA_BUF_LEN) != HAL_OK) 
-        return;
-    else
-        mic.mic_work_flag = 1;
-
-
-    HAL_Delay(100); // 延时100ms，等待数据稳定
-
-    // mic_Calibrate();
-}
-
-
-/**
- * @brief 停止ADC采集
- */
-void mic_PowerOff(void)
-{
-    HAL_ADC_Stop_DMA(&MIC_ADC_CHANNEL);
-}
 
 
 
@@ -74,60 +49,6 @@ void mic_GetAdcAvg(void)
     mic.adc_avg = sum / MIC_ADC_DMA_BUF_LEN ;
 }
 
-
-
-/**
- * @brief 数据处理-保存响度与频率
- * @param brightness_max 最大亮度值，用于规范响度的最大值
- */
-void mic_DataProcess(uint8_t brightness_max)
-{
-    uint32_t square_sum = 0; // 求响度-差值平方的总和
-    
-    uint8_t zero_count = 0; // 信号会反复过0点（2048），记录过0点的次数，用于求频率
-    uint16_t value_prev = 0; // 上一个ADC值，用于确定是否过零点
-    uint16_t value_current = 0; // 当前ADC值
-
-    for (uint8_t i = 0; i < MIC_ADC_DMA_BUF_LEN; i++)
-    {
-        int16_t diff = mic.adc_dma_buf[i] - MIC_ADC_OFFSET; // 差值才是响度，所以要减去基准量 
-        
-        diff = abs(diff);
-
-        // 噪声范围内的毛刺信号，不管 或 去除噪音之后的有效信号
-        diff = (diff <= mic.noise_floor) ? 0 : diff - mic.noise_floor;
-        
-        square_sum += diff * diff; //计算平方和
-
-        value_current = mic.adc_dma_buf[i];
-        if (value_prev != 0 && (value_current > MIC_ADC_OFFSET && value_prev < MIC_ADC_OFFSET  \
-        || value_current < MIC_ADC_OFFSET && value_prev > MIC_ADC_OFFSET) ) // 两个数据点在2048的不同侧，说明过零点
-        {
-            zero_count++;
-        }
-        
-        value_prev = value_current;
-    }
-
-    // note : 响度采用平方求平均，因为平方的增长速度比较快，对声音比较敏感 1->1 2->4 3->9 
-    // 其次，/ MIC_LOUDNESS_PARAM 想将响度投射到亮度的区间（平方是非线性的，不要去求平凡的最大值，那样和不平方没有区别）
-    // 但是没有合适的模型，所以这里得不停调 MIC_LOUDNESS_PARAM
-    // 观察RGB的表现以获取最佳的MIC_LOUDNESS_PARAM值
-    mic.loudness = (uint8_t)((MIC_LOW_PASS_FILTER)*(square_sum / (MIC_ADC_DMA_BUF_LEN * MIC_LOUDNESS_PARAM)) \
-    + (1-MIC_LOW_PASS_FILTER)*mic.loudness);   //低通滤波，给两个值加上权重，平滑响应
-
-
-    if (mic.loudness > brightness_max) mic.loudness = brightness_max;  // 规范区间
-    else if (mic.loudness < 3) mic.loudness = 0; // 减少小噪声让RGB乱跳
-
-    if (zero_count > 2) //添加噪声导致的毛刺判断
-    {
-        // 增加低通滤波，给两个值加上权重，平滑响应
-        mic.freq = (1-MIC_LOW_PASS_FILTER)*mic.freq + (uint8_t)(MIC_LOW_PASS_FILTER*(zero_count * MIC_FQ_MAX / MIC_ADC_DMA_BUF_LEN)); // 直接映射 到0-100的区间 假如zero_count == MIC_ADC_DMA_BUF_LEN，说明每个数据点都在跳，说明频率fq很高
-    }
-    else mic.freq = 0; // 噪声导致的少量过零点视为无信号
-    
-}
 
 
 /**
@@ -165,16 +86,6 @@ static inline uint8_t mic_isCalibrate(void)
 uint8_t mic_isWorking(void)
 {
     return mic.mic_work_flag;
-}
-
-uint8_t mic_GetFreqLevel(void)
-{
-    if (mic.freq == 0) return 0; // 无信号
-    if (mic.freq <= 10) return 1; // 低频
-    if (mic.freq <= 25) return 2; // 中低频
-    if (mic.freq <= 45) return 3; // 中频
-    if (mic.freq <= 70) return 4; // 中高频
-    return 5; // 高频
 }
 
 /**
@@ -215,6 +126,8 @@ void mic_PowerOn(void)
     HAL_TIM_Base_Start(&htim3); // 开启定时器3，用于触发ADC转换（TRGO）
 
     HAL_ADC_DMA_Start(&MIC_ADC_CHANNEL);
+
+    mic.mic_work_flag = 1;
 
     HAL_Delay(100);
 }
@@ -264,11 +177,42 @@ void mic_fft_GetMaxfreq()
 
 }
 
-void 
+void mic_fft_Getloudness()
+{
+    float energy = 0;
+
+    for (int i = 0;i < MIC_ADC_DMA_BUF_LEN;i++)
+    {
+        energy += mic.adc_dma_buf_float[i] * mic.adc_dma_buf_float[i]; // 平方
+    }
+
+    mic.loudness = sqrt(energy / MIC_ADC_DMA_BUF_LEN);
+}
+
+
+/**
+ * @brief 映射响度到亮度 
+ * @param brightness_max 亮度的最大值 设置为255，便于后面计算
+ * @param brightness_min 亮度的最小值 建议设置为25 , 亮度不要过低
+ * @param low_bright_area 过低亮度下的映射区域，建议设置为77
+ */
+void mic_loudness_mapto_brightness(uint8_t brightness_max,uint8_t brightness_min,uint8_t* brightness,uint8_t low_bright_area)
+{
+    if(brightness == NULL) return;
+
+    *brightness = mic.loudness * brightness_max / MIC_LOUDNESS_MAX ;
+
+    if (*brightness > brightness_max) *brightness = brightness_max;
+    else if (*brightness < brightness_min) *brightness = brightness_min;
+
+    // 在过低亮度下，线性增加，即提升暗部的亮度，其余就直接映射
+    else if (*brightness < low_bright_area) *brightness = ((*brightness) * 3 > low_bright_area) ? low_bright_area : (*brightness) * 3;
+}
 
  void mic_Run()
  {
     if ()
+
     // 1. 转换为float数据
     mic_dma_buf_to_float();
 
@@ -278,8 +222,8 @@ void
     // 3. 获取最大频率
     mic_fft_GetMaxfreq();
 
+    // 4. 获取响度
+    mic_fft_Getloudness();
+
     HAL_Delay(20);
-
-
-
- }
+}
