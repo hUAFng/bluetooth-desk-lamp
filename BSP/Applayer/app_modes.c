@@ -73,7 +73,9 @@ void sys_mode_Auto(void)
 
 void sys_mode_Music(void)
 {
-    
+    mic_Run();
+
+    rgb_RunInMusic();
 }
 
 

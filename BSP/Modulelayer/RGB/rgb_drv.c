@@ -234,3 +234,100 @@ void rgb_PowerOn(RGB_Color_e color,uint8_t brightness)
     rgb_Display(color,brightness);
 }
 
+
+/*------------------------------------------------------------------------------
+                                    音乐模式
+------------------------------------------------------------------------------*/
+
+
+/*note : 音乐模式的颜色列举，分三个档次，低频中频高频，对应这三个颜色范围 */
+
+// 低频区
+const uint8_t LOW_MIN_COLOR[3] = {  64,   0,   0 }; // 暗红
+const uint8_t LOW_MAX_COLOR[3] = { 255, 165,   0 }; // 亮橙
+
+// 中频区
+const uint8_t MID_MIN_COLOR[3] = {  0,  128,   0 }; // 暗绿
+const uint8_t MID_MAX_COLOR[3] = {255, 255,   0 }; // 亮黄
+
+// 高频区
+const uint8_t HIGH_MIN_COLOR[3] = {  0,   0, 128 }; // 暗蓝
+const uint8_t HIGH_MAX_COLOR[3] = {128,   0, 128 }; // 亮紫
+
+
+void rgb_brightness_filter(uint8_t *brightness)
+{
+    if (brightness == NULL) return;
+
+    uint8_t delta_bright = *brightness - rgb.cnt_brightness;
+
+    float Up_filter = 0.6f;
+    float Down_filter = 0.85f;
+
+    if (delta_bright > 0)
+    {
+        rgb.cnt_brightness = Up_filter * rgb.cnt_brightness + (1 - Up_filter) * *brightness;
+    }
+    else 
+    {
+        rgb.cnt_brightness = Down_filter * rgb.cnt_brightness + (1 - Down_filter) * *brightness;
+    }
+
+
+}
+void rgb_MapFreqToRGBValue()
+{
+    float freq = 0.0f;
+    mic_GetFreq(&freq);
+
+    if (freq == 0.0f) return;
+
+    const uint8_t* min_color_ptr;
+    const uint8_t* max_color_ptr; // 用于定位当前频率下RGB对应的颜色区间
+    
+    if(freq <= LOW_FREQ_THRESHOLD) // 判断当前频率所属的颜色区间
+    {
+        min_color_ptr = LOW_MIN_COLOR;
+        max_color_ptr = LOW_MAX_COLOR;
+    }
+    else if(freq <= MID_FREQ_THRESHOLD)
+    {
+        min_color_ptr = MID_MIN_COLOR;
+        max_color_ptr = MID_MAX_COLOR;
+    }
+    else 
+    {
+        min_color_ptr = HIGH_MIN_COLOR;
+        max_color_ptr = HIGH_MAX_COLOR;
+    }
+
+    uint8_t delta_r = max_color_ptr[0] - min_color_ptr[0];   // 计算通道的长度
+    uint8_t delta_g = max_color_ptr[1] - min_color_ptr[1];
+    uint8_t delta_b = max_color_ptr[2] - min_color_ptr[2];
+
+    // 通过当前的亮度来决定RGB最终的value 
+    // note: >>8 = /256 ,位操作，避免浮点数计算，因为FFT比较耗时
+    uint8_t r = min_color_ptr[0] + ((delta_r * rgb.cnt_brightness) >> 8);  
+    uint8_t g = min_color_ptr[1] + ((delta_g * rgb.cnt_brightness) >> 8);
+    uint8_t b = min_color_ptr[2] + ((delta_b * rgb.cnt_brightness) >> 8);
+
+    // 写入LED缓冲区
+    for (uint8_t i = 0; i < RGB_LED_NUM; i++)
+    {
+        rgb.rgb_led_buf[i] = (g << 16) | (r << 8) | b;
+    }
+}
+
+// 音乐模式下仅调用这个函数
+void rgb_RunInMusic(void)
+{
+    uint8_t cnt_bright = 0;
+
+    // 获取当前应该显示的亮度
+    mic_loudness_mapto_brightness(RGB_MAX_BRIGHTNESS_MUSIC,RGB_MIN_BRIGHTNESS,&cnt_bright,RGB_MUSIC_BRIGHT_LOW_AREA);
+    rgb_brightness_filter(&cnt_bright); // 放入滤波
+
+    rgb_MapFreqToRGBValue(); // 按照当前的频率以及亮度写入对应的RGB值
+
+    rgb_Update(); // 刷新显示
+}

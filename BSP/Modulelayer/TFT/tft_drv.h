@@ -73,7 +73,7 @@ extern SPI_HandleTypeDef hspi1;
 void tft_Init(void);
 void tft_DisplayChar(uint8_t x,uint8_t y,char ch,uint16_t fg_color,uint16_t bg_color);
 void tft_DisplayString(uint8_t x,uint8_t y,const char* str,uint16_t fg_color,uint16_t bg_color);
-void tft_DisplayNum(uint16_t x,uint16_t y,int32_t num,uint16_t num_bit,uint16_t fg_color,uint16_t bg_color);
+void tft_DisplayNum(uint16_t x,uint16_t y,int32_t num,uint16_t fg_color,uint16_t bg_color);
 void tft_ClearScreen(uint16_t color);
 void tft_DrawLine(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, uint16_t color);
 void tft_PowerOn(void);
