@@ -118,6 +118,17 @@ void tft_Init(void)
     HAL_GPIO_WritePin(TFT_BL_PORT, TFT_BL_PIN, GPIO_PIN_SET);
 }
 
+void tft_PowerOff(void)
+{
+    HAL_GPIO_WritePin(TFT_BL_PORT, TFT_BL_PIN, GPIO_PIN_RESET);
+}
+
+void tft_PowerOn(void)
+{
+    HAL_GPIO_WritePin(TFT_BL_PORT, TFT_BL_PIN, GPIO_PIN_SET);
+}
+
+
 
 /**
  * @brief 绘制单个像素点

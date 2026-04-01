@@ -8,27 +8,6 @@ virtualFolder:
   name: <virtual_root>
   files: []
   folders:
-    - name: Application
-      files: []
-      folders:
-        - name: MDK-ARM
-          files:
-            - path: startup_stm32f103xb.s
-          folders: []
-        - name: User
-          files: []
-          folders:
-            - name: Core
-              files:
-                - path: ../Core/Src/main.c
-                - path: ../Core/Src/gpio.c
-                - path: ../Core/Src/i2c.c
-                - path: ../Core/Src/spi.c
-                - path: ../Core/Src/tim.c
-                - path: ../Core/Src/usart.c
-                - path: ../Core/Src/stm32f1xx_it.c
-                - path: ../Core/Src/stm32f1xx_hal_msp.c
-              folders: []
     - name: Drivers
       files: []
       folders:
@@ -58,6 +37,16 @@ virtualFolder:
     - name: Applayer
       files:
         - path: ../BSP/Applayer/创新选拔大赛（电赛类）D题 智能桌面氛围灯.pdf
+        - path: ../BSP/Applayer/app_common.h
+        - path: ../BSP/Applayer/app_manager.c
+        - path: ../BSP/Applayer/app_manager.h
+        - path: ../BSP/Applayer/app_modes.c
+        - path: ../BSP/Applayer/app_modes.h
+        - path: ../BSP/Applayer/app_ui.c
+        - path: ../BSP/Applayer/app_ui.h
+        - path: ../BSP/Applayer/app_common.c
+        - path: ../BSP/Applayer/app_algorithm.c
+        - path: ../BSP/Applayer/app_algorithm.h
       folders: []
     - name: Driverlayer
       files:
@@ -113,11 +102,36 @@ virtualFolder:
             - path: ../BSP/Modulelayer/MIC/mic_drv.c
             - path: ../BSP/Modulelayer/MIC/mic_drv.h
           folders: []
-        - name: HC05
+        - name: BlueTooth
           files:
-            - path: ../BSP/Modulelayer/HC05/HC05_drv.c
-            - path: ../BSP/Modulelayer/HC05/HC05_drv.h
+            - path: ../BSP/Modulelayer/BlueTooth/BT_drv.c
+            - path: ../BSP/Modulelayer/BlueTooth/BT_drv.h
           folders: []
+        - name: Module
+          files:
+            - path: ../BSP/Modulelayer/Module/module_layer.c
+            - path: ../BSP/Modulelayer/Module/module_layer.h
+          folders: []
+    - name: Application
+      files: []
+      folders:
+        - name: MDK-ARM
+          files:
+            - path: startup_stm32f103xb.s
+          folders: []
+        - name: User
+          files: []
+          folders:
+            - name: Core
+              files:
+                - path: ../Core/Src/main.c
+                - path: ../Core/Src/gpio.c
+                - path: ../Core/Src/i2c.c
+                - path: ../Core/Src/spi.c
+                - path: ../Core/Src/usart.c
+                - path: ../Core/Src/stm32f1xx_it.c
+                - path: ../Core/Src/stm32f1xx_hal_msp.c
+              folders: []
 dependenceList: []
 outDir: build
 miscInfo:
@@ -137,11 +151,21 @@ targets:
         - ../BSP
         - ../BSP/Driverlayer
         - ../BSP/Modulelayer
+        - ../BSP/Modulelayer/BlueTooth
+        - ../BSP/Modulelayer/RGB
+        - ../BSP/Modulelayer/TFT
+        - ../BSP/Modulelayer/MIC
+        - ../BSP/Modulelayer/Asrpro
+        - ../BSP/Modulelayer/Module
+        - ../BSP/Modulelayer/Light_Sensor
         - ../BSP/Applayer
         - .cmsis/include
         - RTE/_bluetooth_desk_lamp
+        - ../Middlewares/ST/CMSIS/DSP/Include
       libList: []
     excludeList: []
+    settings:
+      debugger: cortex-debug
     toolchain: AC5
     toolchainConfigMap:
       AC5:
@@ -256,4 +280,14 @@ targets:
         otherCmds: ""
         proType: 1
         speed: 8000
-    uploader: JLink
+      STLink:
+        address: "0x8000000"
+        bin: ""
+        elFile: None
+        optionBytes: .eide/bluetooth_desk_lamp.st.option.bytes.ini
+        otherCmds: ""
+        proType: SWD
+        resetMode: default
+        runAfterProgram: true
+        speed: 4000
+    uploader: STLink

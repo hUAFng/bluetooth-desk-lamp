@@ -10,6 +10,8 @@
 #include "key.h"
 #include "spi_drv.h"
 #include "i2c_drv.h"
+#include "adc_drv.h"
+#include "tim.h"
 
 void drv_layer_Init(void);
 

@@ -11,6 +11,7 @@ key_t key;
 */
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 {
+    __disable_irp();
     if (GPIO_Pin == Key1_Pin)
     {
         key.key1_flag = 1;
@@ -23,34 +24,44 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
     {
         key.key3_flag = 1;
     }
+    __enable_irp(); 
 }
 
 
 /*
-*   @brief: 读取按键状态 + 清除标志位
-*   @param: None
-*   @return: 按键状态
+*   @brief: 读取某个按键的状态 + 清除标志位
+*   @param: KEY: 按键枚举值
+*   @return: 按键状态 ： 1 - 按键被按下过，0 - 按键未被按下过
 */
-key_e key_read(void)
+uint8_t key_Read(key_e KEY)
 {
-    if (key.key1_flag == 1)
+    switch(KEY)
     {
-        key.key1_flag = 0;
-        return KEY1_ON;
+        case KEY1:
+            if(key.key1_flag == 1)
+            {
+                key.key1_flag = 0;
+                return 1;
+            }
+            break;
+        case KEY2:
+            if(key.key2_flag == 1)
+            {
+                key.key2_flag = 0;
+                buzzer_work();
+                return 1;
+            }
+            break;
+        case KEY3:
+            if(key.key3_flag == 1)
+            {
+                key.key3_flag = 0;
+                buzzer_work();
+                return 1;
+            }
+            break; 
+        default : break;
     }
-    else if (key.key2_flag == 1)
-    {
-        key.key2_flag = 0;
-        return KEY2_ON;
-    }
-    else if (key.key3_flag == 1)
-    {
-        key.key3_flag = 0;
-        return KEY3_ON;
-    }
-    else
-    {
-        return KEY_NONE_ON;
-    }
-}
 
+    return 0;
+}

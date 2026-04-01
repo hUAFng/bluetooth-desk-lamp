@@ -7,14 +7,12 @@ static asr_rx_t asr_rx = {{0},0,0,0xFFFFFFFF,0};
 
 void asrpro_ClearBuffer(void)
 {
-    __disable_irq();
     memset(asr_rx.asr_rx_buf, 0, ASR_RX_BUF_SIZE);
-    asr_rx.asr_rx_cmd_id = 0;
+    asr_rx.asr_rx_cmd = NoneCmd;
     asr_rx.asr_rx_flag = 0;
     asr_rx.asr_rx_ready_flag = 0;
     asr_rx.prev_cmd_time = 0xFFFFFFFF;
     asr_rx.asr_rx_err_num = 0;
-    __enable_irq();
 }
 
 void asrpro_Reset(void)
@@ -56,6 +54,8 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef* huart)
 {
     if (huart->Instance == ASR_UART_Handle.Instance)
     {
+        __disable_irq();
+
         if (asr_rx.asr_rx_buf[0] == ASR_FRAME_HEAD1 && asr_rx.asr_rx_buf[1] == ASR_FRAME_HEAD2 && asr_rx.asr_rx_buf[4] == ASR_FRAME_TAIL)
         {
             uint8_t check_num = ASR_FRAME_HEAD1 + ASR_FRAME_HEAD2 + asr_rx.asr_rx_buf[2];
@@ -68,7 +68,11 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef* huart)
         }
         else asrpro_ErroeHandler();
 
+        __enable_irq();
+
         HAL_UART_Receive_IT(&ASR_UART_Handle, asr_rx.asr_rx_buf, ASR_FRAME_LEN);
+        
+        
     }
 }
 
@@ -80,63 +84,53 @@ uint8_t asrpro_CheckCmdValid(void)
 {
     uint32_t cnt_time = HAL_GetTick(); //获取当前时刻
 
-    if (asr_rx.prev_cmd_time == 0xFFFFFFFF) //第一次接收命令
+    // 当前命令在2s内重复接收并且不是第一次接收，无效命令
+    if(asr_rx.prev_cmd_time != 0xFFFFFFFF && cnt_time - asr_rx.prev_cmd_time < ASR_RX_CMD_DURATION) 
     {
-        __disable_irp();
-        asr_rx.prev_cmd_time = cnt_time;
         asr_rx.asr_rx_flag = 0;
-        asr_rx.asr_rx_cmd_id = asr_rx.asr_rx_buf[2];
-        asr_rx.asr_rx_ready_flag = 1;
-        __enable_irq();
-        return 1;
-    }
-
-    if(cnt_time - asr_rx.prev_cmd_time < ASR_RX_CMD_DURATION) // 2s内重复接收命令
-    {
-        __disable_irq();
-        asr_rx.asr_rx_flag = 0;
-        __enable_irq();
-
         return 0;
     }
-
-    // 命令有效
-    __disable_irq();
-    asr_rx.prev_cmd_time = cnt_time;
-    asr_rx.asr_rx_flag = 0;
-    asr_rx.asr_rx_cmd_id = asr_rx.asr_rx_buf[2]; 
-    asr_rx.asr_rx_ready_flag = 1;
-    __enable_irq();
-    return 1;
+    else // 命令有效 在2s外接收 或者 是第一次接收
+    {
+        asr_rx.prev_cmd_time = cnt_time;
+        asr_rx.asr_rx_flag = 0;
+        asr_rx.asr_rx_cmd = asr_rx.asr_rx_buf[2]; 
+        asr_rx.asr_rx_ready_flag = 1; 
+        return 1;
+    }
 }
 
 
 /**
- * @brief 读取当前命令ID(自动判别是否有效，含去抖处理)
- * @param cmd_id 命令ID （0：无效命令ID 其他：有效命令ID）
+ * @brief 读取当前命令(自动判别是否有效，含去抖处理)
+ * @param cmd 命令 （0：无效命令 其他：有效命令）
  */
-void asrpro_ReadCmdID(uint8_t* cmd_id)
+void asrpro_GetCmd(Cmd_e* cmd)
 {
-    if (cmd_id == NULL) return;
+    if (cmd == NULL) return;
 
-    __disable_irq();
     uint8_t rx_flag = asr_rx.asr_rx_flag;
-    __enable_irq();
 
     if (rx_flag)
     {
         if(asrpro_CheckCmdValid())
         {
-            __disable_irq();
-            *cmd_id = asr_rx.asr_rx_cmd_id;
-            __enable_irq();
+            buzzer_work();
+            *cmd = asr_rx.asr_rx_cmd;
+            asr_rx.asr_rx_ready_flag = 0; // 读取命令后清除就绪标志，等待下一次接收
         }
         else 
         {
-            *cmd_id = 0; // 无效命令ID
+            *cmd = NoneCmd; // 无效命令
         }
     }
+    else
+    {
+        *cmd = NoneCmd; // 无命令
+    }
 }
+
+
 
 /**
  * @brief 读取当前命令是否准备就绪（自动判别是否有效）
@@ -144,14 +138,7 @@ void asrpro_ReadCmdID(uint8_t* cmd_id)
  */
 uint8_t asrpro_IsReady(void)
 {
-    if (asr_rx.asr_rx_ready_flag)
-    {
-        asr_rx.asr_rx_ready_flag = 0;
-        
-        return 1;
-    }
-
-    return 0;
+    return asr_rx.asr_rx_flag;
 }
 
 
