@@ -41,6 +41,7 @@
 #define MFCC_TRIANGULAR_FILTERS_BANK_SIZE     (128)
 #define MFCC_TRIANGULAR_FILTERS_BANK_FRACTION (0.45)
 
+#define INPUT_BUFFER_SIZE 512
 
 /* Exported Types ------------------------------------------------------------*/
 

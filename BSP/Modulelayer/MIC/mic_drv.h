@@ -3,12 +3,12 @@
 #ifndef __MIC_DRV_H__
 #define __MIC_DRV_H__ 
 
-
+#include "main.h"
 #include "adc_drv.h"
 #include "string.h"
 #include "stdio.h"
 #include "tim.h"
-#include "arm_math.h"
+#include "math.h"
 #include "tft_drv.h"
 
 
@@ -32,14 +32,14 @@ extern TIM_HandleTypeDef htim3;
 #define MID_SPEED_FILTER 0.7f // 中距离升高滤波系数
 #define HIGH_SPEED_FITLER 0.55f // 高距离升高滤波系数
 
-
+#define GOERTZEL_FREQ_NUM 8
 /* -------------------------------------------------valiables-------------------------------------------------*/
 
 typedef struct 
 {
-    uint16_t adc_dma_buf[MIC_ADC_DMA_BUF_LEN]; // dma缓冲区，用于求均值滤波，储存ADC值（0-4095）对应0-3.3V
+    uint32_t adc_dma_buf[MIC_ADC_DMA_BUF_LEN]; // dma缓冲区，用于求均值滤波，储存ADC值（0-4095）对应0-3.3V
     float adc_dma_buf_float[MIC_ADC_DMA_BUF_LEN]; // dma缓冲区float类型，储存ADC值
-    float fft_Output[MIC_ADC_DMA_BUF_LEN * 2]; // FFT 输出，储存FFT结果,每个数是占两个字节-实部和虚部
+    float fft_Output[GOERTZEL_FREQ_NUM]; // FFT 输出
 
     uint8_t mic_work_flag; 
 

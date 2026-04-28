@@ -11,7 +11,7 @@ key_t key;
 */
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 {
-    __disable_irp();
+    __disable_irq();
     if (GPIO_Pin == Key1_Pin)
     {
         key.key1_flag = 1;
@@ -24,7 +24,7 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
     {
         key.key3_flag = 1;
     }
-    __enable_irp(); 
+    __enable_irq(); 
 }
 
 

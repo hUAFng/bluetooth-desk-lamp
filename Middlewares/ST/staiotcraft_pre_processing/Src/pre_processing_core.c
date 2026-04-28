@@ -231,6 +231,7 @@ void fft(float32_t *data_in, uint32_t data_in_size, float32_t * data_out, uint32
 
 	arm_rfft_fast_f32(fft_handler, (float32_t*)  data_in, (float32_t*) fft_out_buf, 0);
 
+	
 	int freqpoint = 0;
 
 	for (int i=0;   i<data_in_size   ; i=i+2) {

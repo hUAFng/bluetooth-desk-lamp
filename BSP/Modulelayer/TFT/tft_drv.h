@@ -4,7 +4,7 @@
 #define __TFT_DRV_H__
 
 #include "main.h"
-#include "Driverlayer/spi_drv.h"
+#include "spi_drv.h"
 #include "spi.h"
 #include "tft_fonts.h"
 

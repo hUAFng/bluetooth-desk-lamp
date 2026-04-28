@@ -6,7 +6,12 @@
 #include "mic_drv.h"
 
 static mic_t mic ;
-static arm_rfft_fast_instance_f32 fft_inst; //FFT 实例
+
+// 枚举频点
+static const float goertzel_freq_list[GOERTZEL_FREQ_NUM] =
+{
+    80,150,300,600,1000,2000,3500,4500
+};
 
 
 void mic_ClearBuf(void)
@@ -25,7 +30,6 @@ void mic_ClearBuf(void)
 void mic_Init(void)
 {
     mic_ClearBuf();
-    arm_rfft_fast_init_f32(&fft_inst, MIC_ADC_DMA_BUF_LEN); // 初始化
     mic_PowerOff();
 }
 
@@ -69,7 +73,7 @@ void mic_PowerOn(void)
 
     HAL_TIM_Base_Start(&htim3); // 开启定时器3，用于触发ADC转换（TRGO）
 
-    HAL_ADC_DMA_Start(&MIC_ADC_CHANNEL);
+    HAL_ADC_Start_DMA(&MIC_ADC_CHANNEL,mic.adc_dma_buf,MIC_ADC_DMA_BUF_LEN);
 
     mic.mic_work_flag = 1;
 
@@ -80,7 +84,7 @@ void mic_PowerOff(void)
 {
     HAL_TIM_Base_Stop(&htim3); // 关闭定时器3
 
-    HAL_ADC_DMA_Stop(&MIC_ADC_CHANNEL);
+    HAL_ADC_Stop_DMA(&MIC_ADC_CHANNEL);
 }
 
 
@@ -102,35 +106,53 @@ void mic_dma_buf_to_float(void)
     }
 }
 
-
-/*
- * @brief 获取FFT结果中的最大频率,返回最大频率
- */
-float mic_fft_GetMaxfreq()
+// 单频检测
+float mic_goertzel(float target_freq)
 {
-    float max_freq = 0;
-    float max_freq_index = 0;
-
-    // 从第五个出发，去低频
-    for (uint16_t i = 5; i < MIC_ADC_DMA_BUF_LEN / 2;i++) // 虚实交替为一个元素
-    {
-        float temp  = mic.fft_Output[i*2] * mic.fft_Output[i*2] + mic.fft_Output[i*2+1] * mic.fft_Output[i*2+1];
-
-        if (temp > max_freq)
-        {
-            max_freq = temp;
-            max_freq_index = i;
+	float coeff;  // 递推系数
+	float q0 = 0,q1 = 0,q2 = 0;  // 滤波器状态变量
+	uint16_t k; // 频点编号
+	
+	k = (uint16_t)(0.5f + ((MIC_ADC_DMA_BUF_LEN * target_freq) / SAMPLE_RATE));
+	coeff = 2.0f * cosf(2.0f * 3.1415926f * k / MIC_ADC_DMA_BUF_LEN);
+	
+	for(uint8_t i = 0;i < MIC_ADC_DMA_BUF_LEN;i++)
+	{
+		q0 = coeff * q1 - q2 + mic.adc_dma_buf_float[i];
+		q2 = q1;
+		q1 = q0;
+	}
+	
+	return q1*q1 + q2*q2 - coeff *q1*q2;
+	
+}
+/*
+ * @brief 获取最大频率,返回最大频率
+ */
+float mic_GetMaxfreq()
+{
+    float max_power = 0;
+	float best_freq = 0;
+	
+	for(uint8_t i = 0;i < GOERTZEL_FREQ_NUM;i++)
+	{
+		float power = mic_goertzel(goertzel_freq_list[i]);
+		mic.fft_Output[i] = power;
+		
+		if (power > max_power)
+		{
+            max_power = power;
+            best_freq = goertzel_freq_list[i];
         }
-        
     }
-    
-    return (float)max_freq_index * SAMPLE_RATE / MIC_ADC_DMA_BUF_LEN;
+
+    return best_freq;
 }
 
 /*
  * @brief 获取FFT结果中的响度
  */
-void mic_fft_Getloudness()
+void mic_Getloudness()
 {
     float energy = 0;
 
@@ -182,20 +204,17 @@ void mic_freq_filter(float* cnt_freq)
     {
         mic.freq = MID_SPEED_FILTER * mic.freq + (1 - MID_SPEED_FILTER) * *cnt_freq;
     }
-    else if (delta_freq > 100.0f) // 快速升
+    else //快速升
     {
         mic.freq = HIGH_SPEED_FITLER * mic.freq + (1 - HIGH_SPEED_FITLER) * *cnt_freq;
     }
-    else return;
+
 }
 
  void mic_Run()
  {
     // 1. 转换为float数据
     mic_dma_buf_to_float();
-
-    // 2. FFT 处理
-    arm_rfft_fast_f32(&fft_inst, mic.adc_dma_buf_float, mic.fft_Output, 0);
 
     if (!mic_isCalibrate()) // 校准环境噪声
     {
@@ -204,32 +223,12 @@ void mic_freq_filter(float* cnt_freq)
     else
     {
         // 3. 获取最大频率
-        float cnt_freq = mic_fft_GetMaxfreq();
+        float cnt_freq = mic_GetMaxfreq();
         mic_freq_filter(&cnt_freq);
 
         // 4. 获取响度
-        mic_fft_Getloudness();
+        mic_Getloudness();
 
         HAL_Delay(5);
     }
-}
-
-
-// 显示在TFT，用于调试
-// note: 1.安静环境下看噪声最大值，2.音乐环境下看最大音量值
-void mic_meature_noise_loudness_max()
-{
-    // 1. 转换为float数据
-    mic_dma_buf_to_float();
-
-    // 2. FFT 处理
-    arm_rfft_fast_f32(&fft_inst, mic.adc_dma_buf_float, mic.fft_Output, 0);
-
-    // 3. 获取响度
-    mic_fft_Getloudness();
-
-    // 4. 显示
-    tft_DisplayNum(0,0,(uint32_t)mic.loudness,COLOR_WHITE,COLOR_BLACK);
-
-    HAL_Delay(1000);
 }

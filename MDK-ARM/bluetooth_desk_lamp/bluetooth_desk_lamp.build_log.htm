@@ -22,35 +22,320 @@ Dialog DLL:      TCM.DLL V1.56.6.0
  
 <h2>Project:</h2>
 E:\CubeMX\coding\bluetooth_desk_lamp\MDK-ARM\bluetooth_desk_lamp.uvprojx
-Project File Date:  03/23/2026
+Project File Date:  04/28/2026
 
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 2 (build 183)', folder: 'D:\keil5\keil_V5.40\ARM\ARMCC\Bin'
 Build target 'bluetooth_desk_lamp'
-compiling led.c...
-..\BSP\Driverlayer\led.c(25): warning:  #1-D: last line of file ends without a newline
-  }
-..\BSP\Driverlayer\led.c: 1 warning, 0 errors
-compiling i2c_drv.c...
-..\BSP\Driverlayer\i2c_drv.h(9): warning:  #1-D: last line of file ends without a newline
+compiling app_algorithm.c...
+../BSP/Driverlayer/uart_drv.h(12): warning:  #1-D: last line of file ends without a newline
+  #endif 
+../BSP/Modulelayer/RGB/dwt.h(13): warning:  #1-D: last line of file ends without a newline
   #endif
-..\BSP\Driverlayer\i2c_drv.c(42): warning:  #940-D: missing return statement at end of non-void function "I2C_ReadByte"
+../BSP/Driverlayer/adc_drv.h(11): warning:  #1-D: last line of file ends without a newline
+  #endif
+../BSP/Driverlayer/spi_drv.h(20): warning:  #1-D: last line of file ends without a newline
+  #endif
+../BSP/Modulelayer/MIC/mic_drv.h(62): warning:  #1295-D: Deprecated declaration mic_Run - give arg types
+  void mic_Run();
+../BSP/Modulelayer/MIC/mic_drv.h(63): warning:  #1295-D: Deprecated declaration mic_meature_noise_loudness_max - give arg types
+  void mic_meature_noise_loudness_max();
+../BSP/Driverlayer/i2c_drv.h(27): warning:  #1-D: last line of file ends without a newline
+  #endif
+../BSP/Modulelayer/Light_Sensor/light_sensor_drv.h(49): warning:  #1-D: last line of file ends without a newline
+  #endif
+../BSP/Driverlayer/buzzer_drv.h(10): warning:  #1295-D: Deprecated declaration buzzer_work - give arg types
+  void buzzer_work();
+../BSP/Driverlayer/buzzer_drv.h(11): warning:  #1295-D: Deprecated declaration buzzer_Init - give arg types
+  void buzzer_Init();
+../BSP/Driverlayer/buzzer_drv.h(13): warning:  #1-D: last line of file ends without a newline
+  #endif
+../BSP/Modulelayer/Module/module_layer.h(18): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\BSP\Applayer\app_common.h(84): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\BSP\Applayer\app_common.h(84): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\BSP\Applayer\app_algorithm.h(15): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\BSP\Applayer\app_algorithm.c(29): warning:  #223-D: function "system_PowerOn" declared implicitly
+          if(cmd == CMD_POWER_ON) system_PowerOn(); // å?æœ?åœ?å…?æœ?æ¨?å¼?ä¸?æ‰?å¤?ç?å¼€æœ?å‘?ä»?
+..\BSP\Applayer\app_algorithm.c(37): warning:  #223-D: function "system_PowerOff" declared implicitly
+                  system_PowerOff(); // å?æœ?åœ?é?å…?æœ?æ¨?å¼?ä¸?æ‰?å¤?ç?å…?æœ?å‘?ä»?
+..\BSP\Applayer\app_algorithm.c(40): warning:  #223-D: function "sys_mode_Manual_Init" declared implicitly
+                  sys_mode_Manual_Init(); //ä»?å…?ä»?å·?ä½?æ¨?å¼?åˆ?æ?åˆ?æ‰?åŠ?æ¨?å¼?ï¼?éœ€è¦?åˆ?å§?åŒ?
+..\BSP\Applayer\app_algorithm.c(44): warning:  #223-D: function "sys_mode_Auto_Init" declared implicitly
+                  sys_mode_Auto_Init();
+..\BSP\Applayer\app_algorithm.c(48): warning:  #223-D: function "sys_mode_Music_Init" declared implicitly
+                  sys_mode_Music_Init();
+..\BSP\Applayer\app_algorithm.c(65): warning:  #1-D: last line of file ends without a newline
   }
-..\BSP\Driverlayer\i2c_drv.c(43): warning:  #1-D: last line of file ends without a newline
-      
-..\BSP\Driverlayer\i2c_drv.c: 3 warnings, 0 errors
+..\BSP\Applayer\app_algorithm.c: 21 warnings, 0 errors
+compiling app_common.c...
+../BSP/Driverlayer/uart_drv.h(12): warning:  #1-D: last line of file ends without a newline
+  #endif 
+../BSP/Modulelayer/RGB/dwt.h(13): warning:  #1-D: last line of file ends without a newline
+  #endif
+../BSP/Driverlayer/adc_drv.h(11): warning:  #1-D: last line of file ends without a newline
+  #endif
+../BSP/Driverlayer/spi_drv.h(20): warning:  #1-D: last line of file ends without a newline
+  #endif
+../BSP/Modulelayer/MIC/mic_drv.h(62): warning:  #1295-D: Deprecated declaration mic_Run - give arg types
+  void mic_Run();
+../BSP/Modulelayer/MIC/mic_drv.h(63): warning:  #1295-D: Deprecated declaration mic_meature_noise_loudness_max - give arg types
+  void mic_meature_noise_loudness_max();
+../BSP/Driverlayer/i2c_drv.h(27): warning:  #1-D: last line of file ends without a newline
+  #endif
+../BSP/Modulelayer/Light_Sensor/light_sensor_drv.h(49): warning:  #1-D: last line of file ends without a newline
+  #endif
+../BSP/Driverlayer/buzzer_drv.h(10): warning:  #1295-D: Deprecated declaration buzzer_work - give arg types
+  void buzzer_work();
+../BSP/Driverlayer/buzzer_drv.h(11): warning:  #1295-D: Deprecated declaration buzzer_Init - give arg types
+  void buzzer_Init();
+../BSP/Driverlayer/buzzer_drv.h(13): warning:  #1-D: last line of file ends without a newline
+  #endif
+../BSP/Modulelayer/Module/module_layer.h(18): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\BSP\Applayer\app_common.h(84): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\BSP\Applayer\app_common.h(84): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\BSP\Applayer\app_common.c(34): warning:  #1-D: last line of file ends without a newline
+  }
+..\BSP\Applayer\app_common.c: 15 warnings, 0 errors
+compiling app_modes.c...
+../BSP/Driverlayer/uart_drv.h(12): warning:  #1-D: last line of file ends without a newline
+  #endif 
+../BSP/Modulelayer/RGB/dwt.h(13): warning:  #1-D: last line of file ends without a newline
+  #endif
+../BSP/Driverlayer/adc_drv.h(11): warning:  #1-D: last line of file ends without a newline
+  #endif
+../BSP/Driverlayer/spi_drv.h(20): warning:  #1-D: last line of file ends without a newline
+  #endif
+../BSP/Modulelayer/MIC/mic_drv.h(62): warning:  #1295-D: Deprecated declaration mic_Run - give arg types
+  void mic_Run();
+../BSP/Modulelayer/MIC/mic_drv.h(63): warning:  #1295-D: Deprecated declaration mic_meature_noise_loudness_max - give arg types
+  void mic_meature_noise_loudness_max();
+../BSP/Driverlayer/i2c_drv.h(27): warning:  #1-D: last line of file ends without a newline
+  #endif
+../BSP/Modulelayer/Light_Sensor/light_sensor_drv.h(49): warning:  #1-D: last line of file ends without a newline
+  #endif
+../BSP/Driverlayer/buzzer_drv.h(10): warning:  #1295-D: Deprecated declaration buzzer_work - give arg types
+  void buzzer_work();
+../BSP/Driverlayer/buzzer_drv.h(11): warning:  #1295-D: Deprecated declaration buzzer_Init - give arg types
+  void buzzer_Init();
+../BSP/Driverlayer/buzzer_drv.h(13): warning:  #1-D: last line of file ends without a newline
+  #endif
+../BSP/Modulelayer/Module/module_layer.h(18): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\BSP\Applayer\app_common.h(84): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\BSP\Applayer\app_common.h(84): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\BSP\Applayer\app_modes.h(15): warning:  #1295-D: Deprecated declaration sys_mode_Manual_Init - give arg types
+  void sys_mode_Manual_Init();
+..\BSP\Applayer\app_modes.h(16): warning:  #1295-D: Deprecated declaration sys_mode_Auto_Init - give arg types
+  void sys_mode_Auto_Init();
+..\BSP\Applayer\app_modes.h(17): warning:  #1295-D: Deprecated declaration sys_mode_Music_Init - give arg types
+  void sys_mode_Music_Init();
+..\BSP\Applayer\app_modes.h(20): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\BSP\Applayer\app_modes.c(68): warning:  #223-D: function "remap_lux_to_brightness" declared implicitly
+          remap_lux_to_brightness();
+..\BSP\Applayer\app_modes.c: 19 warnings, 0 errors
+compiling mic_drv.c...
+../BSP/Driverlayer/adc_drv.h(11): warning:  #1-D: last line of file ends without a newline
+  #endif
+../BSP/Driverlayer/spi_drv.h(20): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\BSP\Modulelayer\MIC\mic_drv.h(62): warning:  #1295-D: Deprecated declaration mic_Run - give arg types
+  void mic_Run();
+..\BSP\Modulelayer\MIC\mic_drv.h(63): warning:  #1295-D: Deprecated declaration mic_meature_noise_loudness_max - give arg types
+  void mic_meature_noise_loudness_max();
+..\BSP\Modulelayer\MIC\mic_drv.c: 4 warnings, 0 errors
+compiling main.c...
+../BSP/Driverlayer/uart_drv.h(12): warning:  #1-D: last line of file ends without a newline
+  #endif 
+../BSP/Modulelayer/RGB/dwt.h(13): warning:  #1-D: last line of file ends without a newline
+  #endif
+../BSP/Driverlayer/adc_drv.h(11): warning:  #1-D: last line of file ends without a newline
+  #endif
+../BSP/Driverlayer/spi_drv.h(20): warning:  #1-D: last line of file ends without a newline
+  #endif
+../BSP/Modulelayer/MIC/mic_drv.h(62): warning:  #1295-D: Deprecated declaration mic_Run - give arg types
+  void mic_Run();
+../BSP/Modulelayer/MIC/mic_drv.h(63): warning:  #1295-D: Deprecated declaration mic_meature_noise_loudness_max - give arg types
+  void mic_meature_noise_loudness_max();
+../BSP/Driverlayer/i2c_drv.h(27): warning:  #1-D: last line of file ends without a newline
+  #endif
+../BSP/Modulelayer/Light_Sensor/light_sensor_drv.h(49): warning:  #1-D: last line of file ends without a newline
+  #endif
+../BSP/Driverlayer/buzzer_drv.h(10): warning:  #1295-D: Deprecated declaration buzzer_work - give arg types
+  void buzzer_work();
+../BSP/Driverlayer/buzzer_drv.h(11): warning:  #1295-D: Deprecated declaration buzzer_Init - give arg types
+  void buzzer_Init();
+../BSP/Driverlayer/buzzer_drv.h(13): warning:  #1-D: last line of file ends without a newline
+  #endif
+../BSP/Modulelayer/Module/module_layer.h(18): warning:  #1-D: last line of file ends without a newline
+  #endif
+../BSP/Applayer/app_common.h(84): warning:  #1-D: last line of file ends without a newline
+  #endif
+../BSP/Applayer/app_common.h(84): warning:  #1-D: last line of file ends without a newline
+  #endif
+../BSP/Applayer/app_modes.h(15): warning:  #1295-D: Deprecated declaration sys_mode_Manual_Init - give arg types
+  void sys_mode_Manual_Init();
+../BSP/Applayer/app_modes.h(16): warning:  #1295-D: Deprecated declaration sys_mode_Auto_Init - give arg types
+  void sys_mode_Auto_Init();
+../BSP/Applayer/app_modes.h(17): warning:  #1295-D: Deprecated declaration sys_mode_Music_Init - give arg types
+  void sys_mode_Music_Init();
+../BSP/Applayer/app_modes.h(20): warning:  #1-D: last line of file ends without a newline
+  #endif
+../BSP/Applayer/app_algorithm.h(15): warning:  #1-D: last line of file ends without a newline
+  #endif
+../BSP/Applayer/app_manager.h(16): warning:  #1-D: last line of file ends without a newline
+  #endif
+../Core/Src/main.c: 20 warnings, 0 errors
+compiling app_ui.c...
+../BSP/Driverlayer/uart_drv.h(12): warning:  #1-D: last line of file ends without a newline
+  #endif 
+../BSP/Modulelayer/RGB/dwt.h(13): warning:  #1-D: last line of file ends without a newline
+  #endif
+../BSP/Driverlayer/adc_drv.h(11): warning:  #1-D: last line of file ends without a newline
+  #endif
+../BSP/Driverlayer/spi_drv.h(20): warning:  #1-D: last line of file ends without a newline
+  #endif
+../BSP/Modulelayer/MIC/mic_drv.h(62): warning:  #1295-D: Deprecated declaration mic_Run - give arg types
+  void mic_Run();
+../BSP/Modulelayer/MIC/mic_drv.h(63): warning:  #1295-D: Deprecated declaration mic_meature_noise_loudness_max - give arg types
+  void mic_meature_noise_loudness_max();
+../BSP/Driverlayer/i2c_drv.h(27): warning:  #1-D: last line of file ends without a newline
+  #endif
+../BSP/Modulelayer/Light_Sensor/light_sensor_drv.h(49): warning:  #1-D: last line of file ends without a newline
+  #endif
+../BSP/Driverlayer/buzzer_drv.h(10): warning:  #1295-D: Deprecated declaration buzzer_work - give arg types
+  void buzzer_work();
+../BSP/Driverlayer/buzzer_drv.h(11): warning:  #1295-D: Deprecated declaration buzzer_Init - give arg types
+  void buzzer_Init();
+../BSP/Driverlayer/buzzer_drv.h(13): warning:  #1-D: last line of file ends without a newline
+  #endif
+../BSP/Modulelayer/Module/module_layer.h(18): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\BSP\Applayer\app_common.h(84): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\BSP\Applayer\app_ui.c(23): warning:  #167-D: argument of type "uint8_t *" is incompatible with parameter of type "char *restrict"
+      sprintf(str1,"Brightness : %d%%",bright);
+..\BSP\Applayer\app_ui.c(24): warning:  #167-D: argument of type "uint8_t *" is incompatible with parameter of type "const char *"
+      tft_DisplayString(2,10,str1,
+OLOR_WHITE,
+OLOR_BLACK);
+..\BSP\Applayer\app_ui.c(27): warning:  #167-D: argument of type "uint8_t *" is incompatible with parameter of type "char *restrict"
+      sprintf(str2,"Color : %s",color_str[system.system_data.rgb_data.color]);
+..\BSP\Applayer\app_ui.c(28): warning:  #167-D: argument of type "uint8_t *" is incompatible with parameter of type "const char *"
+      tft_DisplayString(2,20,str2,
+OLOR_WHITE,
+OLOR_BLACK);
+..\BSP\Applayer\app_ui.c(78): warning:  #1-D: last line of file ends without a newline
+  }
+..\BSP\Applayer\app_ui.c: 18 warnings, 0 errors
+compiling module_layer.c...
+../BSP/Driverlayer/uart_drv.h(12): warning:  #1-D: last line of file ends without a newline
+  #endif 
+../BSP/Modulelayer/RGB/dwt.h(13): warning:  #1-D: last line of file ends without a newline
+  #endif
+../BSP/Driverlayer/adc_drv.h(11): warning:  #1-D: last line of file ends without a newline
+  #endif
+../BSP/Driverlayer/spi_drv.h(20): warning:  #1-D: last line of file ends without a newline
+  #endif
+../BSP/Modulelayer/MIC/mic_drv.h(62): warning:  #1295-D: Deprecated declaration mic_Run - give arg types
+  void mic_Run();
+../BSP/Modulelayer/MIC/mic_drv.h(63): warning:  #1295-D: Deprecated declaration mic_meature_noise_loudness_max - give arg types
+  void mic_meature_noise_loudness_max();
+../BSP/Driverlayer/i2c_drv.h(27): warning:  #1-D: last line of file ends without a newline
+  #endif
+../BSP/Modulelayer/Light_Sensor/light_sensor_drv.h(49): warning:  #1-D: last line of file ends without a newline
+  #endif
+../BSP/Driverlayer/buzzer_drv.h(10): warning:  #1295-D: Deprecated declaration buzzer_work - give arg types
+  void buzzer_work();
+../BSP/Driverlayer/buzzer_drv.h(11): warning:  #1295-D: Deprecated declaration buzzer_Init - give arg types
+  void buzzer_Init();
+../BSP/Driverlayer/buzzer_drv.h(13): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\BSP\Modulelayer\Module\module_layer.h(18): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\BSP\Modulelayer\Module\module_layer.c: 12 warnings, 0 errors
+compiling app_manager.c...
+../BSP/Driverlayer/uart_drv.h(12): warning:  #1-D: last line of file ends without a newline
+  #endif 
+../BSP/Modulelayer/RGB/dwt.h(13): warning:  #1-D: last line of file ends without a newline
+  #endif
+../BSP/Driverlayer/adc_drv.h(11): warning:  #1-D: last line of file ends without a newline
+  #endif
+../BSP/Driverlayer/spi_drv.h(20): warning:  #1-D: last line of file ends without a newline
+  #endif
+../BSP/Modulelayer/MIC/mic_drv.h(62): warning:  #1295-D: Deprecated declaration mic_Run - give arg types
+  void mic_Run();
+../BSP/Modulelayer/MIC/mic_drv.h(63): warning:  #1295-D: Deprecated declaration mic_meature_noise_loudness_max - give arg types
+  void mic_meature_noise_loudness_max();
+../BSP/Driverlayer/i2c_drv.h(27): warning:  #1-D: last line of file ends without a newline
+  #endif
+../BSP/Modulelayer/Light_Sensor/light_sensor_drv.h(49): warning:  #1-D: last line of file ends without a newline
+  #endif
+../BSP/Driverlayer/buzzer_drv.h(10): warning:  #1295-D: Deprecated declaration buzzer_work - give arg types
+  void buzzer_work();
+../BSP/Driverlayer/buzzer_drv.h(11): warning:  #1295-D: Deprecated declaration buzzer_Init - give arg types
+  void buzzer_Init();
+../BSP/Driverlayer/buzzer_drv.h(13): warning:  #1-D: last line of file ends without a newline
+  #endif
+../BSP/Modulelayer/Module/module_layer.h(18): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\BSP\Applayer\app_common.h(84): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\BSP\Applayer\app_common.h(84): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\BSP\Applayer\app_modes.h(15): warning:  #1295-D: Deprecated declaration sys_mode_Manual_Init - give arg types
+  void sys_mode_Manual_Init();
+..\BSP\Applayer\app_modes.h(16): warning:  #1295-D: Deprecated declaration sys_mode_Auto_Init - give arg types
+  void sys_mode_Auto_Init();
+..\BSP\Applayer\app_modes.h(17): warning:  #1295-D: Deprecated declaration sys_mode_Music_Init - give arg types
+  void sys_mode_Music_Init();
+..\BSP\Applayer\app_modes.h(20): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\BSP\Applayer\app_algorithm.h(15): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\BSP\Applayer\app_manager.h(16): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\BSP\Applayer\app_manager.c: 20 warnings, 0 errors
+compiling rgb_drv.c...
+..\BSP\Modulelayer\RGB\dwt.h(13): warning:  #1-D: last line of file ends without a newline
+  #endif
+../BSP/Driverlayer/adc_drv.h(11): warning:  #1-D: last line of file ends without a newline
+  #endif
+../BSP/Driverlayer/spi_drv.h(20): warning:  #1-D: last line of file ends without a newline
+  #endif
+../BSP/Modulelayer/MIC/mic_drv.h(62): warning:  #1295-D: Deprecated declaration mic_Run - give arg types
+  void mic_Run();
+../BSP/Modulelayer/MIC/mic_drv.h(63): warning:  #1295-D: Deprecated declaration mic_meature_noise_loudness_max - give arg types
+  void mic_meature_noise_loudness_max();
+..\BSP\Modulelayer\RGB\rgb_drv.c(22): warning:  #188-D: enumerated type mixed with another type
+  static RGB_TypeDef_t rgb = {{0},0,0};
+..\BSP\Modulelayer\RGB\rgb_drv.c(228): warning:  #188-D: enumerated type mixed with another type
+      if (*color >= 
+GB_COLOR_NUM) *color = 0;
+..\BSP\Modulelayer\RGB\rgb_drv.c(336): warning:  #1-D: last line of file ends without a newline
+  }
+..\BSP\Modulelayer\RGB\rgb_drv.c: 8 warnings, 0 errors
 linking...
-Program Size: Code=7394 RO-data=310 RW-data=20 ZI-data=1412  
+Program Size: Code=21388 RO-data=1492 RW-data=180 ZI-data=3980  
 FromELF: creating hex file...
-"bluetooth_desk_lamp\bluetooth_desk_lamp.axf" - 0 Error(s), 4 Warning(s).
+"bluetooth_desk_lamp\bluetooth_desk_lamp.axf" - 0 Error(s), 137 Warning(s).
 
 <h2>Software Packages used:</h2>
 
 Package Vendor: ARM
-                https://www.keil.com/pack/ARM.CMSIS.6.2.0.pack
-                ARM::CMSIS@6.2.0
+                https://www.keil.com/pack/ARM.CMSIS.6.3.0.pack
+                ARM::CMSIS@6.3.0
                 CMSIS (Common Microcontroller Software Interface Standard)
-   * Component: CORE Version: 6.1.1
+   * Component: CORE Version: 6.2.0
 
 Package Vendor: Keil
                 https://www.keil.com/pack/Keil.STM32F1xx_DFP.2.4.1.pack
@@ -59,14 +344,14 @@ Package Vendor: Keil
 
 <h2>Collection of Component include folders:</h2>
   ./RTE/_bluetooth_desk_lamp
-  D:/keil5/keil_V5.40/package/ARM/CMSIS/6.2.0/CMSIS/Core/Include
+  D:/keil5/keil_V5.40/package/ARM/CMSIS/6.3.0/CMSIS/Core/Include
   D:/keil5/keil_V5.40/package/Keil/STM32F1xx_DFP/2.4.1/Device/Include
 
 <h2>Collection of Component Files used:</h2>
 
-   * Component: ARM::CMSIS:CORE@6.1.1
+   * Component: ARM::CMSIS:CORE@6.2.0
       Include file:  CMSIS/Core/Include/tz_context.h
-Build Time Elapsed:  00:00:01
+Build Time Elapsed:  00:00:02
 </pre>
 </body>
 </html>
