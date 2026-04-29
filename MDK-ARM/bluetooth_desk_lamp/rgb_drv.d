@@ -33,7 +33,6 @@ bluetooth_desk_lamp\rgb_drv.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal
 bluetooth_desk_lamp\rgb_drv.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h
 bluetooth_desk_lamp\rgb_drv.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h
 bluetooth_desk_lamp\rgb_drv.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h
-bluetooth_desk_lamp\rgb_drv.o: ..\BSP\Modulelayer\RGB\dwt.h
 bluetooth_desk_lamp\rgb_drv.o: ../BSP/Modulelayer/MIC/mic_drv.h
 bluetooth_desk_lamp\rgb_drv.o: ../BSP/Driverlayer/adc_drv.h
 bluetooth_desk_lamp\rgb_drv.o: ../Core/Inc/adc.h

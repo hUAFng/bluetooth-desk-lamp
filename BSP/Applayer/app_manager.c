@@ -70,9 +70,10 @@ void system_PowerOn(void)
     system.mode = Sys_Mode_Manual;
 
     rgb_PowerOn(system.system_data.rgb_data.color,system.system_data.rgb_data.brightness); 
-    tft_PowerOn(); 
+	
+    // tft_PowerOn(); 
 
-    system_show_Init();
+    // system_show_Init();
 }
 
 
@@ -125,5 +126,7 @@ void system_Run(void)
     system_Control();
     
     system_show();
+	
+	HAL_Delay(10);
 }
 

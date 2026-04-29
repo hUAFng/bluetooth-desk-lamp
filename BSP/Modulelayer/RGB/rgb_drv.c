@@ -19,7 +19,11 @@ static const RGB_ColorTypeDef_t rgb_color[] =  // GRB顺序
     { 60, 255, 180 }, // PINK   
 };
 
-static RGB_TypeDef_t rgb = {{0},0,0};
+static RGB_TypeDef_t rgb = {{0},0,0,.is_sending = 0};
+
+
+#define BIT_1 60  // ARR=90，这里指的是占空比为60/90才满足时序
+#define BIT_0 30
 /*-------------------------------------function---------------------------------------*/
 
 void rgb_ClearBuffer(void)
@@ -42,48 +46,53 @@ void rgb_Init(void)
     rgb_PowerOff();
 }
 
-void rgb_WriteBit(uint8_t bit) //只看最低位 （灯带的时序逻辑）
+void rgb_SendBit(void)
 {
-
-    if(bit & 0x01) // 1
-    {
-        HAL_GPIO_WritePin(RGB_GPIO_Port,RGB_Pin,GPIO_PIN_SET);
-        delay_us(0.8);
-        HAL_GPIO_WritePin(RGB_GPIO_Port,RGB_Pin,GPIO_PIN_RESET);
-        delay_us(0.45);
-    }
-    else  // 0
-    {
-        HAL_GPIO_WritePin(RGB_GPIO_Port,RGB_Pin,GPIO_PIN_SET);
-        delay_us(0.4);
-        HAL_GPIO_WritePin(RGB_GPIO_Port,RGB_Pin,GPIO_PIN_RESET);
-        delay_us(0.85);
-    }
+	uint16_t index = 0;
+	
+	for (uint8_t i = 0;i < RGB_LED_NUM;i++)
+	{
+		for(int8_t j = 23;j >= 0;j--)   // 高位在先
+		{
+			if(rgb.rgb_led_buf[i] & (1 << j))
+			{
+				rgb.pwm_pulse_dma_buf[index] = BIT_1;
+			}
+			else 
+			{
+				rgb.pwm_pulse_dma_buf[index] = BIT_0;
+			}
+			
+			index++;
+		}
+	}
+	
+	for(int i = 0;i < 50;i++) rgb.pwm_pulse_dma_buf[index++] = 0; // 刷新信号
+	
+	while(rgb.is_sending){}   // 等待发送完成
+	
+	rgb.is_sending = 1;
+    HAL_TIM_PWM_Start_DMA(&htim1,TIM_CHANNEL_1,(uint32_t *)rgb.pwm_pulse_dma_buf,index);  //开始发送CCR值
 }
 
-void rgb_WriteByte(uint8_t byte)
+
+void HAL_TIM_PWM_PulseFinishedCallback(TIM_HandleTypeDef *htim)
 {
-    __disable_irq();
-
-    for (uint8_t i = 0;i < 8;i++) rgb_WriteBit((byte >> (7-i)) & 0x01);
-
-    __enable_irq();
+	if (htim->Instance == htim1.Instance)
+	{
+		rgb.is_sending = 0;
+		HAL_TIM_PWM_Stop_DMA(&htim1,TIM_CHANNEL_1);
+	}
 }
+
 
 /**
 * @brief 关闭灯带
 */
 void rgb_PowerOff(void)
-{
-    __disable_irq(); // 关闭全局中断，保护时序完整
-    
-    for (uint8_t i = 0; i < RGB_LED_NUM; i++)
-    {
-        rgb_WriteByte(0);
-        rgb_WriteByte(0);
-        rgb_WriteByte(0);
-    }
-    __enable_irq(); // 恢复全局中断
+{    
+	memset(rgb.rgb_led_buf,0,sizeof(rgb.rgb_led_buf));
+	rgb_SendBit();
 }
 
 /**
@@ -120,20 +129,6 @@ void rgb_SetAllLed(RGB_Color_e color,uint8_t brightness)
 }
 
 
-/**
- * @brief 刷新显示 - 依赖当前rgb_led_buf中的数据
- */
-void rgb_Update(void)
-{
-    
-    for (uint8_t i = 0; i < RGB_LED_NUM; i++)
-    {
-        rgb_WriteByte((rgb.rgb_led_buf[i] >> 16) & 0xFF);
-        rgb_WriteByte((rgb.rgb_led_buf[i] >> 8) & 0xFF);
-        rgb_WriteByte(rgb.rgb_led_buf[i] & 0xFF);
-    }
-}
-
 /** 
 * @brief 灯带的设置与显示
 */
@@ -142,14 +137,15 @@ void rgb_Display(RGB_Color_e color,uint8_t brightness)
     if (color >= RGB_COLOR_NUM) return;
 
     rgb_SetAllLed(color,brightness);     // 设置参数  
-
-    rgb_Update();                         // 刷新显示
-
-    HAL_GPIO_WritePin(RGB_GPIO_Port,RGB_Pin,GPIO_PIN_RESET); // 低电平复位持续1ms（刷新显示）
-    
-    HAL_Delay(1);
 }
 
+/**
+* @brief 刷新显示
+*/
+void rgb_update(void)
+{
+	rgb_SendBit();
+}
 /**
  * @brief 仅设置所有LED的亮度
  * @param brightness 亮度值（0-255）
@@ -166,11 +162,9 @@ void rgb_SetBrightness_Circle(uint8_t* brightness)
 {
     if (brightness == NULL) return;
     
-    *brightness += RGB_KEY_BRIGHTNESS_STEP;
-
     // 循环调整亮度
-    if (*brightness > RGB_MAX_BRIGHTNESS) *brightness = RGB_MAX_BRIGHTNESS;
-    else if (*brightness == RGB_MAX_BRIGHTNESS) *brightness = RGB_MIN_BRIGHTNESS;
+    if (*brightness >= RGB_MAX_BRIGHTNESS) *brightness = RGB_MIN_BRIGHTNESS;
+    else *brightness += RGB_KEY_BRIGHTNESS_STEP;
 
     rgb.cnt_brightness = *brightness;
 
@@ -179,7 +173,7 @@ void rgb_SetBrightness_Circle(uint8_t* brightness)
 
 
 // 调亮亮度
-void rgb_SetBrightnessOn(uint8_t* brightness)
+void rgb_SetBrightnessUp(uint8_t* brightness)
 {
     if (brightness == NULL) return;
 
@@ -193,7 +187,7 @@ void rgb_SetBrightnessOn(uint8_t* brightness)
 }
 
 // 调暗亮度
-void rgb_SetBrightnessOff(uint8_t* brightness)
+void rgb_SetBrightnessDown(uint8_t* brightness)
 {
     if (brightness == NULL) return;
 
@@ -331,6 +325,4 @@ void rgb_RunInMusic(void)
     rgb_brightness_filter(&cnt_bright); // 放入滤波
 
     rgb_MapFreqToRGBValue(); // 按照当前的频率以及亮度写入对应的RGB值
-
-    rgb_Update(); // 刷新显示
 }

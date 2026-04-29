@@ -314,7 +314,7 @@
           </ArmAdsMisc>
           <Cads>
             <interw>1</interw>
-            <Optim>2</Optim>
+            <Optim>4</Optim>
             <oTime>0</oTime>
             <SplitLS>0</SplitLS>
             <OneElfS>1</OneElfS>
@@ -340,7 +340,7 @@
               <MiscControls></MiscControls>
               <Define>USE_HAL_DRIVER,STM32F103xB</Define>
               <Undefine></Undefine>
-              <IncludePath>../Core/Inc;../BSP;../Drivers/STM32F1xx_HAL_Driver/Inc;../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy;../Drivers/CMSIS/Device/ST/STM32F1xx/Include;../Drivers/CMSIS/Include;../Middlewares/ST/CMSIS/DSP/Include;../Addons/ai_app;../Addons/pre_processing;../Middlewares/ST/staiotcraft_pre_processing/Inc;../BSP/Applayer;../BSP/Driverlayer;../BSP/Modulelayer/Asrpro;../BSP/Modulelayer/BlueTooth;../BSP/Modulelayer/Light_Sensor;../BSP/Modulelayer/MIC;../BSP/Modulelayer/Module;../BSP/Modulelayer/RGB;../BSP/Modulelayer/TFT;..\Middlewares\ST\CMSIS\DSP\Include</IncludePath>
+              <IncludePath>../Core/Inc;../BSP;../Drivers/STM32F1xx_HAL_Driver/Inc;../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy;../Drivers/CMSIS/Device/ST/STM32F1xx/Include;../Drivers/CMSIS/Include;../BSP/Applayer;../BSP/Driverlayer;../BSP/Modulelayer/Asrpro;../BSP/Modulelayer/BlueTooth;../BSP/Modulelayer/Light_Sensor;../BSP/Modulelayer/MIC;../BSP/Modulelayer/Module;../BSP/Modulelayer/RGB;../BSP/Modulelayer/TFT</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>

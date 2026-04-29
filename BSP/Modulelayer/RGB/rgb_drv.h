@@ -4,12 +4,11 @@
 #define __RGB_DRV_H__
 
 #include "main.h"
-#include "dwt.h"
 #include "mic_drv.h"
-
+#include "tim.h"
 
 /* ---------------------------------------define---------------------------------------*/
-#define RGB_LED_NUM 30           // 灯带灯珠数量
+#define RGB_LED_NUM 1            // 灯带灯珠数量
 #define RGB_COLOR_NUM 10         // 灯带颜色数量
 #define RGB_MAX_BRIGHTNESS 180  //定义最大亮度为180 (手动与自动模式)（过大刺眼）
 #define RGB_MIN_BRIGHTNESS 20   //定义最小亮度为20
@@ -46,7 +45,10 @@ typedef enum
 typedef struct 
 {
     uint32_t rgb_led_buf[RGB_LED_NUM] ; // 储存每个LED的RGB通道值（颜色+亮度）
-    RGB_Color_e cnt_color; // 当前显示的颜色
+	uint16_t pwm_pulse_dma_buf[RGB_LED_NUM * 24 + 50];   // 存储将每一位通道值转化成PWM的CCR值，24=G+R+B，50是留下来的复位信号
+    uint8_t is_sending;
+	
+	RGB_Color_e cnt_color; // 当前显示的颜色
     uint8_t cnt_brightness; // 当前显示的亮度
 }RGB_TypeDef_t;
 
@@ -58,11 +60,12 @@ void rgb_PowerOff(void);
 void rgb_PowerOn(RGB_Color_e color,uint8_t brightness);
 void rgb_SetColor(RGB_Color_e color);
 void rgb_SetBrightness(uint8_t brightness);
-void rgb_Update(void);
 void rgb_SetColor_Circle(RGB_Color_e* color);
 void rgb_SetBrightness_Circle(uint8_t* brightness);
-void rgb_SetBrightnessOn(uint8_t* brightness);
-void rgb_SetBrightnessOff(uint8_t* brightness);
+void rgb_SetBrightnessUp(uint8_t* brightness);
+void rgb_SetBrightnessDown(uint8_t* brightness);
+void rgb_update(void);
+
 
 void rgb_RunInMusic(void);
 

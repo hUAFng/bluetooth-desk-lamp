@@ -41,7 +41,6 @@ bluetooth_desk_lamp\app_algorithm.o: D:\keil5\keil_V5.40\ARM\ARMCC\Bin\..\includ
 bluetooth_desk_lamp\app_algorithm.o: D:\keil5\keil_V5.40\ARM\ARMCC\Bin\..\include\string.h
 bluetooth_desk_lamp\app_algorithm.o: ../BSP/Modulelayer/Asrpro/asrpro_drv.h
 bluetooth_desk_lamp\app_algorithm.o: ../BSP/Modulelayer/RGB/rgb_drv.h
-bluetooth_desk_lamp\app_algorithm.o: ../BSP/Modulelayer/RGB/dwt.h
 bluetooth_desk_lamp\app_algorithm.o: ../BSP/Modulelayer/MIC/mic_drv.h
 bluetooth_desk_lamp\app_algorithm.o: ../BSP/Driverlayer/adc_drv.h
 bluetooth_desk_lamp\app_algorithm.o: ../Core/Inc/adc.h
@@ -61,3 +60,4 @@ bluetooth_desk_lamp\app_algorithm.o: ../BSP/Driverlayer/key.h
 bluetooth_desk_lamp\app_algorithm.o: ..\BSP\Applayer\app_common.h
 bluetooth_desk_lamp\app_algorithm.o: ..\BSP\Applayer\app_ui.h
 bluetooth_desk_lamp\app_algorithm.o: ..\BSP\Applayer\app_common.h
+bluetooth_desk_lamp\app_algorithm.o: ..\BSP\Applayer\app_modes.h

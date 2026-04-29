@@ -26,3 +26,9 @@ void delay_us(uint16_t us)
 
     while ((DWT->CYCCNT - start) < cycle);
 }
+
+void delay_cycle(uint32_t n)
+{
+    uint32_t start = DWT->CYCCNT;
+    while(DWT->CYCCNT - start < n);
+}

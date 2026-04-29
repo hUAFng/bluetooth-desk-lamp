@@ -9,5 +9,5 @@
 
 void dwt_Init(void);
 void delay_us(uint16_t us);
-
+void delay_cycle(uint32_t n);
 #endif
