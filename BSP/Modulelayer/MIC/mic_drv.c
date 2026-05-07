@@ -13,7 +13,6 @@ static const float goertzel_freq_list[GOERTZEL_FREQ_NUM] =
     80,150,300,600,1000,2000,3500,4500
 };
 
-
 void mic_ClearBuf(void)
 {
     memset(mic.adc_dma_buf, 0, sizeof(mic.adc_dma_buf));
@@ -126,31 +125,33 @@ float mic_goertzel(float target_freq)
 	return q1*q1 + q2*q2 - coeff *q1*q2;
 	
 }
+
 /*
- * @brief 获取最大频率,返回最大频率
+ * @brief 获取FFT结果中的最大频率,返回最大频率
  */
 float mic_GetMaxfreq()
 {
     float max_power = 0;
 	float best_freq = 0;
-	
-	for(uint8_t i = 0;i < GOERTZEL_FREQ_NUM;i++)
-	{
+
+    for(uint8_t i = 0;i < GOERTZEL_FREQ_NUM;i++)
+    {
 		float power = mic_goertzel(goertzel_freq_list[i]);
 		mic.fft_Output[i] = power;
-		
-		if (power > max_power)
-		{
+
+        if (power > max_power)
+        {
             max_power = power;
             best_freq = goertzel_freq_list[i];
         }
+        
     }
-
+    
     return best_freq;
 }
 
 /*
- * @brief 获取FFT结果中的响度
+ * @brief 获取FFT结果中的响度,返回响度
  */
 void mic_Getloudness()
 {
@@ -175,7 +176,7 @@ void mic_loudness_mapto_brightness(uint8_t brightness_max,uint8_t brightness_min
 {
     if(brightness == NULL) return;
 
-    *brightness = (uint8_t)((uint32_t)mic.loudness * brightness_max / MIC_LOUDNESS_MAX);
+    *brightness = mic.loudness * brightness_max / MIC_LOUDNESS_MAX ;
 
     if (*brightness > brightness_max) *brightness = brightness_max;
     else if (*brightness < brightness_min) *brightness = brightness_min;
@@ -204,16 +205,15 @@ void mic_freq_filter(float* cnt_freq)
     {
         mic.freq = MID_SPEED_FILTER * mic.freq + (1 - MID_SPEED_FILTER) * *cnt_freq;
     }
-    else //快速升
+    else// 快速升
     {
         mic.freq = HIGH_SPEED_FITLER * mic.freq + (1 - HIGH_SPEED_FITLER) * *cnt_freq;
     }
-
 }
 
  void mic_Run()
  {
-    // 1. 转换为float数据
+    // 转换为float数据
     mic_dma_buf_to_float();
 
     if (!mic_isCalibrate()) // 校准环境噪声
@@ -222,13 +222,13 @@ void mic_freq_filter(float* cnt_freq)
     }
     else
     {
-        // 3. 获取最大频率
+        // 获取最大频率
         float cnt_freq = mic_GetMaxfreq();
         mic_freq_filter(&cnt_freq);
 
-        // 4. 获取响度
+        // 获取响度
         mic_Getloudness();
 
-        HAL_Delay(5);
+        HAL_Delay(10);
     }
 }

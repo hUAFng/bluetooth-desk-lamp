@@ -14,7 +14,6 @@ HAL_StatusTypeDef ls_WriteByte(uint8_t byte)
 HAL_StatusTypeDef ls_Readdata(uint8_t* buf , uint8_t len)
 {
     return I2C_ReadRaw(&LS_I2C_Handle,LS_I2C_ADDR,buf,len);
-
 }
 void ls_Init(void)
 {
@@ -27,17 +26,7 @@ void ls_Init(void)
     ls_PowerOff(); // 默认不进入工作模式，保持功耗最低
 }
 
-void ls_PowerOn(void)
-{
-    ls_WriteByte(LS_POWON);      //上电
-    HAL_Delay(10); 
 
-    ls_WriteByte(LS_RESET);      //重置
-    HAL_Delay(10);
-
-    ls_WriteByte(LS_HRES_MODE1); //连续高分辨率模式 - 1lx分辨率
-    HAL_Delay(120);              //等待测量完成
-}
 /**
  * @brief 切换测量模式
  * @param mode : 使用LS_MODE枚举
@@ -76,9 +65,7 @@ HAL_StatusTypeDef ls_MeasureLight(LS_MODE* mode,float* lux)
     if (*mode == LS_MODE_HRES2) *lux = lux_raw / 1.2f / 2.0f; // 0.5lx分辨率 
     else *lux = lux_raw / 1.2f; // 其他模式分辨率
 
-    ls_ChangeModeByLus(lux,mode);
-
-    HAL_Delay(130); // 测量间隔（周期）低精度可小点，这里统一处理
+    ls_ChangeModeByLux(lux,mode);
 
     return HAL_OK;
 }
@@ -88,7 +75,7 @@ HAL_StatusTypeDef ls_MeasureLight(LS_MODE* mode,float* lux)
  * @param lux : 光照强度指针
  * @param cnt_mode : 当前模式指针
  */
-HAL_StatusTypeDef ls_ChangeModeByLus(float* lux,LS_MODE* cnt_mode)
+HAL_StatusTypeDef ls_ChangeModeByLux(float* lux,LS_MODE* cnt_mode)
 {
     if (lux == NULL || cnt_mode == NULL) return HAL_ERROR;
 
@@ -112,6 +99,19 @@ HAL_StatusTypeDef ls_ChangeModeByLus(float* lux,LS_MODE* cnt_mode)
 
     return HAL_OK;
 }
+
+void ls_PowerOn(void)
+{
+    ls_WriteByte(LS_POWON);      //上电
+    HAL_Delay(10); 
+
+    ls_WriteByte(LS_RESET);      //重置
+    HAL_Delay(10);
+
+    ls_WriteByte(LS_HRES_MODE1); //连续高分辨率模式 - 1lx分辨率
+    HAL_Delay(120);              //等待测量完成
+}
+
 
 void ls_PowerOff(void)
 {

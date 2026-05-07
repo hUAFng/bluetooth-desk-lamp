@@ -7,7 +7,7 @@
 #include "main.h"
 #include "uart_drv.h"
 #include "string.h"
-
+#include "buzzer_drv.h"
 /*--------------------------------------------define--------------------------------------------*/
 #define ASR_UART_Handle huart1
 #define ASR_RX_BUF_SIZE 10

@@ -33,3 +33,4 @@ bluetooth_desk_lamp\key.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_spi
 bluetooth_desk_lamp\key.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h
 bluetooth_desk_lamp\key.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h
 bluetooth_desk_lamp\key.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h
+bluetooth_desk_lamp\key.o: ..\BSP\Driverlayer\buzzer_drv.h

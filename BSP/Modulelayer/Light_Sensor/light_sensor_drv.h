@@ -7,8 +7,6 @@
 #include "i2c.h"
 #include "i2c_drv.h"
 
-extern I2C_HandleTypeDef hi2c1;
-
 /* -------------------------------------define ------------------------------------- */
 
 #define LS_I2C_ADDR (0x23 << 1)   //光传感器I2C地址
@@ -39,7 +37,7 @@ typedef enum
 void ls_Init(void);
 HAL_StatusTypeDef ls_SetMode(LS_MODE mode);
 HAL_StatusTypeDef ls_MeasureLight(LS_MODE* mode,float* lux);
-HAL_StatusTypeDef ls_ChangeModeByLus(float* lux,LS_MODE* cnt_mode);
+HAL_StatusTypeDef ls_ChangeModeByLux(float* lux,LS_MODE* cnt_mode);
 void ls_Reset(void);
 void ls_PowerOff(void);
 void ls_PowerOn(void);

@@ -4,6 +4,7 @@
 #define __KEY_H__
 
 #include "main.h"
+#include "buzzer_drv.h"
 
 /* 按键按下标志位 - 0: 未按下, 1: 已按下 */
 typedef struct 

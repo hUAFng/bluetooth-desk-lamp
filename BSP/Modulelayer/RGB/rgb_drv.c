@@ -19,8 +19,7 @@ static const RGB_ColorTypeDef_t rgb_color[] =  // GRB顺序
     { 60, 255, 180 }, // PINK   
 };
 
-static RGB_TypeDef_t rgb = {{0},0,0,.is_sending = 0};
-
+static RGB_TypeDef_t rgb = {.is_sending = 0};
 
 #define BIT_1 60  // ARR=90，这里指的是占空比为60/90才满足时序
 #define BIT_0 30
@@ -32,6 +31,8 @@ void rgb_ClearBuffer(void)
     {
         rgb.rgb_led_buf[i] = 0;
     }
+	
+	rgb.is_sending = 0;
 }
 
 
@@ -85,12 +86,11 @@ void HAL_TIM_PWM_PulseFinishedCallback(TIM_HandleTypeDef *htim)
 	}
 }
 
-
 /**
 * @brief 关闭灯带
 */
 void rgb_PowerOff(void)
-{    
+{
 	memset(rgb.rgb_led_buf,0,sizeof(rgb.rgb_led_buf));
 	rgb_SendBit();
 }
@@ -129,23 +129,23 @@ void rgb_SetAllLed(RGB_Color_e color,uint8_t brightness)
 }
 
 
+/**
+ * @brief 刷新显示 - 依赖当前rgb_led_buf中的数据
+ */
+void rgb_update(void)
+{
+	rgb_SendBit();
+}
+
 /** 
 * @brief 灯带的设置与显示
 */
 void rgb_Display(RGB_Color_e color,uint8_t brightness)
 {
     if (color >= RGB_COLOR_NUM) return;
-
     rgb_SetAllLed(color,brightness);     // 设置参数  
 }
 
-/**
-* @brief 刷新显示
-*/
-void rgb_update(void)
-{
-	rgb_SendBit();
-}
 /**
  * @brief 仅设置所有LED的亮度
  * @param brightness 亮度值（0-255）
@@ -161,8 +161,7 @@ void rgb_SetBrightness(uint8_t brightness)
 void rgb_SetBrightness_Circle(uint8_t* brightness)
 {
     if (brightness == NULL) return;
-    
-    // 循环调整亮度
+
     if (*brightness >= RGB_MAX_BRIGHTNESS) *brightness = RGB_MIN_BRIGHTNESS;
     else *brightness += RGB_KEY_BRIGHTNESS_STEP;
 
@@ -229,6 +228,8 @@ void rgb_PowerOn(RGB_Color_e color,uint8_t brightness)
 {
     rgb_ClearBuffer();
     rgb_Display(color,brightness);
+	
+	rgb_update();
 }
 
 
@@ -256,18 +257,18 @@ void rgb_brightness_filter(uint8_t *brightness)
 {
     if (brightness == NULL) return;
 
-    int16_t delta_bright = *brightness - rgb.cnt_brightness;
+    uint8_t delta_bright = *brightness - rgb.cnt_brightness;
 
     float Up_filter = 0.6f;
     float Down_filter = 0.85f;
 
     if (delta_bright > 0)
     {
-        rgb.cnt_brightness = (uint8_t)(Up_filter * rgb.cnt_brightness + (1 - Up_filter) * *brightness);
+        rgb.cnt_brightness = Up_filter * rgb.cnt_brightness + (1 - Up_filter) * *brightness;
     }
     else 
     {
-        rgb.cnt_brightness = (uint8_t)(Down_filter * rgb.cnt_brightness + (1 - Down_filter) * *brightness);
+        rgb.cnt_brightness = Down_filter * rgb.cnt_brightness + (1 - Down_filter) * *brightness;
     }
 
 

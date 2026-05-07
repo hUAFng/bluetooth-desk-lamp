@@ -97,6 +97,8 @@ void system_PowerOff(void)
 void system_Run(void)
 {
     system_Control(); // 首先处理蓝牙、语音、按键1命令，控制系统整体模式和状态
+	
+	buzzer_monitor();
 
     switch(system.mode)
     {

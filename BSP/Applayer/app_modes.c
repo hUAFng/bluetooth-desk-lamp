@@ -5,7 +5,6 @@
 #include "app_modes.h"
 
 
-
 void sys_mode_Manual_Init() 
 {
     system_valiable_Init(); // 系统模式已经在app_algorithm.c中赋值为手动模式
@@ -44,12 +43,13 @@ void sys_mode_Manual(void)
     if (key_Read(KEY2)) // 按键2 调节亮度，循环调节
     {
         rgb_SetBrightness_Circle(&system.system_data.rgb_data.brightness);
-		rgb_update();
+
+         rgb_update();
     }
     else if (key_Read(KEY3)) // 按键3 调节颜色，循环调节
     {
         rgb_SetColor_Circle(&system.system_data.rgb_data.color);
-		rgb_update();
+        rgb_update();
     }
 }
 
@@ -87,8 +87,8 @@ void sys_mode_Music(void)
     mic_Run();
 
     rgb_RunInMusic();
-	
-	rgb_update();
+
+     rgb_update();
 }
 
 
