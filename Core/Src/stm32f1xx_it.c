@@ -193,21 +193,8 @@ void SysTick_Handler(void)
   /* USER CODE END SysTick_IRQn 0 */
   HAL_IncTick();
   /* USER CODE BEGIN SysTick_IRQn 1 */
-	
-	static uint16_t buzzer_count = 0;
-	
-	if (buzzer_isworking())
-	{
-		buzzer_count++;
-		
-		if (buzzer_count >= BUZZER_WORK_DURATION)
-		{
-			buzzer_count = 0;
-			
-			buzzer_stop_work();
-		}
-	}
 
+	buzzer_tick_handler();
   /* USER CODE END SysTick_IRQn 1 */
 }
 

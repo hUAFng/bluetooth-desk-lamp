@@ -64,6 +64,7 @@ void system_Init()
 void system_PowerOn(void)
 {
     led_work(LED_G_ON); // 绿灯表示正常工作
+	led_work(LED_B_OFF);   //蓝灯只在语音模块聆听时闪烁
 
     system_valiable_Init();
 
@@ -98,7 +99,7 @@ void system_Run(void)
 {
     system_Control(); // 首先处理蓝牙、语音、按键1命令，控制系统整体模式和状态
 	
-	buzzer_monitor();
+	
 
     switch(system.mode)
     {
@@ -124,7 +125,9 @@ void system_Run(void)
         default:
             break;
     }
-
+	
+	buzzer_monitor();
+	
     system_Control();
     
     system_show();
