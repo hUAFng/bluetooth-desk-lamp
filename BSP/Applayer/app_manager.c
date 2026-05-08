@@ -68,7 +68,17 @@ void system_PowerOn(void)
 
     system_valiable_Init();
 
-    system.mode = Sys_Mode_Manual;
+    // system.mode = Sys_Mode_Manual;
+	
+	
+	
+	//--调试自动模式----------------
+	system.mode = Sys_Mode_Auto;
+	sys_mode_Auto_Init();
+	//---------------------
+	
+	
+	
 
     rgb_PowerOn(system.system_data.rgb_data.color,system.system_data.rgb_data.brightness); 
 	
@@ -99,8 +109,6 @@ void system_Run(void)
 {
     system_Control(); // 首先处理蓝牙、语音、按键1命令，控制系统整体模式和状态
 	
-	
-
     switch(system.mode)
     {
         case Sys_Mode_Manual:// 手动模式处理

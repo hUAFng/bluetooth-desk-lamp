@@ -12,13 +12,13 @@ void sys_mode_Manual_Init()
     rgb_PowerOn(system.system_data.rgb_data.color,system.system_data.rgb_data.brightness); 
     ls_PowerOff(); // 手动模式不使用光线传感器
     mic_PowerOff(); // 手动模式不使用麦克风
-
 }
 
 void sys_mode_Auto_Init()
 {
-    system_valiable_Init(); // 系统模式已经在app_algorithm.c中赋值为自动模式
-
+	system.system_data.ls_data.mode = LS_MODE_HRES1;
+    system.system_data.ls_data.lux = 50.0f;
+	
     rgb_PowerOn(system.system_data.rgb_data.color,system.system_data.rgb_data.brightness); 
     ls_PowerOn();  // 自动模式使用光线传感器
     mic_PowerOff(); // 自动模式不使用麦克风
@@ -60,25 +60,43 @@ void sys_mode_Manual(void)
 void sys_mode_Auto(void)
 {
     static uint8_t ls_error_count = 0;
+	static uint8_t ls_sample_tick = 0;
 
-    if (key_Read(KEY3)) rgb_SetColor_Circle(&system.system_data.rgb_data.color); // 按键3 调节颜色，循环调节
+    if (key_Read(KEY3)) 
+	{
+		rgb_SetColor_Circle(&system.system_data.rgb_data.color); // 按键3 调节颜色，循环调节
+		
+		rgb_update(); // 更新RGB显示
+	}
+	
+	ls_sample_tick++;
 
-    if(ls_MeasureLight(&system.system_data.ls_data.mode,&system.system_data.ls_data.lux) == HAL_OK) // 测量光照强度 根据环境光强自动转换模式
-    {
-        remap_lux_to_brightness();
+	if (ls_sample_tick >= 20)  //自动模式10ms调用一次，这里调整采样时间为200ms
+	{
+		ls_sample_tick = 0;
+		
+		if(ls_MeasureLight(&system.system_data.ls_data.mode,&system.system_data.ls_data.lux) == HAL_OK) // 测量光照强度 根据环境光强自动转换模式
+		{
+			remap_lux_to_brightness();
 
-        rgb_Display(system.system_data.rgb_data.color,system.system_data.rgb_data.brightness);
-    }
-    else 
-    {
-        ls_error_count++;
+			rgb_Display(system.system_data.rgb_data.color,system.system_data.rgb_data.brightness);
+			
+			rgb_update();
+			
+			ls_error_count = 0;
+		}
+		else 
+		{
+			ls_error_count++;
 
-        if (ls_error_count >= 5)
-        {
-            ls_Reset();
-            ls_error_count = 0;
-        }
-    }
+			if (ls_error_count >= 5)
+			{
+				ls_Reset();
+				ls_error_count = 0;
+			}
+		}
+	}
+    
 }
 
 

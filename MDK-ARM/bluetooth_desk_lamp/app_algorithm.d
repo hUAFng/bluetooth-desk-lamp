@@ -61,3 +61,4 @@ bluetooth_desk_lamp\app_algorithm.o: ..\BSP\Applayer\app_common.h
 bluetooth_desk_lamp\app_algorithm.o: ..\BSP\Applayer\app_ui.h
 bluetooth_desk_lamp\app_algorithm.o: ..\BSP\Applayer\app_common.h
 bluetooth_desk_lamp\app_algorithm.o: ..\BSP\Applayer\app_modes.h
+bluetooth_desk_lamp\app_algorithm.o: ..\BSP\Applayer\app_manager.h

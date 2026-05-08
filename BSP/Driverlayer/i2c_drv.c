@@ -3,7 +3,21 @@
 #include "i2c_drv.h"
 #include <string.h>
 
-#define I2C_TIMEOUT 100 // I2C超时时间 100ms
+/**
+ * @brief STM32F1 I2C BUSY标志卡死恢复
+ * @note STM32F103 I2C 勘误表：异常时 BUSY 位可能卡死，需复位外设
+ */
+static void I2C_BusyRecovery(I2C_HandleTypeDef* hi2c)
+{
+    if (__HAL_I2C_GET_FLAG(hi2c, I2C_FLAG_BUSY))
+    {
+        __HAL_I2C_DISABLE(hi2c);
+        hi2c->State = HAL_I2C_STATE_READY;
+        hi2c->PreviousState = HAL_I2C_STATE_RESET;
+        hi2c->XferCount = 0;
+        __HAL_I2C_ENABLE(hi2c);
+    }
+}
 
 /**
  * @brief 写入I2C寄存器字节
@@ -95,6 +109,8 @@ HAL_StatusTypeDef I2C_WriteRaw(I2C_HandleTypeDef* hi2c, uint8_t devAddr, uint8_t
 {
     if (hi2c == NULL || data == NULL || len == 0) return HAL_ERROR;
 
+    I2C_BusyRecovery(hi2c); // 恢复BUSY卡死
+
     if (HAL_I2C_Master_Transmit(hi2c, devAddr, data, len, I2C_TIMEOUT) != HAL_OK) return HAL_ERROR;
 
     return HAL_OK;
@@ -108,7 +124,13 @@ HAL_StatusTypeDef I2C_ReadRaw(I2C_HandleTypeDef* hi2c, uint8_t devAddr, uint8_t*
 {
     if (hi2c == NULL || data == NULL || len == 0) return HAL_ERROR;
 
-    if (HAL_I2C_Master_Receive(hi2c, devAddr, data, len, I2C_TIMEOUT) != HAL_OK) return HAL_ERROR;
+    I2C_BusyRecovery(hi2c); // 恢复BUSY卡死
+
+    if (HAL_I2C_Master_Receive(hi2c, devAddr, data, len, I2C_TIMEOUT) != HAL_OK)
+    {
+        I2C_BusyRecovery(hi2c); // 失败后再次恢复，防止BUSY持续卡死
+        return HAL_ERROR;
+    }
 
     return HAL_OK;
 }

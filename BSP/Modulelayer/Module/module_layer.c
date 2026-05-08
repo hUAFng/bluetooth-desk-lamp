@@ -10,7 +10,7 @@ void module_Init(void)
 
     // BT_Init();   (有问题)
 
-    // ls_Init();
+    ls_Init();
 
     // mic_Init();
     
