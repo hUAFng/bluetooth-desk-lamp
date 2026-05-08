@@ -6,10 +6,10 @@
 #include "main.h"
 #include "i2c.h"
 #include "i2c_drv.h"
-
+#include "led.h"
 /* -------------------------------------define ------------------------------------- */
 
-#define LS_I2C_ADDR (0x23 << 1)   //光传感器I2C地址
+#define LS_I2C_ADDR (0x23<<1)       //光传感器I2C地址
 #define LS_I2C_Handle hi2c1
 
 #define LS_POWON 0x01   //上电
@@ -39,9 +39,10 @@ HAL_StatusTypeDef ls_SetMode(LS_MODE mode);
 HAL_StatusTypeDef ls_MeasureLight(LS_MODE* mode,float* lux);
 HAL_StatusTypeDef ls_ChangeModeByLux(float* lux,LS_MODE* cnt_mode);
 HAL_StatusTypeDef ls_IsDeviceReady(void);
+HAL_StatusTypeDef ls_DetectAddress(void);
 void ls_Reset(void);
 void ls_PowerOff(void);
-void ls_PowerOn(void);
+HAL_StatusTypeDef ls_PowerOn(void);
 
 
 

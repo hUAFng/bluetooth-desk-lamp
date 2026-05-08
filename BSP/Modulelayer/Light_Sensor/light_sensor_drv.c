@@ -2,7 +2,6 @@
 
 #include "light_sensor_drv.h"
 
-
 /* 使用不同的阈值 防止模式跳变*/
 #define LOW_LUS_THRESHOLD 10.0f    // 低光照阈值,切换到0.5lx分辨率
 #define HIGH_LUS_THRESHOLD 15.0f   // 高光照阈值,切换到1lx分辨率
@@ -13,7 +12,7 @@ HAL_StatusTypeDef ls_WriteByte(uint8_t byte)
 }
 HAL_StatusTypeDef ls_Readdata(uint8_t* buf , uint8_t len)
 {
-    return I2C_ReadRaw(&LS_I2C_Handle, LS_I2C_ADDR, buf, len);
+	return I2C_ReadRaw(&LS_I2C_Handle, LS_I2C_ADDR, buf, len);
 }
 
 /**
@@ -111,21 +110,18 @@ HAL_StatusTypeDef ls_ChangeModeByLux(float* lux,LS_MODE* cnt_mode)
     return HAL_OK;
 }
 
-void ls_PowerOn(void)
+HAL_StatusTypeDef ls_PowerOn(void)
 {
-    if (ls_IsDeviceReady() != HAL_OK)
-    {
-        return;
-    }
-
-    ls_WriteByte(LS_POWON);      //上电
+    ls_WriteByte(LS_POWON);
     HAL_Delay(10); 
 
-    ls_WriteByte(LS_RESET);      //重置
+    ls_WriteByte(LS_RESET);
     HAL_Delay(10);
 
-    ls_WriteByte(LS_HRES_MODE1); //连续高分辨率模式 - 1lx分辨率
-    HAL_Delay(120);              //等待首次测量完成
+    ls_WriteByte(LS_HRES_MODE1);
+    HAL_Delay(120);
+    
+    return HAL_OK;
 }
 
 

@@ -36,3 +36,4 @@ bluetooth_desk_lamp\light_sensor_drv.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm3
 bluetooth_desk_lamp\light_sensor_drv.o: ../Core/Inc/i2c.h
 bluetooth_desk_lamp\light_sensor_drv.o: ../BSP/Driverlayer/i2c_drv.h
 bluetooth_desk_lamp\light_sensor_drv.o: D:\keil5\keil_V5.40\ARM\ARMCC\Bin\..\include\string.h
+bluetooth_desk_lamp\light_sensor_drv.o: ../BSP/Driverlayer/led.h

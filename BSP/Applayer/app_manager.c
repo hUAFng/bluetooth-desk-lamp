@@ -68,23 +68,13 @@ void system_PowerOn(void)
 
     system_valiable_Init();
 
-    // system.mode = Sys_Mode_Manual;
+    system.mode = Sys_Mode_Manual;
 	
-	
-	
-	//--调试自动模式----------------
-	system.mode = Sys_Mode_Auto;
-	sys_mode_Auto_Init();
-	//---------------------
-	
-	
-	
-
     rgb_PowerOn(system.system_data.rgb_data.color,system.system_data.rgb_data.brightness); 
 	
-    // tft_PowerOn(); 
+    tft_PowerOn(); 
 
-    // system_show_Init();
+    system_show_Init();
 }
 
 

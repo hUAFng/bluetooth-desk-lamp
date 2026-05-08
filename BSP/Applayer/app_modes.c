@@ -75,8 +75,11 @@ void sys_mode_Auto(void)
 	{
 		ls_sample_tick = 0;
 		
-		if(ls_MeasureLight(&system.system_data.ls_data.mode,&system.system_data.ls_data.lux) == HAL_OK) // 测量光照强度 根据环境光强自动转换模式
-		{
+		 HAL_StatusTypeDef ret = ls_MeasureLight(&system.system_data.ls_data.mode,&system.system_data.ls_data.lux);  // 测量光照强度 根据环境光强自动转换模式
+		
+		
+		if (ret == HAL_OK)
+		{	
 			remap_lux_to_brightness();
 
 			rgb_Display(system.system_data.rgb_data.color,system.system_data.rgb_data.brightness);
@@ -86,7 +89,7 @@ void sys_mode_Auto(void)
 			ls_error_count = 0;
 		}
 		else 
-		{
+		{	
 			ls_error_count++;
 
 			if (ls_error_count >= 5)

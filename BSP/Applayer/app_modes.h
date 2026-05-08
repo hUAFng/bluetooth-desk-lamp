@@ -4,6 +4,8 @@
 #define __APP_MODES_H__
 
 #include "app_common.h"
+#include "app_algorithm.h"
+#include "led.h"
 
 // 系统模式工作
 void sys_mode_Manual(void);

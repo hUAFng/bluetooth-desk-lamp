@@ -8,16 +8,16 @@
  */
 void remap_lux_to_brightness(void)
 {
-    float brightness = (float)system.system_data.rgb_data.brightness;
+    static float filtered_brightness = 60.0f;
     float lux = system.system_data.ls_data.lux;
     float brightness_filter = system.system_data.rgb_data.filter_lux;
 
-    float target_brightness = RGB_MAX_BRIGHTNESS * sqrt(lux / LS_LUX_MAX); // 非线性映射，亮度变化更明显
+    float target_brightness = RGB_MAX_BRIGHTNESS * sqrtf(lux / LS_LUX_MAX);
 
-    brightness = brightness_filter * brightness + \
-    (1.0f - brightness_filter)*target_brightness;
+    filtered_brightness = brightness_filter * filtered_brightness + 
+                          (1.0f - brightness_filter) * target_brightness;
 
-    system.system_data.rgb_data.brightness = (uint8_t)brightness;
+    system.system_data.rgb_data.brightness = (uint8_t)filtered_brightness;
 }
 
 

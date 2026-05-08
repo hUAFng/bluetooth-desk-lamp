@@ -58,10 +58,10 @@ extern SPI_HandleTypeDef hspi1;
 
 /* 功能定义 */
 #define TFT_SPI_HANDLE &hspi1
-#define SPI_CMD_ON HAL_GPIO_WritePin(TFT_DC_GPIO_Port, TFT_DC_Pin, GPIO_PIN_RESET) // DC = 0, 命令模式
-#define SPI_DATA_ON HAL_GPIO_WritePin(TFT_DC_GPIO_Port, TFT_DC_Pin, GPIO_PIN_SET)  // DC = 1, 数据模式
-#define SPI_ENABLE HAL_GPIO_WritePin(TFT_CS_GPIO_Port, TFT_CS_Pin, GPIO_PIN_RESET) // CS=0, 使能SPI
-#define SPI_DISABLE HAL_GPIO_WritePin(TFT_CS_GPIO_Port, TFT_CS_Pin, GPIO_PIN_SET)  // CS=1, 禁用SPI
+#define SPI_CMD_ON do{HAL_GPIO_WritePin(TFT_DC_GPIO_Port, TFT_DC_Pin, GPIO_PIN_RESET);}while(0) // DC = 0, 命令模式
+#define SPI_DATA_ON do{HAL_GPIO_WritePin(TFT_DC_GPIO_Port, TFT_DC_Pin, GPIO_PIN_SET);}while(0)  // DC = 1, 数据模式
+#define SPI_ENABLE do{HAL_GPIO_WritePin(TFT_CS_GPIO_Port, TFT_CS_Pin, GPIO_PIN_RESET);}while(0) // CS=0, 使能SPI
+#define SPI_DISABLE do{HAL_GPIO_WritePin(TFT_CS_GPIO_Port, TFT_CS_Pin, GPIO_PIN_SET);}while(0)  // CS=1, 禁用SPI
 
 /* 定义字体大小(像素)*/
 #define FONT_8X16_WIDTH  8
@@ -78,6 +78,6 @@ void tft_ClearScreen(uint16_t color);
 void tft_DrawLine(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, uint16_t color);
 void tft_PowerOn(void);
 void tft_PowerOff(void);
-
+void tft_FillRect(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t color);
 #endif
 

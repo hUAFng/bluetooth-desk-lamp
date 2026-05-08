@@ -56,11 +56,12 @@ bluetooth_desk_lamp\main.o: ../BSP/Driverlayer/spi_drv.h
 bluetooth_desk_lamp\main.o: ../BSP/Modulelayer/TFT/tft_fonts.h
 bluetooth_desk_lamp\main.o: ../BSP/Modulelayer/Light_Sensor/light_sensor_drv.h
 bluetooth_desk_lamp\main.o: ../BSP/Driverlayer/i2c_drv.h
-bluetooth_desk_lamp\main.o: ../BSP/Driverlayer/drv_layer.h
 bluetooth_desk_lamp\main.o: ../BSP/Driverlayer/led.h
+bluetooth_desk_lamp\main.o: ../BSP/Driverlayer/drv_layer.h
 bluetooth_desk_lamp\main.o: ../BSP/Driverlayer/key.h
 bluetooth_desk_lamp\main.o: ../BSP/Applayer/app_modes.h
 bluetooth_desk_lamp\main.o: ../BSP/Applayer/app_common.h
 bluetooth_desk_lamp\main.o: ../BSP/Applayer/app_ui.h
 bluetooth_desk_lamp\main.o: ../BSP/Applayer/app_common.h
 bluetooth_desk_lamp\main.o: ../BSP/Applayer/app_algorithm.h
+bluetooth_desk_lamp\main.o: ../BSP/Applayer/app_modes.h
