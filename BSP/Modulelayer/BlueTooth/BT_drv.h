@@ -13,9 +13,8 @@ extern UART_HandleTypeDef huart2;
 
 #define BT_UART_HANDLE huart2
 #define BT_UART_RX_BUF_LEN 64
-
 #define BT_CMD_BUF_MAX_LEN 16 // 每条命令最大长度
-
+#define BT_UART_TIMEOUT 100
 
 /*----------------------------------------Command-----------------------------------------*/
 
@@ -25,7 +24,7 @@ extern UART_HandleTypeDef huart2;
 typedef struct 
 {
     uint8_t uart_rx_buf[BT_UART_RX_BUF_LEN];
-    uint8_t uart_rx_data_len;
+    uint16_t uart_rx_data_len;
     uint8_t uart_rx_flag;
     Cmd_e cmd;
 }BT_t;
