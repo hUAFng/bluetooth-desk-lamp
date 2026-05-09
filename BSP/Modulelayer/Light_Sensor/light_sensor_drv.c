@@ -21,19 +21,28 @@ HAL_StatusTypeDef ls_Readdata(uint8_t* buf , uint8_t len)
  */
 HAL_StatusTypeDef ls_IsDeviceReady(void)
 {
-    return HAL_I2C_IsDeviceReady(&LS_I2C_Handle, LS_I2C_ADDR, 3, I2C_TIMEOUT);
+	for (uint8_t addr = 1; addr < 128; addr++) 
+	{                                                                                                      
+        if (HAL_I2C_IsDeviceReady(&hi2c1, (addr << 1), 3, 100) == HAL_OK) 
+		{                                          
+            printf("Device found at 0x%02X\n", addr);                      
+        }  
+	}                                       
+    
 }
 
 
-void ls_Init(void)
+HAL_StatusTypeDef ls_Init(void)
 {
-    ls_WriteByte(LS_POWON);      //上电
+    if (ls_WriteByte(LS_POWON) != HAL_OK) return HAL_ERROR;      //上电
     HAL_Delay(10); 
 
-    ls_WriteByte(LS_RESET);      //重置
+    if (ls_WriteByte(LS_RESET) != HAL_OK) return HAL_ERROR;      //重置
     HAL_Delay(10);
 
-    ls_PowerOff(); // 默认不进入工作模式，保持功耗最低
+    if (ls_PowerOff() != HAL_OK) return HAL_ERROR; // 默认不进入工作模式（手动模式）
+	
+	return HAL_OK;
 }
 
 
@@ -75,7 +84,7 @@ HAL_StatusTypeDef ls_MeasureLight(LS_MODE* mode,float* lux)
     if (*mode == LS_MODE_HRES2) *lux = lux_raw / 1.2f / 2.0f; // 0.5lx分辨率 
     else *lux = lux_raw / 1.2f; // 其他模式分辨率
 
-    ls_ChangeModeByLux(lux,mode);
+    if (ls_ChangeModeByLux(lux,mode) != HAL_OK) return HAL_ERROR;
 
     return HAL_OK;
 }
@@ -94,6 +103,7 @@ HAL_StatusTypeDef ls_ChangeModeByLux(float* lux,LS_MODE* cnt_mode)
         if (*lux <= LOW_LUS_THRESHOLD) 
         {
             *cnt_mode = LS_MODE_HRES2;
+			HAL_Delay(120);
             return ls_SetMode(LS_MODE_HRES2); // 0.5lx分辨率,提高弱光环境的测量精度
         }
     }
@@ -102,6 +112,7 @@ HAL_StatusTypeDef ls_ChangeModeByLux(float* lux,LS_MODE* cnt_mode)
         if (*lux >= HIGH_LUS_THRESHOLD) 
         {
             *cnt_mode = LS_MODE_HRES1;
+			HAL_Delay(120);
             return ls_SetMode(LS_MODE_HRES1); // 1lx分辨率
         }
     }
@@ -112,29 +123,30 @@ HAL_StatusTypeDef ls_ChangeModeByLux(float* lux,LS_MODE* cnt_mode)
 
 HAL_StatusTypeDef ls_PowerOn(void)
 {
-    ls_WriteByte(LS_POWON);
+    if (ls_WriteByte(LS_POWON) != HAL_OK) return HAL_ERROR;
     HAL_Delay(10); 
 
-    ls_WriteByte(LS_RESET);
+    if (ls_WriteByte(LS_RESET) != HAL_OK) return HAL_ERROR;
     HAL_Delay(10);
 
-    ls_WriteByte(LS_HRES_MODE1);
+    if (ls_WriteByte(LS_HRES_MODE1)!= HAL_OK) return HAL_ERROR;
     HAL_Delay(120);
     
     return HAL_OK;
 }
 
 
-void ls_PowerOff(void)
+HAL_StatusTypeDef ls_PowerOff(void)
 {
     // 关闭光线传感器电源
-    ls_WriteByte(LS_POWOFF);
+    if (ls_WriteByte(LS_POWOFF) != HAL_OK) return HAL_ERROR;
+	return HAL_OK;
 }
 
 void ls_Reset(void)
 {
     ls_WriteByte(LS_RESET);      //重置
     HAL_Delay(10);
-    ls_WriteByte(LS_HRES_MODE1);  // 重新新进入连续高分辨率测量模式
+    ls_WriteByte(LS_HRES_MODE1);  // 重新进入连续高分辨率测量模式
     HAL_Delay(120);               // 等待测量完成
 }

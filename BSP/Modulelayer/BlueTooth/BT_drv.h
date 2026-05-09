@@ -7,6 +7,7 @@
 #include "uart_drv.h"
 #include "string.h"
 #include "asrpro_drv.h"
+#include "cmd.h"
 
 extern UART_HandleTypeDef huart2;
 

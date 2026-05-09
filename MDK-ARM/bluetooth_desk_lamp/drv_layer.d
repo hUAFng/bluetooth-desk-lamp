@@ -47,3 +47,4 @@ bluetooth_desk_lamp\drv_layer.o: D:\keil5\keil_V5.40\ARM\ARMCC\Bin\..\include\st
 bluetooth_desk_lamp\drv_layer.o: ..\BSP\Driverlayer\adc_drv.h
 bluetooth_desk_lamp\drv_layer.o: ../Core/Inc/adc.h
 bluetooth_desk_lamp\drv_layer.o: ../Core/Inc/tim.h
+bluetooth_desk_lamp\drv_layer.o: ..\BSP\Driverlayer\cmd.h

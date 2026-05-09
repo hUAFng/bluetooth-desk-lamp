@@ -6,7 +6,7 @@
 
 static BT_t bt;
 
-static char bt_cmd[BT_OR_ASR_CMD_LEN][BT_CMD_BUF_MAX_LEN] = 
+static char bt_cmd[CMD_LEN][BT_CMD_BUF_MAX_LEN] = 
 {
     "poweron",
     "poweroff",
@@ -20,11 +20,11 @@ static char bt_cmd[BT_OR_ASR_CMD_LEN][BT_CMD_BUF_MAX_LEN] =
 
 
 
-HAL_StatusTypeDef BT_WriteBytes(uint8_t* data,uint16_t len)
+HAL_StatusTypeDef BT_WriteBytes(const uint8_t* data, uint16_t len)
 {
     if (data == NULL || len == 0) return HAL_ERROR;
 
-    return HAL_UART_Transmit_DMA(&BT_UART_HANDLE,data,len);
+    return HAL_UART_Transmit_DMA(&BT_UART_HANDLE, (uint8_t*)data, len);
 }
 
 void BT_ClearBuf(void)
@@ -40,7 +40,6 @@ void BT_ClearBuf(void)
  */
 HAL_StatusTypeDef BT_Init(void)
 {
-    HAL_StatusTypeDef status;
 
     HAL_UART_DMAStop(&BT_UART_HANDLE);
 
@@ -154,7 +153,7 @@ uint8_t BT_DataProcess(void)
 {
     uint8_t valid_flag = 0;
 
-    for (uint8_t i = 0; i < BT_OR_ASR_CMD_LEN ;i++)  //字符串匹配
+    for (uint8_t i = 0; i < CMD_LEN ;i++)  //字符串匹配
     {
         if(strncmp(bt.uart_rx_buf,bt_cmd[i],strlen(bt_cmd[i])) == 0)
         {
@@ -171,7 +170,7 @@ uint8_t BT_DataProcess(void)
         
         BT_WriteBytes("Valid commands are:\r\n",21);
 
-        for (uint8_t i = 0; i < BT_OR_ASR_CMD_LEN ;i++)
+        for (uint8_t i = 0; i < CMD_LEN ;i++)
         {
             BT_WriteBytes(bt_cmd[i],strlen(bt_cmd[i]));
             BT_WriteBytes("\r\n",2);
@@ -211,7 +210,6 @@ void BT_GetCmd(Cmd_e* cmd)
         *cmd = NoneCmd; // 无数据
     }
 }
-
 
 
 

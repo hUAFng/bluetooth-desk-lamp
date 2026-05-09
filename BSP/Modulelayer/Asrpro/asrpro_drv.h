@@ -8,6 +8,7 @@
 #include "uart_drv.h"
 #include "string.h"
 #include "buzzer_drv.h"
+#include "cmd.h"
 /*--------------------------------------------define--------------------------------------------*/
 #define ASR_UART_Handle huart1
 #define ASR_RX_BUF_SIZE 10
@@ -18,25 +19,8 @@
 #define ASR_FRAME_HEAD1 0xAA // 帧头1
 #define ASR_FRAME_HEAD2 0x55 // 帧头2
 #define ASR_FRAME_TAIL 0x0D // 帧尾
-
-#define BT_OR_ASR_CMD_LEN 8 // 蓝牙或者语音命令个数
-
 /*--------------------------------------------variables--------------------------------------------*/
 
-typedef enum
-{
-    CMD_POWER_ON = 0,  // "开灯"
-    CMD_POWER_OFF, // "关灯"
-    CMD_ManualMode, // "手动模式"
-    CMD_AutoMode, // "自动模式"
-    CMD_MusicMode, // "音乐模式"
-    CMD_CHANGE_COLOR, // "改变颜色"
-    CMD_RGB_LIGHT_ON, // "亮一点"
-    CMD_RGB_LIGHT_OFF, // "暗一点"
-
-    NoneCmd // 无命令
-
-}Cmd_e;  // 全局命令枚举类型
 
 typedef struct 
 {

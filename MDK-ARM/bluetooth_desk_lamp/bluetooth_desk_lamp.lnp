@@ -33,6 +33,7 @@
 "bluetooth_desk_lamp\drv_layer.o"
 "bluetooth_desk_lamp\spi_drv.o"
 "bluetooth_desk_lamp\uart_drv.o"
+"bluetooth_desk_lamp\cmd.o"
 "bluetooth_desk_lamp\stm32f1xx_hal_gpio_ex.o"
 "bluetooth_desk_lamp\stm32f1xx_hal_adc.o"
 "bluetooth_desk_lamp\stm32f1xx_hal_adc_ex.o"

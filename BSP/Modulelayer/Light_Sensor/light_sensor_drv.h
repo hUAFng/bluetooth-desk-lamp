@@ -7,6 +7,7 @@
 #include "i2c.h"
 #include "i2c_drv.h"
 #include "led.h"
+#include "stdio.h"
 /* -------------------------------------define ------------------------------------- */
 
 #define LS_I2C_ADDR (0x23<<1)       //光传感器I2C地址
@@ -20,7 +21,7 @@
 #define LS_LRES_MODE 0x13   //连续低分辨率模式 - 4lx分辨率,测量时间16ms,适合快速采样
 #define LS_SINGLE_MEAS_MODE 0x20  //单次测量模式，测量一次后自动断电,适合低功耗场景
 
-#define LS_LUX_MAX 400 // 设置常见的最大光照强度为300lx，根据实际应用调整范围
+#define LS_LUX_MAX 400 // 设置常见的最大光照强度为400lx，根据实际应用调整范围
 
 
 typedef enum
@@ -34,14 +35,13 @@ typedef enum
 
 
 /* -------------------------------------function-------------------------------------- */
-void ls_Init(void);
+HAL_StatusTypeDef ls_Init(void);
 HAL_StatusTypeDef ls_SetMode(LS_MODE mode);
 HAL_StatusTypeDef ls_MeasureLight(LS_MODE* mode,float* lux);
 HAL_StatusTypeDef ls_ChangeModeByLux(float* lux,LS_MODE* cnt_mode);
 HAL_StatusTypeDef ls_IsDeviceReady(void);
-HAL_StatusTypeDef ls_DetectAddress(void);
 void ls_Reset(void);
-void ls_PowerOff(void);
+HAL_StatusTypeDef ls_PowerOff(void);
 HAL_StatusTypeDef ls_PowerOn(void);
 
 

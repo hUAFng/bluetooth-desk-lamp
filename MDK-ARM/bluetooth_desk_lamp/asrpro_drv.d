@@ -38,3 +38,4 @@ bluetooth_desk_lamp\asrpro_drv.o: ../Core/Inc/usart.h
 bluetooth_desk_lamp\asrpro_drv.o: D:\keil5\keil_V5.40\ARM\ARMCC\Bin\..\include\stdio.h
 bluetooth_desk_lamp\asrpro_drv.o: D:\keil5\keil_V5.40\ARM\ARMCC\Bin\..\include\string.h
 bluetooth_desk_lamp\asrpro_drv.o: ../BSP/Driverlayer/buzzer_drv.h
+bluetooth_desk_lamp\asrpro_drv.o: ../BSP/Driverlayer/cmd.h

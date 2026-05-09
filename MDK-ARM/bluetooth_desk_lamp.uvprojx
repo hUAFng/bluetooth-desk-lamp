@@ -842,6 +842,16 @@
               <FileType>5</FileType>
               <FilePath>..\BSP\Driverlayer\uart_drv.h</FilePath>
             </File>
+            <File>
+              <FileName>cmd.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\BSP\Driverlayer\cmd.c</FilePath>
+            </File>
+            <File>
+              <FileName>cmd.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\BSP\Driverlayer\cmd.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

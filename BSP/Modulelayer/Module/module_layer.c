@@ -8,7 +8,7 @@ void module_Init(void)
 
     // asrpro_Init();
 
-    // BT_Init();   (有问题)
+    BT_Init();   // (有问题)
 
     // ls_Init();
 

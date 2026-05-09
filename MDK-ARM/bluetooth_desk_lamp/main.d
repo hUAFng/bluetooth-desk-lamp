@@ -47,6 +47,7 @@ bluetooth_desk_lamp\main.o: D:\keil5\keil_V5.40\ARM\ARMCC\Bin\..\include\stdio.h
 bluetooth_desk_lamp\main.o: D:\keil5\keil_V5.40\ARM\ARMCC\Bin\..\include\string.h
 bluetooth_desk_lamp\main.o: ../BSP/Modulelayer/Asrpro/asrpro_drv.h
 bluetooth_desk_lamp\main.o: ../BSP/Driverlayer/buzzer_drv.h
+bluetooth_desk_lamp\main.o: ../BSP/Driverlayer/cmd.h
 bluetooth_desk_lamp\main.o: ../BSP/Modulelayer/RGB/rgb_drv.h
 bluetooth_desk_lamp\main.o: ../BSP/Modulelayer/MIC/mic_drv.h
 bluetooth_desk_lamp\main.o: ../BSP/Driverlayer/adc_drv.h
