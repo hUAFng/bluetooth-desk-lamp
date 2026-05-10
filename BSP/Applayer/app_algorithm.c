@@ -52,10 +52,12 @@ void Sys_Control_By_BTorASR(Cmd_e cmd)
                 rgb_SetColor_Circle(&system.system_data.rgb_data.color); // 改变颜色(循环切换)
                 break;
             case CMD_RGB_LIGHT_ON:
-                rgb_SetBrightnessUp(&system.system_data.rgb_data.brightness); // 处理灯带亮一点命令
+				if(system.mode == Sys_Mode_Manual) 
+					rgb_SetBrightnessUp(&system.system_data.rgb_data.brightness); // 处理灯带亮一点命令
                 break;
             case CMD_RGB_LIGHT_OFF:
-                rgb_SetBrightnessDown(&system.system_data.rgb_data.brightness); // 处理灯带暗一点命令
+				if(system.mode == Sys_Mode_Manual)  // 只有手动模式才能调亮度
+					rgb_SetBrightnessDown(&system.system_data.rgb_data.brightness); // 处理灯带暗一点命令
                 break;
             default:
                 break;

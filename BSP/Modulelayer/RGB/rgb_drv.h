@@ -12,7 +12,7 @@
 #define RGB_COLOR_NUM 10         // 灯带颜色数量
 #define RGB_MAX_BRIGHTNESS 180  //定义最大亮度为180 (手动与自动模式)（过大刺眼）
 #define RGB_MIN_BRIGHTNESS 20   //定义最小亮度为20
-#define RGB_KEY_BRIGHTNESS_STEP 40  // 按键控制亮度步长 
+#define RGB_BRIGHTNESS_STEP 40  // 按键控制亮度步长 
 
 //音乐模式相关配置
 #define RGB_MAX_BRIGHTNESS_MUSIC 255 //定义最大亮度为255 （音乐模式）

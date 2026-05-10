@@ -97,8 +97,8 @@ void system_PowerOff(void)
 // 系统运行
 void system_Run(void)
 {
-    system_Control(); // 首先处理蓝牙、语音、按键1命令，控制系统整体模式和状态
-	
+    system_Control();
+
     switch(system.mode)
     {
         case Sys_Mode_Manual:// 手动模式处理
@@ -111,7 +111,7 @@ void system_Run(void)
         case Sys_Mode_Auto:// 自动模式处理
 
             sys_mode_Auto();
-            
+
             break;
 
         case Sys_Mode_Music:// 音乐律动模式处理
@@ -123,11 +123,11 @@ void system_Run(void)
         default:
             break;
     }
-	
-	buzzer_monitor();
-	
+
+    buzzer_monitor();
+
     system_Control();
-    
+
     system_show();
 	
 	HAL_Delay(10);

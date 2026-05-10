@@ -16,10 +16,27 @@ extern UART_HandleTypeDef huart2;
 #define BT_CMD_BUF_MAX_LEN 16 // 每条命令最大长度
 #define BT_UART_TIMEOUT 100
 
-/*----------------------------------------Command-----------------------------------------*/
+#define BT_RECONNECT_TIMEOUT_MS  5000
+#define BT_HEARTBEAT_INTERVAL_MS 30000
+#define BT_MAX_RETRY              3
 
+typedef enum
+{
+    BT_STATE_UNINIT = 0,
+    BT_STATE_AT_CONFIG,
+    BT_STATE_READY,
+    BT_STATE_CONNECTED,
+    BT_STATE_ERROR
+} BT_State_e;
 
-/* --------------------------------------valiables --------------------------------------*/
+typedef enum
+{
+    BT_ERR_NONE = 0,
+    BT_ERR_AT_FAILED,
+    BT_ERR_UART_FAILED,
+    BT_ERR_TIMEOUT,
+    BT_ERR_DISCONNECTED
+} BT_Error_e;
 
 typedef struct 
 {
@@ -27,15 +44,21 @@ typedef struct
     uint16_t uart_rx_data_len;
     uint8_t uart_rx_flag;
     Cmd_e cmd;
-}BT_t;
+
+    BT_State_e state;
+    BT_Error_e last_error;
+    uint8_t connected;
+} BT_t;
 
 
 
-/*-----------------------------------------function--------------------------------------*/
-
-uint8_t BT_isReceive(void);
-void BT_GetCmd(Cmd_e* cmd);
 HAL_StatusTypeDef BT_Init(void);
 void BT_Reset(void);
+void BT_GetCmd(Cmd_e* cmd);
+BT_State_e BT_GetState(void);
+BT_Error_e BT_GetLastError(void);
+uint8_t BT_IsConnected(void);
+void BT_Monitor(void);
+void BT_GetDebugInfo(char* buf, uint16_t buf_size);
 
 #endif

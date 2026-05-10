@@ -163,7 +163,7 @@ void rgb_SetBrightness_Circle(uint8_t* brightness)
     if (brightness == NULL) return;
 
     if (*brightness >= RGB_MAX_BRIGHTNESS) *brightness = RGB_MIN_BRIGHTNESS;
-    else *brightness += RGB_KEY_BRIGHTNESS_STEP;
+    else *brightness += RGB_BRIGHTNESS_STEP;
 
     rgb.cnt_brightness = *brightness;
 
@@ -176,7 +176,7 @@ void rgb_SetBrightnessUp(uint8_t* brightness)
 {
     if (brightness == NULL) return;
 
-    *brightness += RGB_KEY_BRIGHTNESS_STEP; 
+    *brightness += RGB_BRIGHTNESS_STEP; 
 
     if (*brightness > RGB_MAX_BRIGHTNESS) *brightness = RGB_MAX_BRIGHTNESS;
 
@@ -190,12 +190,13 @@ void rgb_SetBrightnessDown(uint8_t* brightness)
 {
     if (brightness == NULL) return;
 
-    *brightness -= RGB_KEY_BRIGHTNESS_STEP;
+    if (*brightness <= RGB_MIN_BRIGHTNESS + RGB_BRIGHTNESS_STEP)
+        rgb.cnt_brightness = RGB_MIN_BRIGHTNESS;
+    else
+        rgb.cnt_brightness = *brightness - RGB_BRIGHTNESS_STEP;
     
-    if (*brightness < RGB_MIN_BRIGHTNESS) *brightness = RGB_MIN_BRIGHTNESS;
-
-    rgb.cnt_brightness = *brightness;
-
+    *brightness = rgb.cnt_brightness;
+    
     rgb_SetBrightness(rgb.cnt_brightness);
 }
 

@@ -6,7 +6,7 @@
 
 static BT_t bt;
 
-static char bt_cmd[CMD_LEN][BT_CMD_BUF_MAX_LEN] = 
+static char bt_cmd[CMD_LEN][BT_CMD_BUF_MAX_LEN] =
 {
     "poweron",
     "poweroff",
@@ -18,19 +18,19 @@ static char bt_cmd[CMD_LEN][BT_CMD_BUF_MAX_LEN] =
     "lightoff"
 };
 
-
-
 static HAL_StatusTypeDef BT_WriteBytes(const uint8_t* data, uint16_t len)
 {
     if (data == NULL || len == 0) return HAL_ERROR;
 
-    return HAL_UART_Transmit(&BT_UART_HANDLE, (uint8_t*)data, len,BT_UART_TIMEOUT);
+    HAL_StatusTypeDef ret = HAL_UART_Transmit(&BT_UART_HANDLE, (uint8_t*)data, len, BT_UART_TIMEOUT);
+
+    return ret;
 }
 
 static void BT_ClearBuf(void)
 {
     bt.uart_rx_data_len = 0;
-    memset(bt.uart_rx_buf,0,sizeof(bt.uart_rx_buf));
+    memset(bt.uart_rx_buf, 0, sizeof(bt.uart_rx_buf));
     bt.uart_rx_flag = 0;
     bt.cmd = NoneCmd;
 }
@@ -41,82 +41,80 @@ static void BT_ClearBuf(void)
 */
 static HAL_StatusTypeDef BT_SendAT_CheckOK(const uint8_t* at_cmd,uint16_t wait_ms)
 {
-	BT_ClearBuf();
-	
-	if (BT_WriteBytes(at_cmd, strlen((const char*)at_cmd)) != HAL_OK)
-	{
-		return HAL_ERROR;
-	}
-	
-	// 等待应答
-	uint32_t during;
-	while (!bt.uart_rx_flag && during < wait_ms)
-	{
-		HAL_Delay(10);
-		during += 10;
-	}
-	
-	if (!bt.uart_rx_flag) return HAL_TIMEOUT;
-		
-	
-	for (uint8_t i = 0;i < bt.uart_rx_data_len - 1;i++)
-	{
-		if (bt.uart_rx_buf[i] == 'O' && bt.uart_rx_buf[i+1] == 'K')
-		{
-			return HAL_OK;
-		}
-	}
-	
-	return HAL_ERROR;
+    BT_ClearBuf();
+
+    if (BT_WriteBytes(at_cmd, strlen((const char*)at_cmd)) != HAL_OK)
+    {
+        return HAL_ERROR;
+    }
+
+    uint32_t during = 0;
+    while (!bt.uart_rx_flag && during < wait_ms)
+    {
+        HAL_Delay(10);
+        during += 10;
+    }
+
+    if (!bt.uart_rx_flag) return HAL_TIMEOUT;
+
+    for (uint16_t i = 0; i + 1 < bt.uart_rx_data_len; i++)
+    {
+        if (bt.uart_rx_buf[i] == 'O' && bt.uart_rx_buf[i + 1] == 'K')
+        {
+            return HAL_OK;
+        }
+    }
+
+    return HAL_ERROR;
 }
 
-
-/**
- * @brief 蓝牙模块初始化
- */
-HAL_StatusTypeDef BT_Init(void)
+static void BT_EnterATMode(void) // 进入AT模式 （高 低 高）
 {
-	uint16_t wait_ms = 200;
-	
     HAL_UART_AbortReceive_IT(&BT_UART_HANDLE);
     BT_ClearBuf();
 
-    HAL_GPIO_WritePin(BT_EN_GPIO_Port,BT_EN_Pin,GPIO_PIN_RESET);
+    HAL_GPIO_WritePin(BT_EN_GPIO_Port, BT_EN_Pin, GPIO_PIN_SET);  // EN高
     HAL_Delay(100);
 
-    if(HAL_UARTEx_ReceiveToIdle_IT(&BT_UART_HANDLE,bt.uart_rx_buf,BT_UART_RX_BUF_LEN) != HAL_OK) // 开启空闲中断接收
-        return HAL_ERROR;
-       
-    HAL_GPIO_WritePin(BT_EN_GPIO_Port,BT_EN_Pin,GPIO_PIN_SET); //进入AT模式
+    HAL_GPIO_WritePin(BT_EN_GPIO_Port, BT_EN_Pin, GPIO_PIN_RESET);  // EN低
     HAL_Delay(100);
 
-    if(BT_SendAT_CheckOK("AT\r\n",wait_ms) != HAL_OK) return HAL_ERROR;
-    
-    if(BT_SendAT_CheckOK("AT+NAME=BT_DESK_LAMP\r\n",wait_ms) != HAL_OK) return HAL_ERROR;
-    
-    if(BT_SendAT_CheckOK("AT+PSWD=123456\r\n",wait_ms) != HAL_OK) return HAL_ERROR;
-    
-    if(BT_SendAT_CheckOK("AT+ROLE=0\r\n",wait_ms) != HAL_OK) return HAL_ERROR;
+    HAL_GPIO_WritePin(BT_EN_GPIO_Port, BT_EN_Pin, GPIO_PIN_SET);  // EN高
+    HAL_Delay(500);
+
+    if (HAL_UARTEx_ReceiveToIdle_IT(&BT_UART_HANDLE, bt.uart_rx_buf, BT_UART_RX_BUF_LEN) != HAL_OK)
+    {
+        bt.state = BT_STATE_ERROR;
+        bt.last_error = BT_ERR_UART_FAILED;
+    }
+}
+
+static void BT_EnterTransparentMode(void)  // 进入透传模式
+{
+    HAL_UART_AbortReceive_IT(&BT_UART_HANDLE); // 终止接收
+    BT_ClearBuf();
+
+    HAL_GPIO_WritePin(BT_EN_GPIO_Port, BT_EN_Pin, GPIO_PIN_RESET);  // EN低
+    HAL_Delay(200);
+
+    if (HAL_UARTEx_ReceiveToIdle_IT(&BT_UART_HANDLE, bt.uart_rx_buf, BT_UART_RX_BUF_LEN) != HAL_OK) // 启动中断
+    {
+        bt.state = BT_STATE_ERROR;
+        bt.last_error = BT_ERR_UART_FAILED;
+    }
+}
+
+HAL_StatusTypeDef BT_Init(void)
+{
+    uint16_t wait_ms = 300;
+    memset(&bt, 0, sizeof(bt));   
       
-    if(BT_SendAT_CheckOK("AT+UART=9600,0,0\r\n",wait_ms) != HAL_OK) return HAL_ERROR;
+    BT_EnterTransparentMode();
 
-    if(BT_SendAT_CheckOK("AT+PSAVE\r\n",wait_ms) != HAL_OK) return HAL_ERROR;
+    if (bt.state == BT_STATE_ERROR) return HAL_ERROR;
 
-	HAL_UART_AbortReceive_IT(&BT_UART_HANDLE);
-	BT_ClearBuf();
-	
-    HAL_UART_Transmit(&BT_UART_HANDLE,(uint8_t*)"AT+RESET\r\n",10,BT_UART_TIMEOUT);  
-    HAL_Delay(1000);  //等待重启
-	
-
-    if(HAL_UARTEx_ReceiveToIdle_IT(&BT_UART_HANDLE,bt.uart_rx_buf,BT_UART_RX_BUF_LEN) != HAL_OK) // 开启空闲中断接收
-        return HAL_ERROR;
-
-    HAL_GPIO_WritePin(BT_EN_GPIO_Port,BT_EN_Pin,GPIO_PIN_RESET); // 进入传透模式
-    HAL_Delay(100);
-	
-	BT_ClearBuf();
-
+    bt.state = BT_STATE_READY;
+    bt.last_error = BT_ERR_NONE;
     return HAL_OK;
 }
 
@@ -128,27 +126,27 @@ void BT_Reset(void)
     HAL_UART_AbortReceive_IT(&BT_UART_HANDLE);
     HAL_Delay(10);
 
-    HAL_GPIO_WritePin(BT_EN_GPIO_Port, BT_EN_Pin, GPIO_PIN_SET); // 进入AT模式
-    HAL_Delay(200);
+    BT_EnterATMode();
 
-    HAL_UART_Transmit(&BT_UART_HANDLE, (uint8_t*)"AT+RESET\r\n", 10, BT_UART_TIMEOUT); // 发送复位指令
-    HAL_Delay(1000); // 等待模块重启完成
+    if (bt.state == BT_STATE_ERROR)
+    {
+        BT_EnterTransparentMode();
+        return;
+    }
 
-    HAL_GPIO_WritePin(BT_EN_GPIO_Port, BT_EN_Pin, GPIO_PIN_RESET); // 回到透传模式
-    HAL_Delay(200);
+    HAL_UART_Transmit(&BT_UART_HANDLE, (uint8_t*)"AT+RESET\r\n", 10, BT_UART_TIMEOUT);
+    HAL_Delay(1500);
 
-    BT_ClearBuf();
+    BT_EnterTransparentMode();
 
-    HAL_UARTEx_ReceiveToIdle_IT(&BT_UART_HANDLE, bt.uart_rx_buf, BT_UART_RX_BUF_LEN); // 重启中断
+    bt.state = BT_STATE_READY;
+    bt.last_error = BT_ERR_NONE;
 }
-/**
- * @brief 重写HAL_UARTEx_RxEventCallback函数，用于接收蓝牙数据
- */
+
 void HAL_UARTEx_RxEventCallback(UART_HandleTypeDef *huart, uint16_t Size)
 {
     if (huart->Instance == BT_UART_HANDLE.Instance)
     {
-
         __disable_irq(); // 进入临界区，防止数据冲突
 
         if (Size > BT_UART_RX_BUF_LEN) Size = BT_UART_RX_BUF_LEN;
@@ -222,16 +220,15 @@ uint8_t BT_DataProcess(void)
         {
             pos += snprintf(help_msg + pos,sizeof(help_msg) - pos,"%s\n",bt_cmd[i]);
         }
-		
-		BT_WriteBytes((const uint8_t*)help_msg,(uint16_t)pos);
+
+        BT_WriteBytes((const uint8_t*)help_msg, pos);
     }
     else 
     {
-        BT_WriteBytes((const uint8_t*)"Command is valid\r\n",18);
+        BT_WriteBytes((const uint8_t*)"Command is valid\r\n", 18);
     }
 
     return valid_flag;
-
 }
 
 /**
