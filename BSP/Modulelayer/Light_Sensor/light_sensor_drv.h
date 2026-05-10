@@ -40,7 +40,7 @@ HAL_StatusTypeDef ls_SetMode(LS_MODE mode);
 HAL_StatusTypeDef ls_MeasureLight(LS_MODE* mode,float* lux);
 HAL_StatusTypeDef ls_ChangeModeByLux(float* lux,LS_MODE* cnt_mode);
 HAL_StatusTypeDef ls_IsDeviceReady(void);
-void ls_Reset(void);
+HAL_StatusTypeDef ls_Reset(void);
 HAL_StatusTypeDef ls_PowerOff(void);
 HAL_StatusTypeDef ls_PowerOn(void);
 

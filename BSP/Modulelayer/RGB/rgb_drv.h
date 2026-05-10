@@ -8,7 +8,7 @@
 #include "tim.h"
 
 /* ---------------------------------------define---------------------------------------*/
-#define RGB_LED_NUM 1            // 灯带灯珠数量
+#define RGB_LED_NUM 10            // 灯带灯珠数量
 #define RGB_COLOR_NUM 10         // 灯带颜色数量
 #define RGB_MAX_BRIGHTNESS 180  //定义最大亮度为180 (手动与自动模式)（过大刺眼）
 #define RGB_MIN_BRIGHTNESS 20   //定义最小亮度为20

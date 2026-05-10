@@ -26,7 +26,6 @@ typedef struct
 {
     uint8_t asr_rx_buf[ASR_RX_BUF_SIZE]; // 串口中断接收缓冲区
     Cmd_e asr_rx_cmd; // 接收命令
-    uint8_t asr_rx_ready_flag; // 接收就绪标志 0：未就绪 1：就绪接收
     uint8_t asr_rx_flag; // 接收标志 0：未接收 1：已接收
     uint32_t prev_cmd_time; // 上一次接收命令时间 （ms） 用于处理消抖 初始为最大值
 
@@ -40,9 +39,6 @@ extern UART_HandleTypeDef huart1;
 void asrpro_GetCmd(Cmd_e* cmd);
 void asrpro_Reset(void);
 void asrpro_Init(void);
-uint8_t asrpro_IsReady(void);
-
-
 
 #endif
 

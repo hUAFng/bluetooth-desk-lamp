@@ -20,7 +20,12 @@ void sys_mode_Auto_Init()
     system.system_data.ls_data.lux = 50.0f;
 	
     rgb_PowerOn(system.system_data.rgb_data.color,system.system_data.rgb_data.brightness); 
-    ls_PowerOn();  // 自动模式使用光线传感器
+
+    if (ls_PowerOn() != HAL_OK)
+    {
+        if (ls_Reset() != HAL_OK) Error_Handler();
+    }
+
     mic_PowerOff(); // 自动模式不使用麦克风
 }
 
@@ -94,7 +99,10 @@ void sys_mode_Auto(void)
 
 			if (ls_error_count >= 5)
 			{
-				ls_Reset();
+				if (ls_Reset() != HAL_OK)
+				{
+					ls_PowerOff();
+				}
 				ls_error_count = 0;
 			}
 		}

@@ -25,10 +25,10 @@ HAL_StatusTypeDef ls_IsDeviceReady(void)
 	{                                                                                                      
         if (HAL_I2C_IsDeviceReady(&hi2c1, (addr << 1), 3, 100) == HAL_OK) 
 		{                                          
-            printf("Device found at 0x%02X\n", addr);                      
+            return HAL_OK;
         }  
-	}                                       
-    
+	}
+    return HAL_ERROR;
 }
 
 
@@ -71,7 +71,7 @@ HAL_StatusTypeDef ls_SetMode(LS_MODE mode)
  */
 HAL_StatusTypeDef ls_MeasureLight(LS_MODE* mode,float* lux)
 {
-    if(mode == NULL || lux == NULL || *mode < LS_MODE_HRES1 || *mode > LS_MODE_SINGLE_MEAS) return HAL_ERROR;
+    if(mode == NULL || lux == NULL || *mode > LS_MODE_SINGLE_MEAS) return HAL_ERROR;
 
     uint8_t buf[2] = {0};
     float lux_raw = 0.0f;
@@ -116,7 +116,12 @@ HAL_StatusTypeDef ls_ChangeModeByLux(float* lux,LS_MODE* cnt_mode)
             return ls_SetMode(LS_MODE_HRES1); // 1lx分辨率
         }
     }
-    else return HAL_ERROR;
+    else
+    {
+        *cnt_mode = LS_MODE_HRES1;
+        HAL_Delay(120);
+        return ls_SetMode(LS_MODE_HRES1);
+    }
 
     return HAL_OK;
 }
@@ -143,10 +148,7 @@ HAL_StatusTypeDef ls_PowerOff(void)
 	return HAL_OK;
 }
 
-void ls_Reset(void)
+HAL_StatusTypeDef ls_Reset(void)
 {
-    ls_WriteByte(LS_RESET);      //重置
-    HAL_Delay(10);
-    ls_WriteByte(LS_HRES_MODE1);  // 重新进入连续高分辨率测量模式
-    HAL_Delay(120);               // 等待测量完成
+    return ls_PowerOn(); // 逻辑一致
 }

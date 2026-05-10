@@ -65,15 +65,12 @@ void system_PowerOn(void)
 {
     led_work(LED_G_ON); // 绿灯表示正常工作
 	led_work(LED_B_OFF);   //蓝灯只在语音模块聆听时闪烁
-
-    system_valiable_Init();
-
-    system.mode = Sys_Mode_Manual;
 	
-    rgb_PowerOn(system.system_data.rgb_data.color,system.system_data.rgb_data.brightness); 
+	system.mode = Sys_Mode_Manual;
+	sys_mode_Manual_Init();
 	
-    tft_PowerOn(); 
-
+	tft_PowerOn(); 
+		
     system_show_Init();
 }
 
