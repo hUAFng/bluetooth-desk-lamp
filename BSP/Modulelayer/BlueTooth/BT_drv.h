@@ -48,6 +48,7 @@ typedef struct
     BT_State_e state;
     BT_Error_e last_error;
     uint8_t connected;
+	uint32_t last_rx_time_ms;
 } BT_t;
 
 
@@ -55,10 +56,5 @@ typedef struct
 HAL_StatusTypeDef BT_Init(void);
 void BT_Reset(void);
 void BT_GetCmd(Cmd_e* cmd);
-BT_State_e BT_GetState(void);
-BT_Error_e BT_GetLastError(void);
 uint8_t BT_IsConnected(void);
-void BT_Monitor(void);
-void BT_GetDebugInfo(char* buf, uint16_t buf_size);
-
 #endif

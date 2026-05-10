@@ -33,6 +33,7 @@ static void BT_ClearBuf(void)
     memset(bt.uart_rx_buf, 0, sizeof(bt.uart_rx_buf));
     bt.uart_rx_flag = 0;
     bt.cmd = NoneCmd;
+	bt.connected = 0;
 }
 
 /**
@@ -153,6 +154,7 @@ void HAL_UARTEx_RxEventCallback(UART_HandleTypeDef *huart, uint16_t Size)
             
         bt.uart_rx_data_len = Size;
         bt.uart_rx_flag = 1;
+		bt.last_rx_time_ms = HAL_GetTick(); 
 
         HAL_UARTEx_ReceiveToIdle_IT(&BT_UART_HANDLE,bt.uart_rx_buf,BT_UART_RX_BUF_LEN); // 重启中断
         
@@ -231,6 +233,45 @@ uint8_t BT_DataProcess(void)
     return valid_flag;
 }
 
+
+/**
+ * @brief 通过BT_State引脚(PB13)更新连接状态方案
+ */
+static void BT_UpdateConnectionState(void)
+{
+    bt.connected = HAL_GPIO_ReadPin(BT_State_GPIO_Port, BT_State_Pin) == GPIO_PIN_SET ? 1 : 0;
+
+    if (bt.connected && bt.state == BT_STATE_READY)
+        bt.state = BT_STATE_CONNECTED;
+    else if (!bt.connected && bt.state == BT_STATE_CONNECTED)
+        bt.state = BT_STATE_READY;
+}
+
+/**
+ * @brief 通过超时更新连接状态方案
+ */
+static void BT_UpdateConnectionByTimeout(void)
+{
+    uint32_t now = HAL_GetTick();
+
+    // 从未收到过数据，保持未连接
+    if (bt.last_rx_time_ms == 0) 
+	{
+        bt.connected = 0;
+        return;
+    }
+
+    // 超过 3 秒没有收到任何数据，认为断开
+    if (now - bt.last_rx_time_ms > 5000) 
+	{
+        bt.connected = 0;
+    } 
+	else 
+	{
+        bt.connected = 1;
+    }
+}
+
 /**
  * @brief 获取接收的数据
  * @param data 接收数据缓冲区
@@ -239,6 +280,9 @@ uint8_t BT_DataProcess(void)
 void BT_GetCmd(Cmd_e* cmd)
 {
     if (cmd == NULL) return;
+
+    // BT_UpdateConnectionState();  
+	BT_UpdateConnectionByTimeout();
 
     if (BT_isReceive())
     {
@@ -250,5 +294,7 @@ void BT_GetCmd(Cmd_e* cmd)
     }
 }
 
-
-
+uint8_t BT_IsConnected(void)
+{
+    return bt.connected;
+}

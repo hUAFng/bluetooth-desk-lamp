@@ -16,14 +16,6 @@ static uint8_t last_color = 255;
  */
 static void draw_frame(const char *title)
 {
-	/*
-    // 外框
-    tft_DrawLine(5, 5, 127, 5, COLOR_WHITE);
-    tft_DrawLine(5, 127, 127, 127, COLOR_WHITE);
-    tft_DrawLine(5, 5, 5, 127, COLOR_WHITE);
-    tft_DrawLine(127, 5, 127, 127, COLOR_WHITE);
-	*/
-	
     // 上线
     tft_DrawLine(2, 1, 125, 1, COLOR_WHITE);
     // 标题
@@ -83,6 +75,30 @@ static void draw_progress_bar(uint8_t percent)
     }
 }
 
+/**
+ * @brief 显示蓝牙连接状态
+ * @param y 起始Y坐标
+ */
+static void system_show_bluetooth_status(uint16_t y)
+{
+    uint8_t is_connected = BT_IsConnected();
+    uint16_t square_color = is_connected ? COLOR_GREEN : COLOR_RED;
+    const char* status_str = is_connected ? "Y" : "N";
+
+    
+    uint8_t square_x = 8; // 色块起始x
+    
+    uint8_t text_x = square_x + 16 + 4;  // 字体起始x
+
+    tft_FillRect(square_x, y, 16, 16, square_color);
+    tft_DrawLine(square_x, y, square_x + 15, y, COLOR_WHITE);
+    tft_DrawLine(square_x, y + 15, square_x + 15, y + 15, COLOR_WHITE);
+    tft_DrawLine(square_x, y, square_x, y + 15, COLOR_WHITE);
+    tft_DrawLine(square_x + 15, y, square_x + 15, y + 15, COLOR_WHITE);
+
+    tft_DisplayString(text_x, y, "BT : ", COLOR_WHITE, COLOR_BLACK);
+    tft_DisplayString(text_x + 5 * 8, y, status_str, COLOR_WHITE, COLOR_BLACK);
+}
 
 
 void system_show_Init(void)
@@ -100,7 +116,12 @@ void system_show_manual_auto(void)
     uint8_t bright = system.system_data.rgb_data.brightness * 100 / RGB_MAX_BRIGHTNESS;
     uint8_t color_idx = (uint8_t)system.system_data.rgb_data.color;
 
-    if (bright == last_brightness && color_idx == last_color) return;  //参数不变时退出
+    if (bright == last_brightness && color_idx == last_color) 
+	{
+		system_show_bluetooth_status(105);
+
+		return;  //参数不变时仅判断蓝牙状态
+	}
 	
     last_brightness = bright;
     last_color = color_idx;
@@ -137,7 +158,9 @@ void system_show_music(void)
 {
     clear_dynamic_area();
 
-    tft_DisplayString(28, 45, "ENJOY MUSIC", COLOR_WHITE, COLOR_BLACK);
+    tft_DisplayString(28, 32, "ENJOY MUSIC", COLOR_WHITE, COLOR_BLACK);
+	
+	system_show_bluetooth_status(50);
 
     // 简易均衡器：5条不同高度的竖线
     uint16_t bar_x[] = {20, 42, 64, 86, 108};
@@ -146,9 +169,9 @@ void system_show_music(void)
     for (int i = 0; i < 5; i++) 
 	{
         uint16_t x = bar_x[i];
-        uint16_t top = 100 - bar_h[i];
-        tft_DrawLine(x, top, x, 99, COLOR_CYAN);
-        tft_DrawLine(x+1, top, x+1, 99, COLOR_CYAN);
+        uint16_t top = 115 - bar_h[i];   
+        tft_DrawLine(x, top, x, 114, COLOR_CYAN);
+        tft_DrawLine(x+1, top, x+1, 114, COLOR_CYAN);
     }
 }
 
