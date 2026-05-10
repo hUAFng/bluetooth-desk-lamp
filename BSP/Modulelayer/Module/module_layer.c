@@ -13,7 +13,10 @@ void module_Init(void)
         BT_Reset();
     }  
 
-    ls_Init();
+    if (ls_Init())
+    {
+        ls_Reset();
+    }
 
     // mic_Init();
     
