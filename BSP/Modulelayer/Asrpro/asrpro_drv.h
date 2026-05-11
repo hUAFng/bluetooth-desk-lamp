@@ -15,13 +15,13 @@
 
 #define ASR_FRAME_LEN 2  //指令两字节
 
-#define ASR_WAKEUP_WAIT_TIME 15 // asrpro在唤醒后无命令到休眠的时间(s)
+#define ASR_WAKEUP_WAIT_TIME 15 // asrpro在唤醒后无命令到休眠的时间(s) 需要在软件中设置
 /*--------------------------------------------variables--------------------------------------------*/
 
 
 typedef struct 
 {
-    uint8_t asr_rx_buf[ASR_FRAME_LEN + 5]; // 串口中断接收缓冲区（+5防止溢出）
+    uint8_t asr_rx_buf[ASR_FRAME_LEN * 2]; // 串口中断接收缓冲区（防止溢出）
     Cmd_e asr_rx_cmd; // 接收命令
     uint8_t asr_rx_flag; // 接收标志 0：未接收 1：已接收
     uint32_t prev_cmd_time; // 上一次接收命令时间 （ms） 用于处理消抖 初始为最大值
