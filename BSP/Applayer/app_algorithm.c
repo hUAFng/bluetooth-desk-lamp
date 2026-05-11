@@ -3,6 +3,8 @@
 #include "app_algorithm.h"
 #include "app_manager.h"
 
+static led_b_work_t led_b_work;
+
 /**
  * @brief 映射光照强度到灯带亮度 低通滤波
  */
@@ -49,7 +51,8 @@ void Sys_Control_By_BTorASR(Cmd_e cmd)
                 system.mode = Sys_Mode_Music;
                 break;
             case CMD_CHANGE_COLOR:
-                rgb_SetColor_Circle(&system.system_data.rgb_data.color); // 改变颜色(循环切换)
+				if (system.mode != Sys_Mode_Music)
+					rgb_SetColor_Circle(&system.system_data.rgb_data.color); // 改变颜色(循环切换)
                 break;
             case CMD_RGB_LIGHT_ON:
 				if(system.mode == Sys_Mode_Manual) 
@@ -65,3 +68,62 @@ void Sys_Control_By_BTorASR(Cmd_e cmd)
 
     }
 }
+
+void led_blue_work_In_listen(Cmd_e cmd)
+{
+	if (cmd >= NoneCmd) return;
+	
+	if (cmd == CMD_ASR_WAKEUP) 
+	{
+		led_b_work.work_flag = 1;
+		
+		led_b_work.start_tick = HAL_GetTick();
+	}
+		
+	else led_b_work.work_flag = 0;
+}
+
+
+// void SysTick_Handler(void)调用(调用周期T=1ms)
+void led_b_work_handle()
+{
+	static uint16_t counter;
+	
+	static uint8_t prev_work_flag;
+	
+	if (led_b_work.work_flag)
+	{
+		
+		if (counter == 0)
+		{
+			led_b_work.level_value == 1 ? led_work(LED_B_ON) : led_work(LED_B_OFF);
+		}
+		
+		counter++;
+		
+		if (counter >= LED_B_LEVEL_KEEP_TIME) 
+		{
+			led_b_work.level_value = (led_b_work.level_value + 1) % 2;
+			
+			counter = 0;
+			
+			if (HAL_GetTick() - led_b_work.start_tick >= ASR_WAKEUP_WAIT_TIME * 1000) // 唤醒之后指定时间内没有得到有效信息
+			{
+				led_b_work.work_flag = 0; 
+				
+				led_work(LED_B_OFF);
+			}
+		}
+
+	}
+	else  // 接收到除唤醒以外的有效指令，指示灯闪烁结束
+	{	
+		if (prev_work_flag == 1 && led_b_work.work_flag == 0) led_work(LED_B_OFF);		
+	}
+	
+	prev_work_flag = led_b_work.work_flag;
+	
+}
+
+
+

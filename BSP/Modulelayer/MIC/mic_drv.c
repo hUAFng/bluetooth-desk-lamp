@@ -43,7 +43,7 @@ void mic_Calibrate(void)
 
     for (uint8_t i = 0; i < 3 ;i++)
     {
-        for (int i = 0;i < MIC_ADC_DMA_BUF_LEN;i++)
+        for (uint16_t i = 0;i < MIC_ADC_DMA_BUF_LEN;i++)
         {
             energy += mic.adc_dma_buf_float[i] * mic.adc_dma_buf_float[i]; // 平方
         }
@@ -115,7 +115,7 @@ float mic_goertzel(float target_freq)
 	k = (uint16_t)(0.5f + ((MIC_ADC_DMA_BUF_LEN * target_freq) / SAMPLE_RATE));
 	coeff = 2.0f * cosf(2.0f * 3.1415926f * k / MIC_ADC_DMA_BUF_LEN);
 	
-	for(uint8_t i = 0;i < MIC_ADC_DMA_BUF_LEN;i++)
+	for(uint16_t i = 0;i < MIC_ADC_DMA_BUF_LEN;i++)
 	{
 		q0 = coeff * q1 - q2 + mic.adc_dma_buf_float[i];
 		q2 = q1;
@@ -157,7 +157,7 @@ void mic_Getloudness()
 {
     float energy = 0;
 
-    for (int i = 0;i < MIC_ADC_DMA_BUF_LEN;i++)
+    for (uint16_t i = 0;i < MIC_ADC_DMA_BUF_LEN;i++)
     {
         energy += mic.adc_dma_buf_float[i] * mic.adc_dma_buf_float[i]; // 平方
     }

@@ -47,9 +47,9 @@ I (../BSP/Modulelayer/BlueTooth/BT_drv.h)(0x6A006671)
 I (../BSP/Driverlayer/uart_drv.h)(0x69C4ADA8)
 I (D:\keil5\keil_V5.40\ARM\ARMCC\include\stdio.h)(0x56FE42DE)
 I (D:\keil5\keil_V5.40\ARM\ARMCC\include\string.h)(0x56FE42DE)
-I (../BSP/Modulelayer/Asrpro/asrpro_drv.h)(0x6A0089D9)
+I (../BSP/Modulelayer/Asrpro/asrpro_drv.h)(0x6A019178)
 I (../BSP/Driverlayer/buzzer_drv.h)(0x69FC5EC8)
-I (../BSP/Driverlayer/cmd.h)(0x69FF32BD)
+I (../BSP/Driverlayer/cmd.h)(0x6A017AEE)
 I (../BSP/Modulelayer/RGB/rgb_drv.h)(0x6A00870D)
 I (../BSP/Modulelayer/MIC/mic_drv.h)(0x69F08440)
 I (../BSP/Driverlayer/adc_drv.h)(0x69C6028D)
@@ -63,9 +63,9 @@ I (../BSP/Driverlayer/led.h)(0x69C3F66F)
 I (../BSP/Driverlayer/drv_layer.h)(0x69FF3239)
 I (../BSP/Driverlayer/key.h)(0x69FC108C)
 I (../BSP/Applayer/app_modes.h)(0x69FE8EED)
-I (../BSP/Applayer/app_common.h)(0x69CD22C7)
+I (../BSP/Applayer/app_common.h)(0x6A01A6B0)
 I (../BSP/Applayer/app_ui.h)(0x69CD22C7)
-I (../BSP/Applayer/app_algorithm.h)(0x69F1F01B)
+I (../BSP/Applayer/app_algorithm.h)(0x6A018D33)
 F (../Core/Src/gpio.c)(0x69F1B320)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../BSP -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ../BSP/Applayer -I ../BSP/Driverlayer -I ../BSP/Modulelayer/Asrpro -I ../BSP/Modulelayer/BlueTooth -I ../BSP/Modulelayer/Light_Sensor -I ../BSP/Modulelayer/MIC -I ../BSP/Modulelayer/Module -I ../BSP/Modulelayer/RGB -I ../BSP/Modulelayer/TFT-I.\RTE\_bluetooth_desk_lamp-ID:\keil5\keil_V5.40\package\ARM\CMSIS\6.3.0\CMSIS\Core\Include-ID:\keil5\keil_V5.40\package\Keil\STM32F1xx_DFP\2.4.1\Device\Include-D__UVISION_VERSION="543" -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o bluetooth_desk_lamp\gpio.o --omf_browse bluetooth_desk_lamp\gpio.crf --depend bluetooth_desk_lamp\gpio.d)
 I (../Core/Inc/gpio.h)(0x69C1070E)
 I (../Core/Inc/main.h)(0x69C8A76D)
@@ -304,7 +304,7 @@ I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_spi.h)(0x699D7811)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h)(0x699D7811)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h)(0x699D7811)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h)(0x699D7811)
-F (../Core/Src/stm32f1xx_it.c)(0x69FC5DEE)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../BSP -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ../BSP/Applayer -I ../BSP/Driverlayer -I ../BSP/Modulelayer/Asrpro -I ../BSP/Modulelayer/BlueTooth -I ../BSP/Modulelayer/Light_Sensor -I ../BSP/Modulelayer/MIC -I ../BSP/Modulelayer/Module -I ../BSP/Modulelayer/RGB -I ../BSP/Modulelayer/TFT-I.\RTE\_bluetooth_desk_lamp-ID:\keil5\keil_V5.40\package\ARM\CMSIS\6.3.0\CMSIS\Core\Include-ID:\keil5\keil_V5.40\package\Keil\STM32F1xx_DFP\2.4.1\Device\Include-D__UVISION_VERSION="543" -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o bluetooth_desk_lamp\stm32f1xx_it.o --omf_browse bluetooth_desk_lamp\stm32f1xx_it.crf --depend bluetooth_desk_lamp\stm32f1xx_it.d)
+F (../Core/Src/stm32f1xx_it.c)(0x6A018D17)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../BSP -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ../BSP/Applayer -I ../BSP/Driverlayer -I ../BSP/Modulelayer/Asrpro -I ../BSP/Modulelayer/BlueTooth -I ../BSP/Modulelayer/Light_Sensor -I ../BSP/Modulelayer/MIC -I ../BSP/Modulelayer/Module -I ../BSP/Modulelayer/RGB -I ../BSP/Modulelayer/TFT-I.\RTE\_bluetooth_desk_lamp-ID:\keil5\keil_V5.40\package\ARM\CMSIS\6.3.0\CMSIS\Core\Include-ID:\keil5\keil_V5.40\package\Keil\STM32F1xx_DFP\2.4.1\Device\Include-D__UVISION_VERSION="543" -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o bluetooth_desk_lamp\stm32f1xx_it.o --omf_browse bluetooth_desk_lamp\stm32f1xx_it.crf --depend bluetooth_desk_lamp\stm32f1xx_it.d)
 I (../Core/Inc/main.h)(0x69C8A76D)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h)(0x699D7811)
 I (../Core/Inc/stm32f1xx_hal_conf.h)(0x69CC709A)
@@ -339,6 +339,34 @@ I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h)(0x699D7811)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h)(0x699D7811)
 I (../Core/Inc/stm32f1xx_it.h)(0x69F1B322)
 I (../BSP/Driverlayer/buzzer_drv.h)(0x69FC5EC8)
+I (../BSP/Applayer/app_algorithm.h)(0x6A018D33)
+I (../BSP/Modulelayer/Module/module_layer.h)(0x69C8DF1D)
+I (../BSP/Modulelayer/BlueTooth/BT_drv.h)(0x6A006671)
+I (../BSP/Driverlayer/uart_drv.h)(0x69C4ADA8)
+I (../Core/Inc/usart.h)(0x69C1070F)
+I (D:\keil5\keil_V5.40\ARM\ARMCC\include\stdio.h)(0x56FE42DE)
+I (D:\keil5\keil_V5.40\ARM\ARMCC\include\string.h)(0x56FE42DE)
+I (../BSP/Modulelayer/Asrpro/asrpro_drv.h)(0x6A019178)
+I (../BSP/Driverlayer/cmd.h)(0x6A017AEE)
+I (../BSP/Modulelayer/RGB/rgb_drv.h)(0x6A00870D)
+I (../BSP/Modulelayer/MIC/mic_drv.h)(0x69F08440)
+I (../BSP/Driverlayer/adc_drv.h)(0x69C6028D)
+I (../Core/Inc/adc.h)(0x69C6028D)
+I (../Core/Inc/tim.h)(0x69F1B322)
+I (D:\keil5\keil_V5.40\ARM\ARMCC\include\math.h)(0x56FE42D6)
+I (../BSP/Modulelayer/TFT/tft_drv.h)(0x69FDE551)
+I (../BSP/Driverlayer/spi_drv.h)(0x69FDAA2C)
+I (../Core/Inc/spi.h)(0x69C1070E)
+I (../BSP/Modulelayer/TFT/tft_fonts.h)(0x69C28F1B)
+I (../BSP/Modulelayer/Light_Sensor/light_sensor_drv.h)(0x6A0087B3)
+I (../Core/Inc/i2c.h)(0x69C1070E)
+I (../BSP/Driverlayer/i2c_drv.h)(0x69FD7E9F)
+I (../BSP/Driverlayer/led.h)(0x69C3F66F)
+I (../BSP/Driverlayer/drv_layer.h)(0x69FF3239)
+I (../BSP/Driverlayer/key.h)(0x69FC108C)
+I (../BSP/Applayer/app_common.h)(0x6A01A6B0)
+I (../BSP/Applayer/app_ui.h)(0x69CD22C7)
+I (../BSP/Applayer/app_modes.h)(0x69FE8EED)
 F (../Core/Src/stm32f1xx_hal_msp.c)(0x69C1070F)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../BSP -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ../BSP/Applayer -I ../BSP/Driverlayer -I ../BSP/Modulelayer/Asrpro -I ../BSP/Modulelayer/BlueTooth -I ../BSP/Modulelayer/Light_Sensor -I ../BSP/Modulelayer/MIC -I ../BSP/Modulelayer/Module -I ../BSP/Modulelayer/RGB -I ../BSP/Modulelayer/TFT-I.\RTE\_bluetooth_desk_lamp-ID:\keil5\keil_V5.40\package\ARM\CMSIS\6.3.0\CMSIS\Core\Include-ID:\keil5\keil_V5.40\package\Keil\STM32F1xx_DFP\2.4.1\Device\Include-D__UVISION_VERSION="543" -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o bluetooth_desk_lamp\stm32f1xx_hal_msp.o --omf_browse bluetooth_desk_lamp\stm32f1xx_hal_msp.crf --depend bluetooth_desk_lamp\stm32f1xx_hal_msp.d)
 I (../Core/Inc/main.h)(0x69C8A76D)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h)(0x699D7811)
@@ -404,8 +432,8 @@ I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_spi.h)(0x699D7811)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h)(0x699D7811)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h)(0x699D7811)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h)(0x699D7811)
-F (..\BSP\Applayer\app_algorithm.c)(0x6A005C17)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../BSP -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ../BSP/Applayer -I ../BSP/Driverlayer -I ../BSP/Modulelayer/Asrpro -I ../BSP/Modulelayer/BlueTooth -I ../BSP/Modulelayer/Light_Sensor -I ../BSP/Modulelayer/MIC -I ../BSP/Modulelayer/Module -I ../BSP/Modulelayer/RGB -I ../BSP/Modulelayer/TFT-I.\RTE\_bluetooth_desk_lamp-ID:\keil5\keil_V5.40\package\ARM\CMSIS\6.3.0\CMSIS\Core\Include-ID:\keil5\keil_V5.40\package\Keil\STM32F1xx_DFP\2.4.1\Device\Include-D__UVISION_VERSION="543" -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o bluetooth_desk_lamp\app_algorithm.o --omf_browse bluetooth_desk_lamp\app_algorithm.crf --depend bluetooth_desk_lamp\app_algorithm.d)
-I (..\BSP\Applayer\app_algorithm.h)(0x69F1F01B)
+F (..\BSP\Applayer\app_algorithm.c)(0x6A019BD9)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../BSP -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ../BSP/Applayer -I ../BSP/Driverlayer -I ../BSP/Modulelayer/Asrpro -I ../BSP/Modulelayer/BlueTooth -I ../BSP/Modulelayer/Light_Sensor -I ../BSP/Modulelayer/MIC -I ../BSP/Modulelayer/Module -I ../BSP/Modulelayer/RGB -I ../BSP/Modulelayer/TFT-I.\RTE\_bluetooth_desk_lamp-ID:\keil5\keil_V5.40\package\ARM\CMSIS\6.3.0\CMSIS\Core\Include-ID:\keil5\keil_V5.40\package\Keil\STM32F1xx_DFP\2.4.1\Device\Include-D__UVISION_VERSION="543" -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o bluetooth_desk_lamp\app_algorithm.o --omf_browse bluetooth_desk_lamp\app_algorithm.crf --depend bluetooth_desk_lamp\app_algorithm.d)
+I (..\BSP\Applayer\app_algorithm.h)(0x6A018D33)
 I (../Core/Inc/main.h)(0x69C8A76D)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h)(0x699D7811)
 I (../Core/Inc/stm32f1xx_hal_conf.h)(0x69CC709A)
@@ -444,9 +472,9 @@ I (../BSP/Driverlayer/uart_drv.h)(0x69C4ADA8)
 I (../Core/Inc/usart.h)(0x69C1070F)
 I (D:\keil5\keil_V5.40\ARM\ARMCC\include\stdio.h)(0x56FE42DE)
 I (D:\keil5\keil_V5.40\ARM\ARMCC\include\string.h)(0x56FE42DE)
-I (../BSP/Modulelayer/Asrpro/asrpro_drv.h)(0x6A0089D9)
+I (../BSP/Modulelayer/Asrpro/asrpro_drv.h)(0x6A019178)
 I (../BSP/Driverlayer/buzzer_drv.h)(0x69FC5EC8)
-I (../BSP/Driverlayer/cmd.h)(0x69FF32BD)
+I (../BSP/Driverlayer/cmd.h)(0x6A017AEE)
 I (../BSP/Modulelayer/RGB/rgb_drv.h)(0x6A00870D)
 I (../BSP/Modulelayer/MIC/mic_drv.h)(0x69F08440)
 I (../BSP/Driverlayer/adc_drv.h)(0x69C6028D)
@@ -463,13 +491,13 @@ I (../BSP/Driverlayer/i2c_drv.h)(0x69FD7E9F)
 I (../BSP/Driverlayer/led.h)(0x69C3F66F)
 I (../BSP/Driverlayer/drv_layer.h)(0x69FF3239)
 I (../BSP/Driverlayer/key.h)(0x69FC108C)
-I (..\BSP\Applayer\app_common.h)(0x69CD22C7)
+I (..\BSP\Applayer\app_common.h)(0x6A01A6B0)
 I (..\BSP\Applayer\app_ui.h)(0x69CD22C7)
 I (..\BSP\Applayer\app_modes.h)(0x69FE8EED)
 I (..\BSP\Applayer\app_manager.h)(0x69CD22C7)
-F (..\BSP\Applayer\app_algorithm.h)(0x69F1F01B)()
-F (..\BSP\Applayer\app_common.c)(0x69FD6379)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../BSP -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ../BSP/Applayer -I ../BSP/Driverlayer -I ../BSP/Modulelayer/Asrpro -I ../BSP/Modulelayer/BlueTooth -I ../BSP/Modulelayer/Light_Sensor -I ../BSP/Modulelayer/MIC -I ../BSP/Modulelayer/Module -I ../BSP/Modulelayer/RGB -I ../BSP/Modulelayer/TFT-I.\RTE\_bluetooth_desk_lamp-ID:\keil5\keil_V5.40\package\ARM\CMSIS\6.3.0\CMSIS\Core\Include-ID:\keil5\keil_V5.40\package\Keil\STM32F1xx_DFP\2.4.1\Device\Include-D__UVISION_VERSION="543" -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o bluetooth_desk_lamp\app_common.o --omf_browse bluetooth_desk_lamp\app_common.crf --depend bluetooth_desk_lamp\app_common.d)
-I (..\BSP\Applayer\app_common.h)(0x69CD22C7)
+F (..\BSP\Applayer\app_algorithm.h)(0x6A018D33)()
+F (..\BSP\Applayer\app_common.c)(0x6A01A6C5)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../BSP -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ../BSP/Applayer -I ../BSP/Driverlayer -I ../BSP/Modulelayer/Asrpro -I ../BSP/Modulelayer/BlueTooth -I ../BSP/Modulelayer/Light_Sensor -I ../BSP/Modulelayer/MIC -I ../BSP/Modulelayer/Module -I ../BSP/Modulelayer/RGB -I ../BSP/Modulelayer/TFT-I.\RTE\_bluetooth_desk_lamp-ID:\keil5\keil_V5.40\package\ARM\CMSIS\6.3.0\CMSIS\Core\Include-ID:\keil5\keil_V5.40\package\Keil\STM32F1xx_DFP\2.4.1\Device\Include-D__UVISION_VERSION="543" -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o bluetooth_desk_lamp\app_common.o --omf_browse bluetooth_desk_lamp\app_common.crf --depend bluetooth_desk_lamp\app_common.d)
+I (..\BSP\Applayer\app_common.h)(0x6A01A6B0)
 I (../BSP/Modulelayer/Module/module_layer.h)(0x69C8DF1D)
 I (../BSP/Modulelayer/BlueTooth/BT_drv.h)(0x6A006671)
 I (../Core/Inc/main.h)(0x69C8A76D)
@@ -508,9 +536,9 @@ I (../BSP/Driverlayer/uart_drv.h)(0x69C4ADA8)
 I (../Core/Inc/usart.h)(0x69C1070F)
 I (D:\keil5\keil_V5.40\ARM\ARMCC\include\stdio.h)(0x56FE42DE)
 I (D:\keil5\keil_V5.40\ARM\ARMCC\include\string.h)(0x56FE42DE)
-I (../BSP/Modulelayer/Asrpro/asrpro_drv.h)(0x6A0089D9)
+I (../BSP/Modulelayer/Asrpro/asrpro_drv.h)(0x6A019178)
 I (../BSP/Driverlayer/buzzer_drv.h)(0x69FC5EC8)
-I (../BSP/Driverlayer/cmd.h)(0x69FF32BD)
+I (../BSP/Driverlayer/cmd.h)(0x6A017AEE)
 I (../BSP/Modulelayer/RGB/rgb_drv.h)(0x6A00870D)
 I (../BSP/Modulelayer/MIC/mic_drv.h)(0x69F08440)
 I (../BSP/Driverlayer/adc_drv.h)(0x69C6028D)
@@ -528,8 +556,8 @@ I (../BSP/Driverlayer/led.h)(0x69C3F66F)
 I (../BSP/Driverlayer/drv_layer.h)(0x69FF3239)
 I (../BSP/Driverlayer/key.h)(0x69FC108C)
 I (..\BSP\Applayer\app_ui.h)(0x69CD22C7)
-F (..\BSP\Applayer\app_common.h)(0x69CD22C7)()
-F (..\BSP\Applayer\app_manager.c)(0x6A008371)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../BSP -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ../BSP/Applayer -I ../BSP/Driverlayer -I ../BSP/Modulelayer/Asrpro -I ../BSP/Modulelayer/BlueTooth -I ../BSP/Modulelayer/Light_Sensor -I ../BSP/Modulelayer/MIC -I ../BSP/Modulelayer/Module -I ../BSP/Modulelayer/RGB -I ../BSP/Modulelayer/TFT-I.\RTE\_bluetooth_desk_lamp-ID:\keil5\keil_V5.40\package\ARM\CMSIS\6.3.0\CMSIS\Core\Include-ID:\keil5\keil_V5.40\package\Keil\STM32F1xx_DFP\2.4.1\Device\Include-D__UVISION_VERSION="543" -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o bluetooth_desk_lamp\app_manager.o --omf_browse bluetooth_desk_lamp\app_manager.crf --depend bluetooth_desk_lamp\app_manager.d)
+F (..\BSP\Applayer\app_common.h)(0x6A01A6B0)()
+F (..\BSP\Applayer\app_manager.c)(0x6A01A713)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../BSP -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ../BSP/Applayer -I ../BSP/Driverlayer -I ../BSP/Modulelayer/Asrpro -I ../BSP/Modulelayer/BlueTooth -I ../BSP/Modulelayer/Light_Sensor -I ../BSP/Modulelayer/MIC -I ../BSP/Modulelayer/Module -I ../BSP/Modulelayer/RGB -I ../BSP/Modulelayer/TFT-I.\RTE\_bluetooth_desk_lamp-ID:\keil5\keil_V5.40\package\ARM\CMSIS\6.3.0\CMSIS\Core\Include-ID:\keil5\keil_V5.40\package\Keil\STM32F1xx_DFP\2.4.1\Device\Include-D__UVISION_VERSION="543" -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o bluetooth_desk_lamp\app_manager.o --omf_browse bluetooth_desk_lamp\app_manager.crf --depend bluetooth_desk_lamp\app_manager.d)
 I (..\BSP\Applayer\app_manager.h)(0x69CD22C7)
 I (../BSP/Modulelayer/Module/module_layer.h)(0x69C8DF1D)
 I (../BSP/Modulelayer/BlueTooth/BT_drv.h)(0x6A006671)
@@ -569,9 +597,9 @@ I (../BSP/Driverlayer/uart_drv.h)(0x69C4ADA8)
 I (../Core/Inc/usart.h)(0x69C1070F)
 I (D:\keil5\keil_V5.40\ARM\ARMCC\include\stdio.h)(0x56FE42DE)
 I (D:\keil5\keil_V5.40\ARM\ARMCC\include\string.h)(0x56FE42DE)
-I (../BSP/Modulelayer/Asrpro/asrpro_drv.h)(0x6A0089D9)
+I (../BSP/Modulelayer/Asrpro/asrpro_drv.h)(0x6A019178)
 I (../BSP/Driverlayer/buzzer_drv.h)(0x69FC5EC8)
-I (../BSP/Driverlayer/cmd.h)(0x69FF32BD)
+I (../BSP/Driverlayer/cmd.h)(0x6A017AEE)
 I (../BSP/Modulelayer/RGB/rgb_drv.h)(0x6A00870D)
 I (../BSP/Modulelayer/MIC/mic_drv.h)(0x69F08440)
 I (../BSP/Driverlayer/adc_drv.h)(0x69C6028D)
@@ -589,13 +617,13 @@ I (../BSP/Driverlayer/led.h)(0x69C3F66F)
 I (../BSP/Driverlayer/drv_layer.h)(0x69FF3239)
 I (../BSP/Driverlayer/key.h)(0x69FC108C)
 I (..\BSP\Applayer\app_modes.h)(0x69FE8EED)
-I (..\BSP\Applayer\app_common.h)(0x69CD22C7)
+I (..\BSP\Applayer\app_common.h)(0x6A01A6B0)
 I (..\BSP\Applayer\app_ui.h)(0x69CD22C7)
-I (..\BSP\Applayer\app_algorithm.h)(0x69F1F01B)
+I (..\BSP\Applayer\app_algorithm.h)(0x6A018D33)
 F (..\BSP\Applayer\app_manager.h)(0x69CD22C7)()
-F (..\BSP\Applayer\app_modes.c)(0x6A00888A)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../BSP -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ../BSP/Applayer -I ../BSP/Driverlayer -I ../BSP/Modulelayer/Asrpro -I ../BSP/Modulelayer/BlueTooth -I ../BSP/Modulelayer/Light_Sensor -I ../BSP/Modulelayer/MIC -I ../BSP/Modulelayer/Module -I ../BSP/Modulelayer/RGB -I ../BSP/Modulelayer/TFT-I.\RTE\_bluetooth_desk_lamp-ID:\keil5\keil_V5.40\package\ARM\CMSIS\6.3.0\CMSIS\Core\Include-ID:\keil5\keil_V5.40\package\Keil\STM32F1xx_DFP\2.4.1\Device\Include-D__UVISION_VERSION="543" -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o bluetooth_desk_lamp\app_modes.o --omf_browse bluetooth_desk_lamp\app_modes.crf --depend bluetooth_desk_lamp\app_modes.d)
+F (..\BSP\Applayer\app_modes.c)(0x6A01A565)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../BSP -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ../BSP/Applayer -I ../BSP/Driverlayer -I ../BSP/Modulelayer/Asrpro -I ../BSP/Modulelayer/BlueTooth -I ../BSP/Modulelayer/Light_Sensor -I ../BSP/Modulelayer/MIC -I ../BSP/Modulelayer/Module -I ../BSP/Modulelayer/RGB -I ../BSP/Modulelayer/TFT-I.\RTE\_bluetooth_desk_lamp-ID:\keil5\keil_V5.40\package\ARM\CMSIS\6.3.0\CMSIS\Core\Include-ID:\keil5\keil_V5.40\package\Keil\STM32F1xx_DFP\2.4.1\Device\Include-D__UVISION_VERSION="543" -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o bluetooth_desk_lamp\app_modes.o --omf_browse bluetooth_desk_lamp\app_modes.crf --depend bluetooth_desk_lamp\app_modes.d)
 I (..\BSP\Applayer\app_modes.h)(0x69FE8EED)
-I (..\BSP\Applayer\app_common.h)(0x69CD22C7)
+I (..\BSP\Applayer\app_common.h)(0x6A01A6B0)
 I (../BSP/Modulelayer/Module/module_layer.h)(0x69C8DF1D)
 I (../BSP/Modulelayer/BlueTooth/BT_drv.h)(0x6A006671)
 I (../Core/Inc/main.h)(0x69C8A76D)
@@ -634,9 +662,9 @@ I (../BSP/Driverlayer/uart_drv.h)(0x69C4ADA8)
 I (../Core/Inc/usart.h)(0x69C1070F)
 I (D:\keil5\keil_V5.40\ARM\ARMCC\include\stdio.h)(0x56FE42DE)
 I (D:\keil5\keil_V5.40\ARM\ARMCC\include\string.h)(0x56FE42DE)
-I (../BSP/Modulelayer/Asrpro/asrpro_drv.h)(0x6A0089D9)
+I (../BSP/Modulelayer/Asrpro/asrpro_drv.h)(0x6A019178)
 I (../BSP/Driverlayer/buzzer_drv.h)(0x69FC5EC8)
-I (../BSP/Driverlayer/cmd.h)(0x69FF32BD)
+I (../BSP/Driverlayer/cmd.h)(0x6A017AEE)
 I (../BSP/Modulelayer/RGB/rgb_drv.h)(0x6A00870D)
 I (../BSP/Modulelayer/MIC/mic_drv.h)(0x69F08440)
 I (../BSP/Driverlayer/adc_drv.h)(0x69C6028D)
@@ -654,11 +682,11 @@ I (../BSP/Driverlayer/led.h)(0x69C3F66F)
 I (../BSP/Driverlayer/drv_layer.h)(0x69FF3239)
 I (../BSP/Driverlayer/key.h)(0x69FC108C)
 I (..\BSP\Applayer\app_ui.h)(0x69CD22C7)
-I (..\BSP\Applayer\app_algorithm.h)(0x69F1F01B)
+I (..\BSP\Applayer\app_algorithm.h)(0x6A018D33)
 F (..\BSP\Applayer\app_modes.h)(0x69FE8EED)()
-F (..\BSP\Applayer\app_ui.c)(0x6A0069F0)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../BSP -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ../BSP/Applayer -I ../BSP/Driverlayer -I ../BSP/Modulelayer/Asrpro -I ../BSP/Modulelayer/BlueTooth -I ../BSP/Modulelayer/Light_Sensor -I ../BSP/Modulelayer/MIC -I ../BSP/Modulelayer/Module -I ../BSP/Modulelayer/RGB -I ../BSP/Modulelayer/TFT-I.\RTE\_bluetooth_desk_lamp-ID:\keil5\keil_V5.40\package\ARM\CMSIS\6.3.0\CMSIS\Core\Include-ID:\keil5\keil_V5.40\package\Keil\STM32F1xx_DFP\2.4.1\Device\Include-D__UVISION_VERSION="543" -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o bluetooth_desk_lamp\app_ui.o --omf_browse bluetooth_desk_lamp\app_ui.crf --depend bluetooth_desk_lamp\app_ui.d)
+F (..\BSP\Applayer\app_ui.c)(0x6A01A6F5)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../BSP -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ../BSP/Applayer -I ../BSP/Driverlayer -I ../BSP/Modulelayer/Asrpro -I ../BSP/Modulelayer/BlueTooth -I ../BSP/Modulelayer/Light_Sensor -I ../BSP/Modulelayer/MIC -I ../BSP/Modulelayer/Module -I ../BSP/Modulelayer/RGB -I ../BSP/Modulelayer/TFT-I.\RTE\_bluetooth_desk_lamp-ID:\keil5\keil_V5.40\package\ARM\CMSIS\6.3.0\CMSIS\Core\Include-ID:\keil5\keil_V5.40\package\Keil\STM32F1xx_DFP\2.4.1\Device\Include-D__UVISION_VERSION="543" -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o bluetooth_desk_lamp\app_ui.o --omf_browse bluetooth_desk_lamp\app_ui.crf --depend bluetooth_desk_lamp\app_ui.d)
 I (..\BSP\Applayer\app_ui.h)(0x69CD22C7)
-I (..\BSP\Applayer\app_common.h)(0x69CD22C7)
+I (..\BSP\Applayer\app_common.h)(0x6A01A6B0)
 I (../BSP/Modulelayer/Module/module_layer.h)(0x69C8DF1D)
 I (../BSP/Modulelayer/BlueTooth/BT_drv.h)(0x6A006671)
 I (../Core/Inc/main.h)(0x69C8A76D)
@@ -697,9 +725,9 @@ I (../BSP/Driverlayer/uart_drv.h)(0x69C4ADA8)
 I (../Core/Inc/usart.h)(0x69C1070F)
 I (D:\keil5\keil_V5.40\ARM\ARMCC\include\stdio.h)(0x56FE42DE)
 I (D:\keil5\keil_V5.40\ARM\ARMCC\include\string.h)(0x56FE42DE)
-I (../BSP/Modulelayer/Asrpro/asrpro_drv.h)(0x6A0089D9)
+I (../BSP/Modulelayer/Asrpro/asrpro_drv.h)(0x6A019178)
 I (../BSP/Driverlayer/buzzer_drv.h)(0x69FC5EC8)
-I (../BSP/Driverlayer/cmd.h)(0x69FF32BD)
+I (../BSP/Driverlayer/cmd.h)(0x6A017AEE)
 I (../BSP/Modulelayer/RGB/rgb_drv.h)(0x6A00870D)
 I (../BSP/Modulelayer/MIC/mic_drv.h)(0x69F08440)
 I (../BSP/Driverlayer/adc_drv.h)(0x69C6028D)
@@ -717,8 +745,8 @@ I (../BSP/Driverlayer/led.h)(0x69C3F66F)
 I (../BSP/Driverlayer/drv_layer.h)(0x69FF3239)
 I (../BSP/Driverlayer/key.h)(0x69FC108C)
 F (..\BSP\Applayer\app_ui.h)(0x69CD22C7)()
-F (..\BSP\Modulelayer\Asrpro\asrpro_drv.c)(0x6A0089D6)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../BSP -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ../BSP/Applayer -I ../BSP/Driverlayer -I ../BSP/Modulelayer/Asrpro -I ../BSP/Modulelayer/BlueTooth -I ../BSP/Modulelayer/Light_Sensor -I ../BSP/Modulelayer/MIC -I ../BSP/Modulelayer/Module -I ../BSP/Modulelayer/RGB -I ../BSP/Modulelayer/TFT-I.\RTE\_bluetooth_desk_lamp-ID:\keil5\keil_V5.40\package\ARM\CMSIS\6.3.0\CMSIS\Core\Include-ID:\keil5\keil_V5.40\package\Keil\STM32F1xx_DFP\2.4.1\Device\Include-D__UVISION_VERSION="543" -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o bluetooth_desk_lamp\asrpro_drv.o --omf_browse bluetooth_desk_lamp\asrpro_drv.crf --depend bluetooth_desk_lamp\asrpro_drv.d)
-I (..\BSP\Modulelayer\Asrpro\asrpro_drv.h)(0x6A0089D9)
+F (..\BSP\Modulelayer\Asrpro\asrpro_drv.c)(0x6A01850E)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../BSP -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ../BSP/Applayer -I ../BSP/Driverlayer -I ../BSP/Modulelayer/Asrpro -I ../BSP/Modulelayer/BlueTooth -I ../BSP/Modulelayer/Light_Sensor -I ../BSP/Modulelayer/MIC -I ../BSP/Modulelayer/Module -I ../BSP/Modulelayer/RGB -I ../BSP/Modulelayer/TFT-I.\RTE\_bluetooth_desk_lamp-ID:\keil5\keil_V5.40\package\ARM\CMSIS\6.3.0\CMSIS\Core\Include-ID:\keil5\keil_V5.40\package\Keil\STM32F1xx_DFP\2.4.1\Device\Include-D__UVISION_VERSION="543" -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o bluetooth_desk_lamp\asrpro_drv.o --omf_browse bluetooth_desk_lamp\asrpro_drv.crf --depend bluetooth_desk_lamp\asrpro_drv.d)
+I (..\BSP\Modulelayer\Asrpro\asrpro_drv.h)(0x6A019178)
 I (../Core/Inc/main.h)(0x69C8A76D)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h)(0x699D7811)
 I (../Core/Inc/stm32f1xx_hal_conf.h)(0x69CC709A)
@@ -756,9 +784,9 @@ I (../Core/Inc/usart.h)(0x69C1070F)
 I (D:\keil5\keil_V5.40\ARM\ARMCC\include\stdio.h)(0x56FE42DE)
 I (D:\keil5\keil_V5.40\ARM\ARMCC\include\string.h)(0x56FE42DE)
 I (../BSP/Driverlayer/buzzer_drv.h)(0x69FC5EC8)
-I (../BSP/Driverlayer/cmd.h)(0x69FF32BD)
-F (..\BSP\Modulelayer\Asrpro\asrpro_drv.h)(0x6A0089D9)()
-F (..\BSP\Modulelayer\BlueTooth\BT_drv.c)(0x6A006A2F)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../BSP -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ../BSP/Applayer -I ../BSP/Driverlayer -I ../BSP/Modulelayer/Asrpro -I ../BSP/Modulelayer/BlueTooth -I ../BSP/Modulelayer/Light_Sensor -I ../BSP/Modulelayer/MIC -I ../BSP/Modulelayer/Module -I ../BSP/Modulelayer/RGB -I ../BSP/Modulelayer/TFT-I.\RTE\_bluetooth_desk_lamp-ID:\keil5\keil_V5.40\package\ARM\CMSIS\6.3.0\CMSIS\Core\Include-ID:\keil5\keil_V5.40\package\Keil\STM32F1xx_DFP\2.4.1\Device\Include-D__UVISION_VERSION="543" -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o bluetooth_desk_lamp\bt_drv.o --omf_browse bluetooth_desk_lamp\bt_drv.crf --depend bluetooth_desk_lamp\bt_drv.d)
+I (../BSP/Driverlayer/cmd.h)(0x6A017AEE)
+F (..\BSP\Modulelayer\Asrpro\asrpro_drv.h)(0x6A019178)()
+F (..\BSP\Modulelayer\BlueTooth\BT_drv.c)(0x6A019E62)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../BSP -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ../BSP/Applayer -I ../BSP/Driverlayer -I ../BSP/Modulelayer/Asrpro -I ../BSP/Modulelayer/BlueTooth -I ../BSP/Modulelayer/Light_Sensor -I ../BSP/Modulelayer/MIC -I ../BSP/Modulelayer/Module -I ../BSP/Modulelayer/RGB -I ../BSP/Modulelayer/TFT-I.\RTE\_bluetooth_desk_lamp-ID:\keil5\keil_V5.40\package\ARM\CMSIS\6.3.0\CMSIS\Core\Include-ID:\keil5\keil_V5.40\package\Keil\STM32F1xx_DFP\2.4.1\Device\Include-D__UVISION_VERSION="543" -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o bluetooth_desk_lamp\bt_drv.o --omf_browse bluetooth_desk_lamp\bt_drv.crf --depend bluetooth_desk_lamp\bt_drv.d)
 I (..\BSP\Modulelayer\BlueTooth\BT_drv.h)(0x6A006671)
 I (../Core/Inc/main.h)(0x69C8A76D)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h)(0x699D7811)
@@ -796,11 +824,11 @@ I (../BSP/Driverlayer/uart_drv.h)(0x69C4ADA8)
 I (../Core/Inc/usart.h)(0x69C1070F)
 I (D:\keil5\keil_V5.40\ARM\ARMCC\include\stdio.h)(0x56FE42DE)
 I (D:\keil5\keil_V5.40\ARM\ARMCC\include\string.h)(0x56FE42DE)
-I (../BSP/Modulelayer/Asrpro/asrpro_drv.h)(0x6A0089D9)
+I (../BSP/Modulelayer/Asrpro/asrpro_drv.h)(0x6A019178)
 I (../BSP/Driverlayer/buzzer_drv.h)(0x69FC5EC8)
-I (../BSP/Driverlayer/cmd.h)(0x69FF32BD)
+I (../BSP/Driverlayer/cmd.h)(0x6A017AEE)
 F (..\BSP\Modulelayer\BlueTooth\BT_drv.h)(0x6A006671)()
-F (..\BSP\Modulelayer\Light_Sensor\light_sensor_drv.c)(0x6A008877)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../BSP -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ../BSP/Applayer -I ../BSP/Driverlayer -I ../BSP/Modulelayer/Asrpro -I ../BSP/Modulelayer/BlueTooth -I ../BSP/Modulelayer/Light_Sensor -I ../BSP/Modulelayer/MIC -I ../BSP/Modulelayer/Module -I ../BSP/Modulelayer/RGB -I ../BSP/Modulelayer/TFT-I.\RTE\_bluetooth_desk_lamp-ID:\keil5\keil_V5.40\package\ARM\CMSIS\6.3.0\CMSIS\Core\Include-ID:\keil5\keil_V5.40\package\Keil\STM32F1xx_DFP\2.4.1\Device\Include-D__UVISION_VERSION="543" -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o bluetooth_desk_lamp\light_sensor_drv.o --omf_browse bluetooth_desk_lamp\light_sensor_drv.crf --depend bluetooth_desk_lamp\light_sensor_drv.d)
+F (..\BSP\Modulelayer\Light_Sensor\light_sensor_drv.c)(0x6A009C6B)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../BSP -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ../BSP/Applayer -I ../BSP/Driverlayer -I ../BSP/Modulelayer/Asrpro -I ../BSP/Modulelayer/BlueTooth -I ../BSP/Modulelayer/Light_Sensor -I ../BSP/Modulelayer/MIC -I ../BSP/Modulelayer/Module -I ../BSP/Modulelayer/RGB -I ../BSP/Modulelayer/TFT-I.\RTE\_bluetooth_desk_lamp-ID:\keil5\keil_V5.40\package\ARM\CMSIS\6.3.0\CMSIS\Core\Include-ID:\keil5\keil_V5.40\package\Keil\STM32F1xx_DFP\2.4.1\Device\Include-D__UVISION_VERSION="543" -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o bluetooth_desk_lamp\light_sensor_drv.o --omf_browse bluetooth_desk_lamp\light_sensor_drv.crf --depend bluetooth_desk_lamp\light_sensor_drv.d)
 I (..\BSP\Modulelayer\Light_Sensor\light_sensor_drv.h)(0x6A0087B3)
 I (../Core/Inc/main.h)(0x69C8A76D)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h)(0x699D7811)
@@ -840,7 +868,7 @@ I (D:\keil5\keil_V5.40\ARM\ARMCC\include\string.h)(0x56FE42DE)
 I (../BSP/Driverlayer/led.h)(0x69C3F66F)
 I (D:\keil5\keil_V5.40\ARM\ARMCC\include\stdio.h)(0x56FE42DE)
 F (..\BSP\Modulelayer\Light_Sensor\light_sensor_drv.h)(0x6A0087B3)()
-F (..\BSP\Modulelayer\MIC\mic_drv.c)(0x69FC2594)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../BSP -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ../BSP/Applayer -I ../BSP/Driverlayer -I ../BSP/Modulelayer/Asrpro -I ../BSP/Modulelayer/BlueTooth -I ../BSP/Modulelayer/Light_Sensor -I ../BSP/Modulelayer/MIC -I ../BSP/Modulelayer/Module -I ../BSP/Modulelayer/RGB -I ../BSP/Modulelayer/TFT-I.\RTE\_bluetooth_desk_lamp-ID:\keil5\keil_V5.40\package\ARM\CMSIS\6.3.0\CMSIS\Core\Include-ID:\keil5\keil_V5.40\package\Keil\STM32F1xx_DFP\2.4.1\Device\Include-D__UVISION_VERSION="543" -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o bluetooth_desk_lamp\mic_drv.o --omf_browse bluetooth_desk_lamp\mic_drv.crf --depend bluetooth_desk_lamp\mic_drv.d)
+F (..\BSP\Modulelayer\MIC\mic_drv.c)(0x6A01A511)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../BSP -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ../BSP/Applayer -I ../BSP/Driverlayer -I ../BSP/Modulelayer/Asrpro -I ../BSP/Modulelayer/BlueTooth -I ../BSP/Modulelayer/Light_Sensor -I ../BSP/Modulelayer/MIC -I ../BSP/Modulelayer/Module -I ../BSP/Modulelayer/RGB -I ../BSP/Modulelayer/TFT-I.\RTE\_bluetooth_desk_lamp-ID:\keil5\keil_V5.40\package\ARM\CMSIS\6.3.0\CMSIS\Core\Include-ID:\keil5\keil_V5.40\package\Keil\STM32F1xx_DFP\2.4.1\Device\Include-D__UVISION_VERSION="543" -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o bluetooth_desk_lamp\mic_drv.o --omf_browse bluetooth_desk_lamp\mic_drv.crf --depend bluetooth_desk_lamp\mic_drv.d)
 I (..\BSP\Modulelayer\MIC\mic_drv.h)(0x69F08440)
 I (../Core/Inc/main.h)(0x69C8A76D)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h)(0x699D7811)
@@ -885,7 +913,7 @@ I (../BSP/Driverlayer/spi_drv.h)(0x69FDAA2C)
 I (../Core/Inc/spi.h)(0x69C1070E)
 I (../BSP/Modulelayer/TFT/tft_fonts.h)(0x69C28F1B)
 F (..\BSP\Modulelayer\MIC\mic_drv.h)(0x69F08440)()
-F (..\BSP\Modulelayer\Module\module_layer.c)(0x6A008897)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../BSP -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ../BSP/Applayer -I ../BSP/Driverlayer -I ../BSP/Modulelayer/Asrpro -I ../BSP/Modulelayer/BlueTooth -I ../BSP/Modulelayer/Light_Sensor -I ../BSP/Modulelayer/MIC -I ../BSP/Modulelayer/Module -I ../BSP/Modulelayer/RGB -I ../BSP/Modulelayer/TFT-I.\RTE\_bluetooth_desk_lamp-ID:\keil5\keil_V5.40\package\ARM\CMSIS\6.3.0\CMSIS\Core\Include-ID:\keil5\keil_V5.40\package\Keil\STM32F1xx_DFP\2.4.1\Device\Include-D__UVISION_VERSION="543" -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o bluetooth_desk_lamp\module_layer.o --omf_browse bluetooth_desk_lamp\module_layer.crf --depend bluetooth_desk_lamp\module_layer.d)
+F (..\BSP\Modulelayer\Module\module_layer.c)(0x6A01A540)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../BSP -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ../BSP/Applayer -I ../BSP/Driverlayer -I ../BSP/Modulelayer/Asrpro -I ../BSP/Modulelayer/BlueTooth -I ../BSP/Modulelayer/Light_Sensor -I ../BSP/Modulelayer/MIC -I ../BSP/Modulelayer/Module -I ../BSP/Modulelayer/RGB -I ../BSP/Modulelayer/TFT-I.\RTE\_bluetooth_desk_lamp-ID:\keil5\keil_V5.40\package\ARM\CMSIS\6.3.0\CMSIS\Core\Include-ID:\keil5\keil_V5.40\package\Keil\STM32F1xx_DFP\2.4.1\Device\Include-D__UVISION_VERSION="543" -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o bluetooth_desk_lamp\module_layer.o --omf_browse bluetooth_desk_lamp\module_layer.crf --depend bluetooth_desk_lamp\module_layer.d)
 I (..\BSP\Modulelayer\Module\module_layer.h)(0x69C8DF1D)
 I (../BSP/Modulelayer/BlueTooth/BT_drv.h)(0x6A006671)
 I (../Core/Inc/main.h)(0x69C8A76D)
@@ -924,9 +952,9 @@ I (../BSP/Driverlayer/uart_drv.h)(0x69C4ADA8)
 I (../Core/Inc/usart.h)(0x69C1070F)
 I (D:\keil5\keil_V5.40\ARM\ARMCC\include\stdio.h)(0x56FE42DE)
 I (D:\keil5\keil_V5.40\ARM\ARMCC\include\string.h)(0x56FE42DE)
-I (../BSP/Modulelayer/Asrpro/asrpro_drv.h)(0x6A0089D9)
+I (../BSP/Modulelayer/Asrpro/asrpro_drv.h)(0x6A019178)
 I (../BSP/Driverlayer/buzzer_drv.h)(0x69FC5EC8)
-I (../BSP/Driverlayer/cmd.h)(0x69FF32BD)
+I (../BSP/Driverlayer/cmd.h)(0x6A017AEE)
 I (../BSP/Modulelayer/RGB/rgb_drv.h)(0x6A00870D)
 I (../BSP/Modulelayer/MIC/mic_drv.h)(0x69F08440)
 I (../BSP/Driverlayer/adc_drv.h)(0x69C6028D)
@@ -979,7 +1007,7 @@ I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h)(0x699D7811)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h)(0x699D7811)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h)(0x699D7811)
 F (..\BSP\Modulelayer\RGB\DWT.h)(0x69F0B2C4)()
-F (..\BSP\Modulelayer\RGB\rgb_drv.c)(0x6A005B1A)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../BSP -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ../BSP/Applayer -I ../BSP/Driverlayer -I ../BSP/Modulelayer/Asrpro -I ../BSP/Modulelayer/BlueTooth -I ../BSP/Modulelayer/Light_Sensor -I ../BSP/Modulelayer/MIC -I ../BSP/Modulelayer/Module -I ../BSP/Modulelayer/RGB -I ../BSP/Modulelayer/TFT-I.\RTE\_bluetooth_desk_lamp-ID:\keil5\keil_V5.40\package\ARM\CMSIS\6.3.0\CMSIS\Core\Include-ID:\keil5\keil_V5.40\package\Keil\STM32F1xx_DFP\2.4.1\Device\Include-D__UVISION_VERSION="543" -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o bluetooth_desk_lamp\rgb_drv.o --omf_browse bluetooth_desk_lamp\rgb_drv.crf --depend bluetooth_desk_lamp\rgb_drv.d)
+F (..\BSP\Modulelayer\RGB\rgb_drv.c)(0x6A01A240)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../BSP -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ../BSP/Applayer -I ../BSP/Driverlayer -I ../BSP/Modulelayer/Asrpro -I ../BSP/Modulelayer/BlueTooth -I ../BSP/Modulelayer/Light_Sensor -I ../BSP/Modulelayer/MIC -I ../BSP/Modulelayer/Module -I ../BSP/Modulelayer/RGB -I ../BSP/Modulelayer/TFT-I.\RTE\_bluetooth_desk_lamp-ID:\keil5\keil_V5.40\package\ARM\CMSIS\6.3.0\CMSIS\Core\Include-ID:\keil5\keil_V5.40\package\Keil\STM32F1xx_DFP\2.4.1\Device\Include-D__UVISION_VERSION="543" -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o bluetooth_desk_lamp\rgb_drv.o --omf_browse bluetooth_desk_lamp\rgb_drv.crf --depend bluetooth_desk_lamp\rgb_drv.d)
 I (..\BSP\Modulelayer\RGB\rgb_drv.h)(0x6A00870D)
 I (../Core/Inc/main.h)(0x69C8A76D)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h)(0x699D7811)
@@ -1134,7 +1162,7 @@ I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h)(0x699D7811)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h)(0x699D7811)
 I (..\BSP\Driverlayer\buzzer_drv.h)(0x69FC5EC8)
 F (..\BSP\Driverlayer\key.h)(0x69FC108C)()
-F (..\BSP\Driverlayer\led.c)(0x69C3F66F)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../BSP -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ../BSP/Applayer -I ../BSP/Driverlayer -I ../BSP/Modulelayer/Asrpro -I ../BSP/Modulelayer/BlueTooth -I ../BSP/Modulelayer/Light_Sensor -I ../BSP/Modulelayer/MIC -I ../BSP/Modulelayer/Module -I ../BSP/Modulelayer/RGB -I ../BSP/Modulelayer/TFT-I.\RTE\_bluetooth_desk_lamp-ID:\keil5\keil_V5.40\package\ARM\CMSIS\6.3.0\CMSIS\Core\Include-ID:\keil5\keil_V5.40\package\Keil\STM32F1xx_DFP\2.4.1\Device\Include-D__UVISION_VERSION="543" -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o bluetooth_desk_lamp\led.o --omf_browse bluetooth_desk_lamp\led.crf --depend bluetooth_desk_lamp\led.d)
+F (..\BSP\Driverlayer\led.c)(0x6A018425)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../BSP -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ../BSP/Applayer -I ../BSP/Driverlayer -I ../BSP/Modulelayer/Asrpro -I ../BSP/Modulelayer/BlueTooth -I ../BSP/Modulelayer/Light_Sensor -I ../BSP/Modulelayer/MIC -I ../BSP/Modulelayer/Module -I ../BSP/Modulelayer/RGB -I ../BSP/Modulelayer/TFT-I.\RTE\_bluetooth_desk_lamp-ID:\keil5\keil_V5.40\package\ARM\CMSIS\6.3.0\CMSIS\Core\Include-ID:\keil5\keil_V5.40\package\Keil\STM32F1xx_DFP\2.4.1\Device\Include-D__UVISION_VERSION="543" -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o bluetooth_desk_lamp\led.o --omf_browse bluetooth_desk_lamp\led.crf --depend bluetooth_desk_lamp\led.d)
 I (..\BSP\Driverlayer\led.h)(0x69C3F66F)
 I (../Core/Inc/main.h)(0x69C8A76D)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h)(0x699D7811)
@@ -1325,7 +1353,7 @@ I (D:\keil5\keil_V5.40\ARM\ARMCC\include\string.h)(0x56FE42DE)
 I (..\BSP\Driverlayer\adc_drv.h)(0x69C6028D)
 I (../Core/Inc/adc.h)(0x69C6028D)
 I (../Core/Inc/tim.h)(0x69F1B322)
-I (..\BSP\Driverlayer\cmd.h)(0x69FF32BD)
+I (..\BSP\Driverlayer\cmd.h)(0x6A017AEE)
 F (..\BSP\Driverlayer\drv_layer.h)(0x69FF3239)()
 F (..\BSP\Driverlayer\spi_drv.c)(0x69C224A2)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../BSP -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ../BSP/Applayer -I ../BSP/Driverlayer -I ../BSP/Modulelayer/Asrpro -I ../BSP/Modulelayer/BlueTooth -I ../BSP/Modulelayer/Light_Sensor -I ../BSP/Modulelayer/MIC -I ../BSP/Modulelayer/Module -I ../BSP/Modulelayer/RGB -I ../BSP/Modulelayer/TFT-I.\RTE\_bluetooth_desk_lamp-ID:\keil5\keil_V5.40\package\ARM\CMSIS\6.3.0\CMSIS\Core\Include-ID:\keil5\keil_V5.40\package\Keil\STM32F1xx_DFP\2.4.1\Device\Include-D__UVISION_VERSION="543" -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o bluetooth_desk_lamp\spi_drv.o --omf_browse bluetooth_desk_lamp\spi_drv.crf --depend bluetooth_desk_lamp\spi_drv.d)
 I (..\BSP\Driverlayer\spi_drv.h)(0x69FDAA2C)
@@ -1401,7 +1429,7 @@ I (../Core/Inc/usart.h)(0x69C1070F)
 I (D:\keil5\keil_V5.40\ARM\ARMCC\include\stdio.h)(0x56FE42DE)
 F (..\BSP\Driverlayer\uart_drv.h)(0x69C4ADA8)()
 F (..\BSP\Driverlayer\cmd.c)(0x69FF31FA)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../BSP -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ../BSP/Applayer -I ../BSP/Driverlayer -I ../BSP/Modulelayer/Asrpro -I ../BSP/Modulelayer/BlueTooth -I ../BSP/Modulelayer/Light_Sensor -I ../BSP/Modulelayer/MIC -I ../BSP/Modulelayer/Module -I ../BSP/Modulelayer/RGB -I ../BSP/Modulelayer/TFT-I.\RTE\_bluetooth_desk_lamp-ID:\keil5\keil_V5.40\package\ARM\CMSIS\6.3.0\CMSIS\Core\Include-ID:\keil5\keil_V5.40\package\Keil\STM32F1xx_DFP\2.4.1\Device\Include-D__UVISION_VERSION="543" -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o bluetooth_desk_lamp\cmd.o --omf_browse bluetooth_desk_lamp\cmd.crf --depend bluetooth_desk_lamp\cmd.d)
-I (..\BSP\Driverlayer\cmd.h)(0x69FF32BD)
+I (..\BSP\Driverlayer\cmd.h)(0x6A017AEE)
 I (../Core/Inc/main.h)(0x69C8A76D)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h)(0x699D7811)
 I (../Core/Inc/stm32f1xx_hal_conf.h)(0x69CC709A)
@@ -1434,7 +1462,7 @@ I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_spi.h)(0x699D7811)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h)(0x699D7811)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h)(0x699D7811)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h)(0x699D7811)
-F (..\BSP\Driverlayer\cmd.h)(0x69FF32BD)()
+F (..\BSP\Driverlayer\cmd.h)(0x6A017AEE)()
 F (../Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_gpio_ex.c)(0x699D7811)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../BSP -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ../BSP/Applayer -I ../BSP/Driverlayer -I ../BSP/Modulelayer/Asrpro -I ../BSP/Modulelayer/BlueTooth -I ../BSP/Modulelayer/Light_Sensor -I ../BSP/Modulelayer/MIC -I ../BSP/Modulelayer/Module -I ../BSP/Modulelayer/RGB -I ../BSP/Modulelayer/TFT-I.\RTE\_bluetooth_desk_lamp-ID:\keil5\keil_V5.40\package\ARM\CMSIS\6.3.0\CMSIS\Core\Include-ID:\keil5\keil_V5.40\package\Keil\STM32F1xx_DFP\2.4.1\Device\Include-D__UVISION_VERSION="543" -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o bluetooth_desk_lamp\stm32f1xx_hal_gpio_ex.o --omf_browse bluetooth_desk_lamp\stm32f1xx_hal_gpio_ex.crf --depend bluetooth_desk_lamp\stm32f1xx_hal_gpio_ex.d)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h)(0x699D7811)
 I (../Core/Inc/stm32f1xx_hal_conf.h)(0x69CC709A)

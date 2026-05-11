@@ -11,6 +11,7 @@ void system_valiable_Init(void)
     system = (System_t)
     {
         .mode = Sys_Mode_PowerOff, // 默认初始模式为关机
+		.prev_mode = Sys_Mode_PowerOff,
 
         .system_data = 
         {

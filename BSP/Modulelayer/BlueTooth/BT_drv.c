@@ -1,12 +1,9 @@
 
-
-// App 端发送的字符串必须以\n结尾。
-
 #include "BT_drv.h"
 
 static BT_t bt;
 
-static char bt_cmd[CMD_LEN][BT_CMD_BUF_MAX_LEN] =
+static char bt_cmd[CMD_BT_LEN][BT_CMD_BUF_MAX_LEN] =
 {
     "poweron",
     "poweroff",
@@ -187,7 +184,7 @@ static uint8_t BT_MatchCmd(const uint8_t* data,uint16_t data_len,const char* cmd
 	if (strncmp((const char*)data,cmd,cmd_len) != 0) return 0;
 	
 	if (data_len == cmd_len) return 1;
-	else if (data[cmd_len] == '\n') return 1;
+	// else if (data[cmd_len] == '\n') return 1;
 	
 	return 0;
 }
@@ -200,7 +197,7 @@ uint8_t BT_DataProcess(void)
 {
     uint8_t valid_flag = 0;
 
-    for (uint8_t i = 0; i < CMD_LEN ;i++)  //字符串匹配
+    for (uint8_t i = 0; i < CMD_BT_LEN ;i++)  //字符串匹配
     {
         if(BT_MatchCmd(bt.uart_rx_buf,bt.uart_rx_data_len,bt_cmd[i]))
         {
@@ -218,7 +215,7 @@ uint8_t BT_DataProcess(void)
         pos += snprintf(help_msg + pos,sizeof(help_msg) - pos,"There is no such command\r\n" );
 		pos += snprintf(help_msg + pos,sizeof(help_msg) - pos,"Valid commands are:\r\n");
 		
-        for (uint8_t i = 0; i < CMD_LEN ;i++)
+        for (uint8_t i = 0; i < CMD_BT_LEN ;i++)
         {
             pos += snprintf(help_msg + pos,sizeof(help_msg) - pos,"%s\n",bt_cmd[i]);
         }

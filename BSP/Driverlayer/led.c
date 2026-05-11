@@ -31,3 +31,10 @@ void led_work(led_e led_num)
         break;
     }
 }
+
+
+// asrpro聆听时的蓝灯闪烁
+void LED_B_work()
+{
+	
+}

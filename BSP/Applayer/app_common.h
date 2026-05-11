@@ -73,6 +73,7 @@ typedef struct
 typedef struct
 {
     system_mode_e mode;
+	system_mode_e prev_mode;
     system_data_t system_data;
 }System_t;
 

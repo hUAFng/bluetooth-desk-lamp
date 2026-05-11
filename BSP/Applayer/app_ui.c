@@ -156,13 +156,15 @@ void system_show_manual_auto(void)
 
 void system_show_music(void)
 {
+	if (system.prev_mode == system.mode) return;
+	
     clear_dynamic_area();
 
     tft_DisplayString(28, 32, "ENJOY MUSIC", COLOR_WHITE, COLOR_BLACK);
 	
 	system_show_bluetooth_status(50);
 
-    // 简易均衡器：5条不同高度的竖线
+    // 5条不同高度的竖线
     uint16_t bar_x[] = {20, 42, 64, 86, 108};
     uint16_t bar_h[] = {15, 30, 22, 35, 18};
 	

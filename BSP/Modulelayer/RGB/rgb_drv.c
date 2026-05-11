@@ -49,6 +49,8 @@ void rgb_Init(void)
 
 void rgb_SendBit(void)
 {
+	if (rgb.is_sending) return;
+	
 	uint16_t index = 0;
 	
 	for (uint8_t i = 0;i < RGB_LED_NUM;i++)
@@ -69,9 +71,7 @@ void rgb_SendBit(void)
 	}
 	
 	for(int i = 0;i < 50;i++) rgb.pwm_pulse_dma_buf[index++] = 0; // 刷新信号
-	
-	while(rgb.is_sending){}   // 等待发送完成
-	
+		
 	rgb.is_sending = 1;
     HAL_TIM_PWM_Start_DMA(&htim1,TIM_CHANNEL_1,(uint32_t *)rgb.pwm_pulse_dma_buf,index);  //开始发送CCR值
 }

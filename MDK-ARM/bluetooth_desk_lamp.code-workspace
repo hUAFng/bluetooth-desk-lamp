@@ -27,7 +27,9 @@
             "math.h": "c",
             "module_layer.h": "c",
             "mic_drv.h": "c",
-            "tim.h": "c"
+            "tim.h": "c",
+            "buzzer_drv.h": "c",
+            "cmd.h": "c"
         }
     },
     "extensions": {}

@@ -21,10 +21,14 @@ void sys_mode_Auto_Init()
 	
     rgb_PowerOn(system.system_data.rgb_data.color,system.system_data.rgb_data.brightness); 
 
+	/*
     if (ls_PowerOn() != HAL_OK)
     {
         if (ls_Reset() != HAL_OK) Error_Handler();
     }
+	
+	*/
+	
 
     mic_PowerOff(); // 自动模式不使用麦克风
 }
@@ -34,6 +38,7 @@ void sys_mode_Music_Init()
     system_valiable_Init(); // 系统模式已经在app_algorithm.c中赋值为音乐模式
 
     rgb_PowerOn(system.system_data.rgb_data.color,system.system_data.rgb_data.brightness); 
+	
     ls_PowerOff();
     mic_PowerOn();
 }
@@ -113,11 +118,21 @@ void sys_mode_Auto(void)
 
 void sys_mode_Music(void)
 {
-    mic_Run();
+	static uint32_t last_tick;
+	
+	if (HAL_GetTick() - last_tick >= 50) 
+	{
+        last_tick = HAL_GetTick();
+		
+		mic_Run();
 
-    rgb_RunInMusic();
+		rgb_RunInMusic();
 
-     rgb_update();
+		rgb_update();
+        
+    }
+	
+    
 }
 
 

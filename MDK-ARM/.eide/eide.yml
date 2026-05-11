@@ -66,6 +66,8 @@ virtualFolder:
         - path: ../BSP/Driverlayer/drv_layer.h
         - path: ../BSP/Driverlayer/adc_drv.c
         - path: ../BSP/Driverlayer/adc_drv.h
+        - path: ../BSP/Driverlayer/cmd.c
+        - path: ../BSP/Driverlayer/cmd.h
       folders: []
     - name: ::CMSIS
       files: []

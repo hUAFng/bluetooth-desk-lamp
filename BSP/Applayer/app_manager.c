@@ -36,6 +36,7 @@ void system_Control(void)
     system_power_Control_key(); // 按键1控制系统开关机
 
     BT_GetCmd(&system.system_data.bt_data.cmd); // 获取蓝牙命令
+	
     if (system.system_data.bt_data.cmd != NoneCmd) //蓝牙有命令 - 优先处理蓝牙命令，不处理语音命令
     {
         Sys_Control_By_BTorASR(system.system_data.bt_data.cmd);
@@ -47,6 +48,8 @@ void system_Control(void)
         if (system.system_data.asr_data.cmd != NoneCmd)
         {
             Sys_Control_By_BTorASR(system.system_data.asr_data.cmd);
+			
+			led_blue_work_In_listen(system.system_data.asr_data.cmd);
         }
     }
 }
@@ -66,8 +69,8 @@ void system_PowerOn(void)
     led_work(LED_G_ON); // 绿灯表示正常工作
 	led_work(LED_B_OFF);   //蓝灯只在语音模块聆听时闪烁
 	
-	system.mode = Sys_Mode_Manual;
 	sys_mode_Manual_Init();
+	system.mode = Sys_Mode_Manual;
 	
 	tft_PowerOn(); 
 		
@@ -126,6 +129,8 @@ void system_Run(void)
     system_Control();
 
     system_show();
+	
+	if (system.prev_mode != system.mode) system.prev_mode = system.mode;
 	
 	HAL_Delay(10);
 }
