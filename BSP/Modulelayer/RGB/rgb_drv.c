@@ -258,7 +258,7 @@ void rgb_brightness_filter(uint8_t *brightness)
 {
     if (brightness == NULL) return;
 
-    uint8_t delta_bright = *brightness - rgb.cnt_brightness;
+    int16_t delta_bright = (int16_t)*brightness - (int16_t)rgb.cnt_brightness;
 
     float Up_filter = 0.6f;
     float Down_filter = 0.85f;
@@ -271,8 +271,6 @@ void rgb_brightness_filter(uint8_t *brightness)
     {
         rgb.cnt_brightness = Down_filter * rgb.cnt_brightness + (1 - Down_filter) * *brightness;
     }
-
-
 }
 void rgb_MapFreqToRGBValue()
 {

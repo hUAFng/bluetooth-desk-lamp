@@ -19,22 +19,22 @@ extern TIM_HandleTypeDef htim3;
 #define MIC_ADC_DMA_BUF_LEN 256  // DMA的缓冲区长度,使用FFT方案需要是间为2的幂数，数字越大分辨率越高
 #define MIC_LOUDNESS_MAX 2000 // 响度的最大值（RMS值，12位ADC最大偏差±2047，RMS≈1448，预留余量）
 
-#define LOW_FREQ_THRESHOLD 200.0f // 低频区域阈值,往下走低频，往上走中频
+#define LOW_FREQ_THRESHOLD 300.0f // 低频区域阈值,往下走低频，往上走中频
 #define MID_FREQ_THRESHOLD 2000.0f // 高频区域阈值，往下走中频，往上走高频
 #define SAMPLE_RATE 10000 // 采样率 10KHz = 72M / (100 * 100) 定时器溢出频率
 
 /*note : 频率适用的滤波系数 系数越大 响应越慢越平滑 */
 #define DOWN_DIRETION_FILTER 0.75f // 降低方向滤波系数
-#define NARROW_FILTER 0.9f // 短距离滤波系数 不分降低升高 频率亮度适用
+#define NARROW_FILTER 0.85f // 短距离滤波系数 不分降低升高 频率亮度适用
 #define MID_SPEED_FILTER 0.7f // 中距离升高滤波系数
-#define HIGH_SPEED_FITLER 0.55f // 高距离升高滤波系数
+#define HIGH_SPEED_FILTER 0.55f // 高距离升高滤波系数
 
-#define GOERTZEL_FREQ_NUM 8
+#define GOERTZEL_FREQ_NUM 16
 /* -------------------------------------------------valiables-------------------------------------------------*/
 
 typedef struct 
 {
-    uint32_t adc_dma_buf[MIC_ADC_DMA_BUF_LEN]; // ADC原始值(0-4095)
+    uint16_t adc_dma_buf[MIC_ADC_DMA_BUF_LEN]; // ADC原始值(0-4095)
     float adc_dma_buf_float[MIC_ADC_DMA_BUF_LEN]; // 将原始数据转float并去直流偏置后的值
 
     uint8_t dma_data_ready_flag; // DMA数据传输完成标志位

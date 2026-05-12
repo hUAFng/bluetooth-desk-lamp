@@ -14,7 +14,7 @@
                               ↓
                     ┌──────────────────┐    ┌──────────────────┐
                     │ mic_goertzel()   │ →  │ mic_GetMaxfreq() │
-                    │ (8 个频点检测)     │    │ (取最大能量频点)   │
+                    │ (16个频点检测)     │    │ (取最大能量频点)   │
                     └──────────────────┘    └──────────────────┘
                               ↓
                     ┌──────────────────┐
@@ -35,21 +35,36 @@ static mic_t mic;
 static const goertzel_coeff_t goertzel_table[GOERTZEL_FREQ_NUM] =
 {
     // target_freq,  k,  coeff
-    {   80,    2,  1.9980964f  },  
-    {  150,    4,  1.9923870f  }, 
-    {  300,    8,  1.9696155f  },  
-    {  600,   15,  1.8854564f  },  
-    { 1000,   26,  1.6629392f  },  
-    { 2000,   51,  0.9297765f  },  
-    { 3500,   90, -0.5555702f  },  
-    { 4500,  115, -1.4142136f  },  
+    {   50,    1,   1.9993976f  },  // sub-bass  
+    {   80,    2,   1.9975909f  },  // bass     
+    {  120,    3,   1.9945766f  },  // bass     
+    {  180,    5,   1.9849591f  },  // bass      
+    {  260,    7,   1.9705553f  },  // low-mid   
+    {  380,   10,   1.9396926f  },  // mid-low   
+    {  530,   14,   1.8830881f  },  // mid      
+    {  720,   18,   1.8079789f  },  // mid       
+    {  950,   24,   1.6629392f  },  // mid-high  
+    { 1250,   32,   1.4142136f  },  // upper-mid 
+    { 1650,   42,   1.0282055f  },  // presence  
+    { 2100,   54,   0.4859606f  },  // high-mid 
+    { 2700,   69,  -0.2410734f  },  // high     
+    { 3400,   87,  -1.0745992f  },  // high-pres 
+    { 4200,  108,  -1.7526134f  },  // brilliance 
+    { 4800,  123,  -1.9849591f  },  // air     
 };
 
 
 
 static void mic_ClearBuf(void)
 {
-    memset(&mic,0,sizeof(mic));
+    mic.work_flag = 0;
+    mic.dma_data_ready_flag = 0;
+
+    mic.freq = 0.0f;
+    mic.loudness = 0.0f;
+
+    memset(mic.adc_dma_buf, 0, sizeof(mic.adc_dma_buf));
+    memset(mic.adc_dma_buf_float, 0, sizeof(mic.adc_dma_buf_float));
 }
 
 void mic_Init(void)
@@ -200,13 +215,22 @@ void mic_loudness_mapto_brightness(uint8_t brightness_max,uint8_t brightness_min
 {
     if(brightness == NULL) return;
 
-    *brightness = mic.loudness * brightness_max / MIC_LOUDNESS_MAX ;
+    float raw = mic.loudness * brightness_max / MIC_LOUDNESS_MAX ;
 
-    if (*brightness > brightness_max)               *brightness = brightness_max;
-    else if (*brightness < brightness_min)          *brightness = brightness_min;
-    else if (*brightness < low_bright_area)         *brightness = (*brightness) * 3;
+    // 上下钳位
+    if (raw > brightness_max)               raw = brightness_max;
+    else if (raw < brightness_min)          raw = brightness_min;
 
-    if (*brightness > low_bright_area)    *brightness = low_bright_area;
+    // 暗区内非线性映射，提升暗部表现
+    if (raw < low_bright_area)
+    {
+        float range = low_bright_area - brightness_min;
+        float t = (raw - brightness_min) / range;    // 归一化
+        t = 1.0f - (1.0f - t) * (1.0f - t); // 非线性映射
+        raw = brightness_min + t * range;
+    }
+
+    *brightness = (uint8_t)raw;
 }
 
 

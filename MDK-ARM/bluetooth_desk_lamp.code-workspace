@@ -29,7 +29,9 @@
             "mic_drv.h": "c",
             "tim.h": "c",
             "buzzer_drv.h": "c",
-            "cmd.h": "c"
+            "cmd.h": "c",
+            "type_traits": "c",
+            "limits": "c"
         }
     },
     "extensions": {}
