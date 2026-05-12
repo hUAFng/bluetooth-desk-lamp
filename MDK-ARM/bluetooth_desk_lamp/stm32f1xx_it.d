@@ -47,8 +47,8 @@ bluetooth_desk_lamp\stm32f1xx_it.o: ../BSP/Modulelayer/RGB/rgb_drv.h
 bluetooth_desk_lamp\stm32f1xx_it.o: ../BSP/Modulelayer/MIC/mic_drv.h
 bluetooth_desk_lamp\stm32f1xx_it.o: ../BSP/Driverlayer/adc_drv.h
 bluetooth_desk_lamp\stm32f1xx_it.o: ../Core/Inc/adc.h
-bluetooth_desk_lamp\stm32f1xx_it.o: ../Core/Inc/tim.h
 bluetooth_desk_lamp\stm32f1xx_it.o: D:\keil5\keil_V5.40\ARM\ARMCC\Bin\..\include\math.h
+bluetooth_desk_lamp\stm32f1xx_it.o: ../Core/Inc/tim.h
 bluetooth_desk_lamp\stm32f1xx_it.o: ../BSP/Modulelayer/TFT/tft_drv.h
 bluetooth_desk_lamp\stm32f1xx_it.o: ../BSP/Driverlayer/spi_drv.h
 bluetooth_desk_lamp\stm32f1xx_it.o: ../Core/Inc/spi.h

@@ -36,10 +36,5 @@ bluetooth_desk_lamp\mic_drv.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal
 bluetooth_desk_lamp\mic_drv.o: ../BSP/Driverlayer/adc_drv.h
 bluetooth_desk_lamp\mic_drv.o: ../Core/Inc/adc.h
 bluetooth_desk_lamp\mic_drv.o: D:\keil5\keil_V5.40\ARM\ARMCC\Bin\..\include\string.h
-bluetooth_desk_lamp\mic_drv.o: D:\keil5\keil_V5.40\ARM\ARMCC\Bin\..\include\stdio.h
-bluetooth_desk_lamp\mic_drv.o: ../Core/Inc/tim.h
 bluetooth_desk_lamp\mic_drv.o: D:\keil5\keil_V5.40\ARM\ARMCC\Bin\..\include\math.h
-bluetooth_desk_lamp\mic_drv.o: ../BSP/Modulelayer/TFT/tft_drv.h
-bluetooth_desk_lamp\mic_drv.o: ../BSP/Driverlayer/spi_drv.h
-bluetooth_desk_lamp\mic_drv.o: ../Core/Inc/spi.h
-bluetooth_desk_lamp\mic_drv.o: ../BSP/Modulelayer/TFT/tft_fonts.h
+bluetooth_desk_lamp\mic_drv.o: ../Core/Inc/tim.h

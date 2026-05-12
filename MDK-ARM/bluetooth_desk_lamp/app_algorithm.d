@@ -46,8 +46,8 @@ bluetooth_desk_lamp\app_algorithm.o: ../BSP/Modulelayer/RGB/rgb_drv.h
 bluetooth_desk_lamp\app_algorithm.o: ../BSP/Modulelayer/MIC/mic_drv.h
 bluetooth_desk_lamp\app_algorithm.o: ../BSP/Driverlayer/adc_drv.h
 bluetooth_desk_lamp\app_algorithm.o: ../Core/Inc/adc.h
-bluetooth_desk_lamp\app_algorithm.o: ../Core/Inc/tim.h
 bluetooth_desk_lamp\app_algorithm.o: D:\keil5\keil_V5.40\ARM\ARMCC\Bin\..\include\math.h
+bluetooth_desk_lamp\app_algorithm.o: ../Core/Inc/tim.h
 bluetooth_desk_lamp\app_algorithm.o: ../BSP/Modulelayer/TFT/tft_drv.h
 bluetooth_desk_lamp\app_algorithm.o: ../BSP/Driverlayer/spi_drv.h
 bluetooth_desk_lamp\app_algorithm.o: ../Core/Inc/spi.h

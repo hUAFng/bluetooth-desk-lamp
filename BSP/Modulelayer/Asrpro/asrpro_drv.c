@@ -3,7 +3,7 @@
 
 #include "asrpro_drv.h"
 
-static asr_rx_t asr_rx;
+asr_rx_t asr_rx;
 
 void asrpro_ClearBuffer(void)
 {
@@ -22,7 +22,6 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef* huart)
     if (huart->Instance == ASR_UART_Handle.Instance)
     {
 		asr_rx.asr_rx_flag = 1;
-		asr_rx.prev_cmd_time = HAL_GetTick();
 		
         HAL_UART_Receive_IT(&ASR_UART_Handle, asr_rx.asr_rx_buf, ASR_FRAME_LEN); 
     }
@@ -46,7 +45,6 @@ uint8_t asrpro_CheckCmdTimeValid(void)
     {
         asr_rx.prev_cmd_time = cnt_time;
         asr_rx.asr_rx_flag = 0;
-        asr_rx.asr_rx_cmd = asr_rx.asr_rx_buf[2];  
         return 1;
     }
 }
@@ -97,9 +95,7 @@ void asrpro_GetCmd(Cmd_e* cmd)
     if (asr_rx.asr_rx_flag)
     {
         if(asrpro_CheckCmdTimeValid())
-        {
-            // buzzer_work();
-			
+        {	
 			uint16_t rx_cmd = ( asr_rx.asr_rx_buf[0] << 8 | asr_rx.asr_rx_buf[1] );
 			
 			*cmd = asrpro_CmdProcess(rx_cmd); // 有效命令或者命令不存在
