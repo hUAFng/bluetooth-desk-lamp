@@ -31,7 +31,13 @@
             "buzzer_drv.h": "c",
             "cmd.h": "c",
             "type_traits": "c",
-            "limits": "c"
+            "limits": "c",
+            "light_sensor_drv_adc.h": "c",
+            "climits": "c",
+            "cmath": "c",
+            "cstdarg": "c",
+            "cstdio": "c",
+            "cstdlib": "c"
         }
     },
     "extensions": {}

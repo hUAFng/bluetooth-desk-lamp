@@ -7,7 +7,7 @@
 #include "rgb_drv.h"
 #include "tft_drv.h"
 #include "mic_drv.h"
-#include "light_sensor_drv_i2C.h"
+#include "light_sensor_drv_adc.h"
 #include "asrpro_drv.h"
 
 #include "drv_layer.h"

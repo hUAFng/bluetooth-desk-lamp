@@ -84,8 +84,8 @@ virtualFolder:
           folders: []
         - name: Light_Sensor
           files:
-            - path: ../BSP/Modulelayer/Light_Sensor/light_sensor_drv.c
-            - path: ../BSP/Modulelayer/Light_Sensor/light_sensor_drv.h
+            - path: ../BSP/Modulelayer/Light_Sensor/light_sensor_drv_adc.c
+            - path: ../BSP/Modulelayer/Light_Sensor/light_sensor_drv_adc.h
           folders: []
         - name: RGB
           files:
