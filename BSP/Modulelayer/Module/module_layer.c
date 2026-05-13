@@ -12,13 +12,10 @@ void module_Init(void)
     {
         BT_Reset();
     }  
+	
 
-	
-    if (ls_Init())
-    {
-        ls_Reset();
-    }
-	
+    ls_Init();
+
     mic_Init();
     
     rgb_Init();

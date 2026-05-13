@@ -85,7 +85,7 @@ void mic_PowerOn(void)
     mic_ClearBuf();
 
     if (HAL_TIM_Base_Start(&htim3) != HAL_OK) Error_Handler(); // 开启定时器3，用于触发ADC转换（TRGO）
-    if (HAL_ADC_Start_DMA(&MIC_ADC_CHANNEL,mic.adc_dma_buf,MIC_ADC_DMA_BUF_LEN) != HAL_OK) 
+    if (HAL_ADC_Start_DMA(&MIC_ADC_CHANNEL,(uint32_t *)mic.adc_dma_buf,MIC_ADC_DMA_BUF_LEN) != HAL_OK) 
         Error_Handler();
 
     mic.work_flag = 1;  
@@ -180,7 +180,8 @@ static float mic_GetMaxfreq()
             max_power = power;
             best_freq = goertzel_table[i].target_freq;
         }
-    }
+    } 
+        
     return best_freq;  // 最匹配的频率点
 }
 
@@ -215,7 +216,7 @@ void mic_loudness_mapto_brightness(uint8_t brightness_max,uint8_t brightness_min
 {
     if(brightness == NULL) return;
 
-    float raw = mic.loudness * brightness_max / MIC_LOUDNESS_MAX ;
+    float raw = mic.loudness * LOUDNESS_TO_BRIGHTNESS_GAIN * brightness_max / MIC_LOUDNESS_MAX ; // 乘以增益
 
     // 上下钳位
     if (raw > brightness_max)               raw = brightness_max;
@@ -255,22 +256,29 @@ static void mic_freq_filter(float* cnt_freq)
     }
     else// 快速升
     {
-        mic.freq = HIGH_SPEED_FITLER * mic.freq + (1 - HIGH_SPEED_FITLER) * *cnt_freq;
+        mic.freq = HIGH_SPEED_FILTER * mic.freq + (1 - HIGH_SPEED_FILTER) * *cnt_freq;
     }
 }
 
-void mic_Run()
+uint8_t mic_Run()
 {
-    if (!mic.dma_data_ready_flag) return; // 等待DMA数据完成
+    if (!mic.dma_data_ready_flag) return 0; // 等待DMA数据完成
 
     mic.dma_data_ready_flag = 0; // 清除标志位
 
     // 转换为float数据
     mic_dma_buf_to_float();
-
-    float cnt_freq = mic_GetMaxfreq(); // 获取最大频率
-    mic_freq_filter(&cnt_freq);
-
-    mic_Getloudness(); // 获取响度    
     
+    mic_Getloudness(); // 获取响度
+
+    float cnt_freq = 0;
+
+    // 信号强度明显高于噪声时才检测频率
+    if (mic.loudness > mic.noise_floor * LOUDNESS_GATE_RATIO) 
+    {
+        cnt_freq = mic_GetMaxfreq();     
+        mic_freq_filter(&cnt_freq);
+    }
+
+    return 1;
 }

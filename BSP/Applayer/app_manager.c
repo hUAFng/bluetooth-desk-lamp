@@ -69,7 +69,6 @@ void system_Init()
 void system_PowerOn(void)
 {
     led_work(LED_G_ON); // 绿灯表示正常工作
-	led_work(LED_B_OFF);   //蓝灯只在语音模块聆听时闪烁
 	
 	sys_mode_Manual_Init();
 	system.mode = Sys_Mode_Manual;
@@ -88,6 +87,7 @@ void system_PowerOff(void)
     system.mode = Sys_Mode_PowerOff;
 
     led_work(LED_G_OFF); // 绿灯表示系统关闭
+	led_work(LED_B_OFF);
 
     rgb_PowerOff(); // 灯带关闭
     tft_PowerOff(); // TFT关闭

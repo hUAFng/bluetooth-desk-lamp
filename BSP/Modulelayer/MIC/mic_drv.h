@@ -16,20 +16,24 @@ extern TIM_HandleTypeDef htim3;
 /* -------------------------------------------------define---------------------------------------------------*/
 #define MIC_ADC_CHANNEL hadc1
 
-#define MIC_ADC_DMA_BUF_LEN 256  // DMA的缓冲区长度,使用FFT方案需要是间为2的幂数，数字越大分辨率越高
-#define MIC_LOUDNESS_MAX 2000 // 响度的最大值（RMS值，12位ADC最大偏差±2047，RMS≈1448，预留余量）
+#define MIC_ADC_DMA_BUF_LEN 256  // DMA的缓冲区长度,数字越大分辨率越高
+#define MIC_LOUDNESS_MAX 2000 // 响度的最大值
 
 #define LOW_FREQ_THRESHOLD 300.0f // 低频区域阈值,往下走低频，往上走中频
 #define MID_FREQ_THRESHOLD 2000.0f // 高频区域阈值，往下走中频，往上走高频
 #define SAMPLE_RATE 10000 // 采样率 10KHz = 72M / (100 * 100) 定时器溢出频率
 
 /*note : 频率适用的滤波系数 系数越大 响应越慢越平滑 */
-#define DOWN_DIRETION_FILTER 0.75f // 降低方向滤波系数
-#define NARROW_FILTER 0.85f // 短距离滤波系数 不分降低升高 频率亮度适用
-#define MID_SPEED_FILTER 0.7f // 中距离升高滤波系数
-#define HIGH_SPEED_FILTER 0.55f // 高距离升高滤波系数
+#define DOWN_DIRETION_FILTER 0.92f // 降低方向滤波系数
+#define NARROW_FILTER 0.95f // 短距离滤波系数 不分降低升高 频率亮度适用
+#define MID_SPEED_FILTER 0.85f // 中距离升高滤波系数
+#define HIGH_SPEED_FILTER 0.75f // 高距离升高滤波系数
 
 #define GOERTZEL_FREQ_NUM 16
+
+#define LOUDNESS_GATE_RATIO  1.2f   // 频率检测门限：loudness > noise_floor×N 算有效
+#define MIC_GOERTZEL_MAX_FREQ 4800.0f  // Goertzel表最高检测频率
+#define LOUDNESS_TO_BRIGHTNESS_GAIN  5.0f   // 响度→亮度映射增益，放大安静环境下的亮度变化
 /* -------------------------------------------------valiables-------------------------------------------------*/
 
 typedef struct 
@@ -67,7 +71,7 @@ void mic_PowerOn(void); // 已在mic_Work中调用，可选手动调用
 void mic_Calibrate(void); //调用开始函数自动校准
 void mic_loudness_mapto_brightness(uint8_t brightness_max,uint8_t brightness_min,uint8_t* brightness,uint8_t low_bright_area);
 void mic_GetFreq(float *freq);
-void mic_Run();
+uint8_t mic_Run();
 
 #endif
 

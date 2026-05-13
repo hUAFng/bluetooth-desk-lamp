@@ -14,8 +14,12 @@ void remap_lux_to_brightness(void)
     float lux = system.system_data.ls_data.lux;
     float brightness_filter = system.system_data.rgb_data.filter_lux;
 
-    float target_brightness = RGB_MAX_BRIGHTNESS * sqrtf(lux / LS_LUX_MAX);
+	if (lux > LS_LUX_MAX) lux = LS_LUX_MAX;
 
+    float target_brightness = RGB_MAX_BRIGHTNESS * sqrtf((LS_LUX_MAX - lux) / LS_LUX_MAX);
+
+	if (target_brightness < RGB_MIN_BRIGHTNESS) target_brightness = RGB_MIN_BRIGHTNESS;
+	
     filtered_brightness = brightness_filter * filtered_brightness + 
                           (1.0f - brightness_filter) * target_brightness;
 
@@ -52,15 +56,25 @@ void Sys_Control_By_BTorASR(Cmd_e cmd)
                 break;
             case CMD_CHANGE_COLOR:
 				if (system.mode != Sys_Mode_Music)
+				{
 					rgb_SetColor_Circle(&system.system_data.rgb_data.color); // 改变颜色(循环切换)
+					rgb_update();
+				}
+					
                 break;
             case CMD_RGB_LIGHT_ON:
 				if(system.mode == Sys_Mode_Manual) 
+				{
 					rgb_SetBrightnessUp(&system.system_data.rgb_data.brightness); // 处理灯带亮一点命令
+					rgb_update();
+				}
                 break;
             case CMD_RGB_LIGHT_OFF:
 				if(system.mode == Sys_Mode_Manual)  // 只有手动模式才能调亮度
+				{
 					rgb_SetBrightnessDown(&system.system_data.rgb_data.brightness); // 处理灯带暗一点命令
+					rgb_update();
+				}
                 break;
             default:
                 break;
@@ -73,14 +87,10 @@ void led_blue_work_In_listen(Cmd_e cmd)
 {
 	if (cmd >= NoneCmd) return;
 	
-	if (cmd == CMD_ASR_WAKEUP) 
-	{
-		led_b_work.work_flag = 1;
-		
-		led_b_work.start_tick = HAL_GetTick();
-	}
-		
-	else led_b_work.work_flag = 0;
+	led_b_work.work_flag = 1;
+	
+	led_b_work.start_tick = HAL_GetTick();
+
 }
 
 
@@ -89,40 +99,28 @@ void led_b_work_handle()
 {
 	static uint16_t counter;
 	
-	static uint8_t prev_work_flag;
+	if (!led_b_work.work_flag) return;
 	
-	if (led_b_work.work_flag)
+	if (counter == 0)
 	{
-		
-		if (counter == 0)
-		{
-			led_b_work.level_value == 1 ? led_work(LED_B_ON) : led_work(LED_B_OFF);
-		}
-		
-		counter++;
-		
-		if (counter >= LED_B_LEVEL_KEEP_TIME) 
-		{
-			led_b_work.level_value = (led_b_work.level_value + 1) % 2;
-			
-			counter = 0;
-			
-			if (HAL_GetTick() - led_b_work.start_tick >= ASR_WAKEUP_WAIT_TIME * 1000) // 唤醒之后指定时间内没有得到有效信息
-			{
-				led_b_work.work_flag = 0; 
-				
-				led_work(LED_B_OFF);
-			}
-		}
-
-	}
-	else  // 接收到除唤醒以外的有效指令，指示灯闪烁结束
-	{	
-		if (prev_work_flag == 1 && led_b_work.work_flag == 0) led_work(LED_B_OFF);		
+		led_b_work.level_value == 1 ? led_work(LED_B_ON) : led_work(LED_B_OFF);
 	}
 	
-	prev_work_flag = led_b_work.work_flag;
+	counter++;
 	
+	if (counter >= LED_B_LEVEL_KEEP_TIME) 
+	{
+		led_b_work.level_value = (led_b_work.level_value + 1) % 2;
+		
+		counter = 0;
+		
+		if (HAL_GetTick() - led_b_work.start_tick >= ASR_WAKEUP_WAIT_TIME * 1000) // 唤醒之后指定时间内没有得到有效信息
+		{
+			led_b_work.work_flag = 0; 
+			
+			led_work(LED_B_OFF);
+		}
+	}
 }
 
 

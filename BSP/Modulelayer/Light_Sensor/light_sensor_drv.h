@@ -10,7 +10,7 @@
 #include "stdio.h"
 /* -------------------------------------define ------------------------------------- */
 
-#define LS_I2C_ADDR (0x23<<1)       //光传感器I2C地址
+#define LS_I2C_ADDR (0x23 << 1)       //光传感器I2C地址
 #define LS_I2C_Handle hi2c1
 
 #define LS_POWON 0x01   //上电

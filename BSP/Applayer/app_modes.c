@@ -21,15 +21,12 @@ void sys_mode_Auto_Init()
 	
     rgb_PowerOn(system.system_data.rgb_data.color,system.system_data.rgb_data.brightness); 
 
-	/*
+	
     if (ls_PowerOn() != HAL_OK)
     {
-        if (ls_Reset() != HAL_OK) Error_Handler();
+		led_work(LED_B_ON);
     }
 	
-	*/
-	
-
     mic_PowerOff(); // 自动模式不使用麦克风
 }
 
@@ -69,7 +66,6 @@ void sys_mode_Manual(void)
  */
 void sys_mode_Auto(void)
 {
-    static uint8_t ls_error_count = 0;
 	static uint8_t ls_sample_tick = 0;
 
     if (key_Read(KEY3)) 
@@ -95,44 +91,18 @@ void sys_mode_Auto(void)
 			rgb_Display(system.system_data.rgb_data.color,system.system_data.rgb_data.brightness);
 			
 			rgb_update();
-			
-			ls_error_count = 0;
-		}
-		else 
-		{	
-			ls_error_count++;
-
-			if (ls_error_count >= 5)
-			{
-				if (ls_Reset() != HAL_OK)
-				{
-					ls_PowerOff();
-				}
-				ls_error_count = 0;
-			}
 		}
 	}
-    
 }
 
 
 void sys_mode_Music(void)
 {
-	static uint32_t last_tick;
-	
-	if (HAL_GetTick() - last_tick >= 50) 
-	{
-        last_tick = HAL_GetTick();
-		
-		mic_Run();
+	if (!mic_Run()) return;
 
-		rgb_RunInMusic();
+	rgb_RunInMusic();
 
-		rgb_update();
-        
-    }
-	
-    
+	rgb_update();
 }
 
 

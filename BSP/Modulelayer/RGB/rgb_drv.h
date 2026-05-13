@@ -16,6 +16,7 @@
 
 //音乐模式相关配置
 #define RGB_MAX_BRIGHTNESS_MUSIC 255 //定义最大亮度为255 （音乐模式）
+#define RGB_MIN_BRIGHTNESS_MUSIC 10  //定义最小亮度为10 （音乐模式）
 #define RGB_MUSIC_BRIGHT_LOW_AREA 77  //音乐模式下暗区的阈值
 
 /* ------------------------------------variables------------------------------------ */

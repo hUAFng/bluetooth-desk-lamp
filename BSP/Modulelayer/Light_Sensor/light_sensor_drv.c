@@ -21,13 +21,12 @@ HAL_StatusTypeDef ls_Readdata(uint8_t* buf , uint8_t len)
  */
 HAL_StatusTypeDef ls_IsDeviceReady(void)
 {
-	for (uint8_t addr = 1; addr < 128; addr++) 
-	{                                                                                                      
-        if (HAL_I2C_IsDeviceReady(&hi2c1, (addr << 1), 3, 100) == HAL_OK) 
-		{                                          
-            return HAL_OK;
-        }  
-	}
+    I2C_EnsureReady(&LS_I2C_Handle);
+
+    if (HAL_I2C_IsDeviceReady(&LS_I2C_Handle, LS_I2C_ADDR, 3, 100) == HAL_OK)
+    {
+        return HAL_OK;
+    }
     return HAL_ERROR;
 }
 

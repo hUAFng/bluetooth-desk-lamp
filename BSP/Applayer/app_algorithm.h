@@ -9,7 +9,7 @@
 #include "app_modes.h"
 
 
-#define LED_B_LEVEL_KEEP_TIME 300 // 高低电平保持时间300ms ,即周期为600ms
+#define LED_B_LEVEL_KEEP_TIME 100 // 高低电平保持时间100ms ,即周期为200ms
 
 typedef struct
 {
