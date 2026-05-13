@@ -53,21 +53,18 @@ void MX_GPIO_Init(void)
   HAL_GPIO_WritePin(BT_EN_GPIO_Port, BT_EN_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(ASR_Res_GPIO_Port, ASR_Res_Pin, GPIO_PIN_SET);
-
-  /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOB, TFT_CS_Pin|TFT_RES_Pin, GPIO_PIN_SET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOB, TFT_DC_Pin|LED_B_Pin|LED_G_Pin|Buzzer_Pin
                           |TFT_BL_Pin, GPIO_PIN_RESET);
 
-  /*Configure GPIO pins : BT_EN_Pin ASR_Res_Pin */
-  GPIO_InitStruct.Pin = BT_EN_Pin|ASR_Res_Pin;
+  /*Configure GPIO pin : BT_EN_Pin */
+  GPIO_InitStruct.Pin = BT_EN_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+  HAL_GPIO_Init(BT_EN_GPIO_Port, &GPIO_InitStruct);
 
   /*Configure GPIO pins : Key1_Pin Key2_Pin Key3_Pin */
   GPIO_InitStruct.Pin = Key1_Pin|Key2_Pin|Key3_Pin;
@@ -84,11 +81,11 @@ void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : BT_State_Pin ASR_Busy_Pin */
-  GPIO_InitStruct.Pin = BT_State_Pin|ASR_Busy_Pin;
+  /*Configure GPIO pin : BT_State_Pin */
+  GPIO_InitStruct.Pin = BT_State_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
-  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+  HAL_GPIO_Init(BT_State_GPIO_Port, &GPIO_InitStruct);
 
   /* EXTI interrupt init*/
   HAL_NVIC_SetPriority(EXTI0_IRQn, 0, 0);

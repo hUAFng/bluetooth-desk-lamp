@@ -688,16 +688,6 @@
               <FilePath>..\BSP\Modulelayer\BlueTooth\BT_drv.h</FilePath>
             </File>
             <File>
-              <FileName>light_sensor_drv.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\BSP\Modulelayer\Light_Sensor\light_sensor_drv.c</FilePath>
-            </File>
-            <File>
-              <FileName>light_sensor_drv.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\BSP\Modulelayer\Light_Sensor\light_sensor_drv.h</FilePath>
-            </File>
-            <File>
               <FileName>mic_drv.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\BSP\Modulelayer\MIC\mic_drv.c</FilePath>
@@ -756,6 +746,16 @@
               <FileName>tft_fonts.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\BSP\Modulelayer\TFT\tft_fonts.h</FilePath>
+            </File>
+            <File>
+              <FileName>light_sensor_drv_i2c.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\BSP\Modulelayer\Light_Sensor\light_sensor_drv_i2c.c</FilePath>
+            </File>
+            <File>
+              <FileName>light_sensor_drv_i2c.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\BSP\Modulelayer\Light_Sensor\light_sensor_drv_i2c.h</FilePath>
             </File>
           </Files>
         </Group>

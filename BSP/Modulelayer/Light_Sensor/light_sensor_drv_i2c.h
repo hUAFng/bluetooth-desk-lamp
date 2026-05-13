@@ -1,7 +1,7 @@
 
 
-#ifndef __LIGHT_SENSOR_DRV_H__
-#define __LIGHT_SENSOR_DRV_H__
+#ifndef __LIGHT_SENSOR_DRV_I2C_H__
+#define __LIGHT_SENSOR_DRV_I2C_H__
 
 #include "main.h"
 #include "i2c.h"

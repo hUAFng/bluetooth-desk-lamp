@@ -1,6 +1,6 @@
 
 
-#include "light_sensor_drv.h"
+#include "light_sensor_drv_i2c.h"
 
 /* 使用不同的阈值 防止模式跳变*/
 #define LOW_LUS_THRESHOLD 10.0f    // 低光照阈值,切换到0.5lx分辨率
