@@ -105,7 +105,7 @@ int main(void)
 
   system_Init();
 
-  system_PowerOn(); // 正式时不要执行这句
+  // system_PowerOn(); // 正式时不要执行这句
   
   
              

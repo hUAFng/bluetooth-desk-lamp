@@ -18,8 +18,5 @@ typedef enum
 
 void led_work(led_e led_num);
 void led_Init(void);
-void led_b_SetworkingFlag(void);
-void led_b_ClearworkingFlag(void);
-uint8_t led_b_isworking(void);
 
 #endif

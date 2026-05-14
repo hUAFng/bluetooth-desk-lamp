@@ -91,7 +91,7 @@ void system_PowerOff(void)
 
     rgb_PowerOff(); // 灯带关闭
     tft_PowerOff(); // TFT关闭
-    ls_PowerOff();  // 光线传感器关闭
+    ls_adc_PowerOff();  // 光线传感器关闭
     mic_PowerOff(); // 麦克风关闭
     // 按键1、蓝牙、语音工作，可唤醒
 }

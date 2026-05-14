@@ -105,9 +105,6 @@ void led_blue_work_In_listen(Cmd_e cmd)
 	led_b_work.work_flag = 1;
 	
 	led_b_work.start_tick = HAL_GetTick();
-
-    led_b_SetworkingFlag();
-
 }
 
 
@@ -134,8 +131,6 @@ void led_b_work_handle()
 		if (HAL_GetTick() - led_b_work.start_tick >= ASR_WAKEUP_WAIT_TIME * 1000) // 唤醒之后指定时间内没有得到有效信息
 		{
 			led_b_work.work_flag = 0; 
-
-            led_b_ClearworkingFlag();
 			
 			led_work(LED_B_OFF);
 		}
