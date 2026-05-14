@@ -25,6 +25,7 @@
 "bluetooth_desk_lamp\tft_drv.o"
 "bluetooth_desk_lamp\tft_fonts.o"
 "bluetooth_desk_lamp\light_sensor_drv_i2c.o"
+"bluetooth_desk_lamp\light_sensor_drv_adc.o"
 "bluetooth_desk_lamp\key.o"
 "bluetooth_desk_lamp\led.o"
 "bluetooth_desk_lamp\i2c_drv.o"

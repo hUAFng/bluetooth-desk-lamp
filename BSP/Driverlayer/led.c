@@ -3,6 +3,8 @@
 
 #include "led.h"
 
+static uint8_t led_b_work_flag = 0;
+
 
 void led_Init(void)
 {
@@ -32,9 +34,18 @@ void led_work(led_e led_num)
     }
 }
 
-
-// asrpro聆听时的蓝灯闪烁
-void LED_B_work()
+void led_b_SetworkingFlag(void)  // 语音模块调用
 {
-	
+    led_b_work_flag = 1;
 }
+
+void led_b_ClearworkingFlag(void)
+{
+    led_b_work_flag = 0;
+}
+
+uint8_t led_b_isworking(void)
+{
+    return led_b_work_flag;
+}
+

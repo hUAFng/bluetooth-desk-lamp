@@ -1,56 +1,21 @@
 
-// 需要先测量环境噪声值，调整最大值MIC_MAX_NOSIE_FLOOR_VALUE 目的是防止未校准之前就播放音乐，干扰校准结果
-// 测量音乐的最大值
-
-/*
-┌──────────────┐    ┌──────────────────┐    ┌──────────────────┐
-│ DMA 缓冲区    │ →  │ mic_dma_buf_to_  │ →  │ mic_Calibrate    │
-│ (uint32_t[256])│    │ float()        │    │ (首次调用校准)     │
-└──────────────┘    └──────────────────┘    └──────────────────┘
-                              ↓
-                    ┌──────────────────┐
-                    │ adc_dma_buf_float│ (float[256], 去直流 - 2048)
-                    └──────────────────┘
-                              ↓
-                    ┌──────────────────┐    ┌──────────────────┐
-                    │ mic_goertzel()   │ →  │ mic_GetMaxfreq() │
-                    │ (16个频点检测)     │    │ (取最大能量频点)   │
-                    └──────────────────┘    └──────────────────┘
-                              ↓
-                    ┌──────────────────┐
-                    │ mic_freq_filter  │ (动态低通平滑频率)
-                    └──────────────────┘
-                              ↓
-                    ┌──────────────────┐    ┌──────────────────┐
-                    │ mic_Getloudness  │ →  │ loudness_mapto_  │
-                    │                  |    │brightness()      │ 
-                    └──────────────────┘    └──────────────────┘
-*/
-
 #include "mic_drv.h"
+
+#include "usart.h"    // ← 新增：串口句柄
+#include "stdio.h"    // ← 新增：sprintf
+
 
 static mic_t mic;
 
-// 枚举频率点，减少计算量
 static const goertzel_coeff_t goertzel_table[GOERTZEL_FREQ_NUM] =
 {
-    // target_freq,  k,  coeff
-    {   50,    1,   1.9993976f  },  // sub-bass  
-    {   80,    2,   1.9975909f  },  // bass     
-    {  120,    3,   1.9945766f  },  // bass     
-    {  180,    5,   1.9849591f  },  // bass      
-    {  260,    7,   1.9705553f  },  // low-mid   
-    {  380,   10,   1.9396926f  },  // mid-low   
-    {  530,   14,   1.8830881f  },  // mid      
-    {  720,   18,   1.8079789f  },  // mid       
-    {  950,   24,   1.6629392f  },  // mid-high  
-    { 1250,   32,   1.4142136f  },  // upper-mid 
-    { 1650,   42,   1.0282055f  },  // presence  
-    { 2100,   54,   0.4859606f  },  // high-mid 
-    { 2700,   69,  -0.2410734f  },  // high     
-    { 3400,   87,  -1.0745992f  },  // high-pres 
-    { 4200,  108,  -1.7526134f  },  // brilliance 
-    { 4800,  123,  -1.9849591f  },  // air     
+    {   80,    3,   1.9945766f  },
+    {  200,    6,   1.9783594f  },
+    {  400,   11,   1.9275524f  },
+    {  800,   21,   1.7397463f  },
+    { 1500,   39,   1.1506341f  },
+    { 3000,   77,  -0.6213531f  },
+    { 4500,  116,  -1.9174882f  },
 };
 
 
@@ -70,21 +35,20 @@ static void mic_ClearBuf(void)
 void mic_Init(void)
 {
     mic_PowerOn();
-    HAL_Delay(200); // DMA完成数据转换
+    HAL_Delay(200);
 
-    mic_Calibrate();  // 初始化阶段完成噪声校准
+    mic_Calibrate();
 
     mic_PowerOff();
 }
 
- // 定时器采用TIM3溢出触发ADC转换，相对于直接触发ADC转换，可以减少ADC转换的次数，降低转换频率，节省CPU。
 void mic_PowerOn(void)
 {
     if (mic.work_flag) return;
 
     mic_ClearBuf();
 
-    if (HAL_TIM_Base_Start(&htim3) != HAL_OK) Error_Handler(); // 开启定时器3，用于触发ADC转换（TRGO）
+    if (HAL_TIM_Base_Start(&htim3) != HAL_OK) Error_Handler();
     if (HAL_ADC_Start_DMA(&MIC_ADC_CHANNEL,(uint32_t *)mic.adc_dma_buf,MIC_ADC_DMA_BUF_LEN) != HAL_OK) 
         Error_Handler();
 
@@ -98,7 +62,7 @@ void mic_PowerOff(void)
     mic.work_flag = 0;
     mic.dma_data_ready_flag = 0;
 
-    if (HAL_TIM_Base_Stop(&htim3) != HAL_OK) Error_Handler(); // 关闭定时器3
+    if (HAL_TIM_Base_Stop(&htim3) != HAL_OK) Error_Handler();
     if (HAL_ADC_Stop_DMA(&MIC_ADC_CHANNEL) != HAL_OK) Error_Handler();
 }
 
@@ -117,9 +81,6 @@ void mic_GetFreq(float *freq)
     *freq = mic.freq;
 }
 
- /**
-  * @brief 将DMA缓冲区的uint16_t数据转换为float数据，含去直流偏置（-2048）处理
-  */
 static void mic_dma_buf_to_float(void)
 {
     for (uint16_t i = 0; i < MIC_ADC_DMA_BUF_LEN; i++)
@@ -128,25 +89,31 @@ static void mic_dma_buf_to_float(void)
     }
 }
 
-/**
- * @brief 校准ADC 获取噪声的响度值
- * @note: 调用开始函数自动校准
- */
 void mic_Calibrate(void)
 {
-    mic_dma_buf_to_float();
+    float min_noise = 9999.0f;
 
-    float energy = 0.0f;
-
-    for (uint16_t i = 0; i < MIC_ADC_DMA_BUF_LEN; i++)
+    for (uint8_t j = 0; j < 5;j++)
     {
-        float s = mic.adc_dma_buf_float[i];
-        energy += s * s;
+        while (!mic.dma_data_ready_flag);
+
+        mic_dma_buf_to_float();
+
+        float energy = 0.0f;
+
+        for (uint16_t i = 0; i < MIC_ADC_DMA_BUF_LEN; i++)
+        {
+            float s = mic.adc_dma_buf_float[i];
+            energy += s * s;
+        }
+        float nf = sqrtf(energy / (float)MIC_ADC_DMA_BUF_LEN);
+
+        if (nf < min_noise) min_noise = nf;
     }
-    mic.noise_floor = sqrtf(energy / (float)MIC_ADC_DMA_BUF_LEN);
+
+    mic.noise_floor = min_noise;
 }
 
-// 单频检测,goertzel算法，返回声波中一个频率点的能量值，能量值越大，频率点越接近目标频率
 static float mic_goertzel(uint8_t index)
 {
     float coeff = goertzel_table[index].coeff;
@@ -162,32 +129,31 @@ static float mic_goertzel(uint8_t index)
 	return q1*q1 + q2*q2 - coeff *q1*q2;
 }
 
-/*
- * @brief 获取输出结果中的最大频率,返回最大频率
- */
-static float mic_GetMaxfreq()
+static float mic_GetMaxfreq(float *total_energy_out)
 {
     float max_power = 0;
 	float best_freq = 0;
+    float total_energy = 0;
 
     for(uint8_t i = 0;i < GOERTZEL_FREQ_NUM;i++)
     {
 		float power = mic_goertzel(i);
 
         if (power < 0.0f) power = 0.0f;
+        
+        total_energy += power;
+        
         if (power > max_power)
         {
             max_power = power;
             best_freq = goertzel_table[i].target_freq;
         }
     } 
-        
-    return best_freq;  // 最匹配的频率点
+    
+    if (total_energy_out) *total_energy_out = total_energy;
+    return best_freq;
 }
 
-/*
- * @brief 获取频域信号响度（RMS），去除环境噪声
- */
 static void mic_Getloudness(void)
 {
     float energy = 0.0f;
@@ -200,61 +166,49 @@ static void mic_Getloudness(void)
 
     float rms = sqrtf(energy / (float)MIC_ADC_DMA_BUF_LEN);
 
-    mic.loudness = (rms > mic.noise_floor) ? (rms - mic.noise_floor) : 0.0f;  // 去除环境噪声的响度，防止为负
+    mic.loudness = (rms > mic.noise_floor) ? (rms - mic.noise_floor) : 0.0f;
 }
 
-
-/**
- * @brief 映射响度到亮度 
- * @param brightness_max 亮度的最大值 设置为255，便于后面计算
- * @param brightness_min 亮度的最小值 建议设置为25 , 亮度不要过低
- * @param low_bright_area 过低亮度下的映射区域，建议设置为77
- * @note: 在过低亮度下，非线性增加，即提升暗部的亮度，其余就直接线性映射
- */
 void mic_loudness_mapto_brightness(uint8_t brightness_max,uint8_t brightness_min,\
                                     uint8_t* brightness,uint8_t low_bright_area)
 {
     if(brightness == NULL) return;
 
-    float raw = mic.loudness * LOUDNESS_TO_BRIGHTNESS_GAIN * brightness_max / MIC_LOUDNESS_MAX ; // 乘以增益
+    float raw = mic.loudness * LOUDNESS_TO_BRIGHTNESS_GAIN * brightness_max / MIC_LOUDNESS_MAX;
 
-    // 上下钳位
     if (raw > brightness_max)               raw = brightness_max;
     else if (raw < brightness_min)          raw = brightness_min;
 
-    // 暗区内非线性映射，提升暗部表现
     if (raw < low_bright_area)
     {
         float range = low_bright_area - brightness_min;
-        float t = (raw - brightness_min) / range;    // 归一化
-        t = 1.0f - (1.0f - t) * (1.0f - t); // 非线性映射
+        float t = (raw - brightness_min) / range;
+        t = 1.0f - (1.0f - t) * (1.0f - t);
         raw = brightness_min + t * range;
     }
 
     *brightness = (uint8_t)raw;
 }
 
-
-// 动态低通滤波
 static void mic_freq_filter(float* cnt_freq)
 {
     if (cnt_freq == NULL) return;
 
     float delta_freq = *cnt_freq - mic.freq;
 
-    if (fabsf(delta_freq) < 10.0f) // 10hz内变换，缓慢一点
+    if (fabsf(delta_freq) < 10.0f)
     {
         mic.freq = NARROW_FILTER * mic.freq + (1 - NARROW_FILTER) * *cnt_freq;
     }
-    else if (delta_freq < 0.0f) // 下降
+    else if (delta_freq < 0.0f)
     {
         mic.freq = DOWN_DIRETION_FILTER * mic.freq + (1 - DOWN_DIRETION_FILTER) * *cnt_freq;
     }
-    else if (delta_freq <= 100.0f) // 中速升
+    else if (delta_freq <= 100.0f)
     {
         mic.freq = MID_SPEED_FILTER * mic.freq + (1 - MID_SPEED_FILTER) * *cnt_freq;
     }
-    else// 快速升
+    else
     {
         mic.freq = HIGH_SPEED_FILTER * mic.freq + (1 - HIGH_SPEED_FILTER) * *cnt_freq;
     }
@@ -262,23 +216,123 @@ static void mic_freq_filter(float* cnt_freq)
 
 uint8_t mic_Run()
 {
-    if (!mic.dma_data_ready_flag) return 0; // 等待DMA数据完成
+    if (!mic.dma_data_ready_flag) return 0;
 
-    mic.dma_data_ready_flag = 0; // 清除标志位
+    mic.dma_data_ready_flag = 0;
 
-    // 转换为float数据
     mic_dma_buf_to_float();
     
-    mic_Getloudness(); // 获取响度
+    mic_Getloudness();
 
     float cnt_freq = 0;
 
-    // 信号强度明显高于噪声时才检测频率
-    if (mic.loudness > mic.noise_floor * LOUDNESS_GATE_RATIO) 
+    if (mic.loudness > LOUDNESS_GATE_THRESHOLD) 
     {
-        cnt_freq = mic_GetMaxfreq();     
-        mic_freq_filter(&cnt_freq);
+        float total_energy = 0;
+        cnt_freq = mic_GetMaxfreq(&total_energy);
+
+        if (total_energy > GOERTZEL_ENERGY_THRESHOLD)
+        {
+            mic_freq_filter(&cnt_freq);
+        }
     }
 
     return 1;
+}
+
+void mic_GetLoudness(float *loudness)
+{
+    if (loudness == NULL) return;
+    *loudness = mic.loudness;
+}
+
+
+void mic_DebugDumpToUART(void)
+{
+    char buf[128];
+    uint16_t len;
+    uint16_t samples[16];  // 阻塞采集16个样本
+
+    HAL_UART_Transmit(&huart1, (uint8_t*)"\r\n===== MIC ADC DIAGNOSE =====\r\n", 31, 200);
+
+    /* ---- 方法A: 停止DMA，做16次阻塞ADC采集（不依赖DMA是否循环） ---- */
+    HAL_ADC_Stop_DMA(&hadc1);          // 暂时停止DMA
+    HAL_ADC_Start(&hadc1);             // 启动阻塞模式ADC
+
+    uint32_t sum = 0;
+    uint16_t min_v = 4095, max_v = 0;
+
+    for (uint8_t i = 0; i < 16; i++)
+    {
+        HAL_ADC_PollForConversion(&hadc1, 10);   // 等待转换完成
+        samples[i] = (uint16_t)HAL_ADC_GetValue(&hadc1);  // 读取值
+
+        if (samples[i] < min_v) min_v = samples[i];
+        if (samples[i] > max_v) max_v = samples[i];
+        sum += samples[i];
+
+        len = sprintf(buf, "  blk[%2d] = %4u\r\n", i, samples[i]);
+        HAL_UART_Transmit(&huart1, (uint8_t*)buf, len, 200);
+    }
+    HAL_ADC_Stop(&hadc1);    // 停止阻塞模式
+
+    uint16_t avg = (uint16_t)(sum / 16);
+    uint16_t range = max_v - min_v;
+
+    len = sprintf(buf, "\r\n  min=%u  max=%u  range=%u  avg=%u\r\n",
+                  min_v, max_v, range, avg);
+    HAL_UART_Transmit(&huart1, (uint8_t*)buf, len, 200);
+
+    /* ---- 方法B: 恢复DMA采集，打印noise_floor和loudness ---- */
+    mic.dma_data_ready_flag = 0;
+    HAL_ADC_Start_DMA(&hadc1, (uint32_t *)mic.adc_dma_buf, MIC_ADC_DMA_BUF_LEN);
+
+    // 等一帧DMA数据
+    uint32_t tick = HAL_GetTick();
+    while (!mic.dma_data_ready_flag)
+    {
+        if (HAL_GetTick() - tick > 100) break;  // 超时100ms
+    }
+
+    if (mic.dma_data_ready_flag)
+    {
+        mic_dma_buf_to_float();   // 转float
+        mic_Getloudness();        // 计算响度
+
+        int nf_int = (int)(mic.noise_floor * 10);
+        int ld_int = (int)(mic.loudness * 10);
+        len = sprintf(buf, "\r\n  noise_floor=%d.%d  loudness=%d.%d  freq=%d\r\n",
+                      nf_int / 10, nf_int % 10,
+                      ld_int / 10, ld_int % 10,
+                      (int)mic.freq);
+        HAL_UART_Transmit(&huart1, (uint8_t*)buf, len, 200);
+    }
+    else
+    {
+        HAL_UART_Transmit(&huart1, (uint8_t*)"  DMA timeout!\r\n", 16, 200);
+    }
+
+    /* ---- 结论 ---- */
+    if (range < 5)
+    {
+        HAL_UART_Transmit(&huart1,
+            (uint8_t*)"\r\n>>> WRONG: ADC值几乎冻结! 检查以下硬件:\r\n"
+            "  1. 麦克风VCC/GND供电\r\n"
+            "  2. 麦克风偏置电阻\r\n"
+            "  3. ADC输入引脚连接\r\n", 118, 200);
+    }
+    else if (range < 40)
+    {
+        HAL_UART_Transmit(&huart1,
+            (uint8_t*)"\r\n>>> WEAK: 有信号但很微弱，贴近麦克风大声说话看range是否变大\r\n", 63, 200);
+    }
+    else
+    {
+        HAL_UART_Transmit(&huart1,
+            (uint8_t*)"\r\n>>> OK: ADC正常采集到信号!\r\n", 32, 200);
+        HAL_UART_Transmit(&huart1,
+            (uint8_t*)"  如果灯带仍然不亮，问题在 loudness/freq 门控参数上\r\n", 54, 200);
+    }
+
+    HAL_UART_Transmit(&huart1, (uint8_t*)"===== END =====\r\n\r\n", 19, 200);
 }

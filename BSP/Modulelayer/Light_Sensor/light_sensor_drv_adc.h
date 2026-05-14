@@ -8,5 +8,7 @@
 
 extern ADC_HandleTypeDef hadc2;
 
+#define LS_ADC_HANDLE hadc2
+
 
 #endif

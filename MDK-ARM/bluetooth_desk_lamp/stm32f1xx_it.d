@@ -53,7 +53,7 @@ bluetooth_desk_lamp\stm32f1xx_it.o: ../BSP/Modulelayer/TFT/tft_drv.h
 bluetooth_desk_lamp\stm32f1xx_it.o: ../BSP/Driverlayer/spi_drv.h
 bluetooth_desk_lamp\stm32f1xx_it.o: ../Core/Inc/spi.h
 bluetooth_desk_lamp\stm32f1xx_it.o: ../BSP/Modulelayer/TFT/tft_fonts.h
-bluetooth_desk_lamp\stm32f1xx_it.o: ../BSP/Modulelayer/Light_Sensor/light_sensor_drv_i2C.h
+bluetooth_desk_lamp\stm32f1xx_it.o: ../BSP/Modulelayer/Light_Sensor/light_sensor_drv_i2c.h
 bluetooth_desk_lamp\stm32f1xx_it.o: ../Core/Inc/i2c.h
 bluetooth_desk_lamp\stm32f1xx_it.o: ../BSP/Driverlayer/i2c_drv.h
 bluetooth_desk_lamp\stm32f1xx_it.o: ../BSP/Driverlayer/led.h

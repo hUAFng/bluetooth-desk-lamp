@@ -1,5 +1,3 @@
-
-
 #ifndef __MIC_DRV_H__
 #define __MIC_DRV_H__ 
 
@@ -16,45 +14,45 @@ extern TIM_HandleTypeDef htim3;
 /* -------------------------------------------------define---------------------------------------------------*/
 #define MIC_ADC_CHANNEL hadc1
 
-#define MIC_ADC_DMA_BUF_LEN 256  // DMA的缓冲区长度,数字越大分辨率越高
-#define MIC_LOUDNESS_MAX 2000 // 响度的最大值
+#define MIC_ADC_DMA_BUF_LEN 256
+#define MIC_LOUDNESS_MAX 2000
 
-#define LOW_FREQ_THRESHOLD 300.0f // 低频区域阈值,往下走低频，往上走中频
-#define MID_FREQ_THRESHOLD 2000.0f // 高频区域阈值，往下走中频，往上走高频
-#define SAMPLE_RATE 10000 // 采样率 10KHz = 72M / (100 * 100) 定时器溢出频率
+#define LOW_FREQ_THRESHOLD 300.0f
+#define MID_FREQ_THRESHOLD 2000.0f
+#define SAMPLE_RATE 10000
 
-/*note : 频率适用的滤波系数 系数越大 响应越慢越平滑 */
-#define DOWN_DIRETION_FILTER 0.92f // 降低方向滤波系数
-#define NARROW_FILTER 0.95f // 短距离滤波系数 不分降低升高 频率亮度适用
-#define MID_SPEED_FILTER 0.85f // 中距离升高滤波系数
-#define HIGH_SPEED_FILTER 0.75f // 高距离升高滤波系数
+#define DOWN_DIRETION_FILTER 0.92f
+#define NARROW_FILTER 0.95f
+#define MID_SPEED_FILTER 0.85f
+#define HIGH_SPEED_FILTER 0.75f
 
-#define GOERTZEL_FREQ_NUM 16
+#define GOERTZEL_FREQ_NUM 7
 
-#define LOUDNESS_GATE_RATIO  1.2f   // 频率检测门限：loudness > noise_floor×N 算有效
-#define MIC_GOERTZEL_MAX_FREQ 4800.0f  // Goertzel表最高检测频率
-#define LOUDNESS_TO_BRIGHTNESS_GAIN  5.0f   // 响度→亮度映射增益，放大安静环境下的亮度变化
+#define LOUDNESS_GATE_THRESHOLD  20.0f
+#define MIC_GOERTZEL_MAX_FREQ 4800.0f
+#define GOERTZEL_ENERGY_THRESHOLD 1.0f
+#define LOUDNESS_TO_BRIGHTNESS_GAIN  6.0f
 /* -------------------------------------------------valiables-------------------------------------------------*/
 
 typedef struct 
 {
-    uint16_t adc_dma_buf[MIC_ADC_DMA_BUF_LEN]; // ADC原始值(0-4095)
-    float adc_dma_buf_float[MIC_ADC_DMA_BUF_LEN]; // 将原始数据转float并去直流偏置后的值
+    uint16_t adc_dma_buf[MIC_ADC_DMA_BUF_LEN];
+    float adc_dma_buf_float[MIC_ADC_DMA_BUF_LEN];
 
-    uint8_t dma_data_ready_flag; // DMA数据传输完成标志位
+    uint8_t dma_data_ready_flag;
     uint8_t work_flag;
     
-    float noise_floor ;  // 环境噪声导致的响度偏移值
+    float noise_floor;
 
-    float loudness ; // 响度
-    float freq; // 频率
+    float loudness;
+    float freq;
 }mic_t; 
 
 typedef struct 
 {
-    float target_freq;  // 目标频率
-    uint16_t k;         // 频点编号 
-    float coeff;        // 递推系数 
+    float target_freq;
+    uint16_t k;
+    float coeff;
 } goertzel_coeff_t;
 
 /*
@@ -67,14 +65,13 @@ coeff = 2.0f * cosf(2.0f * 3.1415926f * k / MIC_ADC_DMA_BUF_LEN);
 /* -------------------------------------------------functions-------------------------------------------------*/
 void mic_Init(void);
 void mic_PowerOff(void);
-void mic_PowerOn(void); // 已在mic_Work中调用，可选手动调用
-void mic_Calibrate(void); //调用开始函数自动校准
+void mic_PowerOn(void);
+void mic_Calibrate(void);
 void mic_loudness_mapto_brightness(uint8_t brightness_max,uint8_t brightness_min,uint8_t* brightness,uint8_t low_bright_area);
 void mic_GetFreq(float *freq);
+void mic_GetLoudness(float *loudness);
 uint8_t mic_Run();
 
+void mic_DebugDumpToUART(void);
+
 #endif
-
-
-
-

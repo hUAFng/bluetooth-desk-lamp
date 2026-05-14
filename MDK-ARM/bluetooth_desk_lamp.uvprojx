@@ -757,6 +757,16 @@
               <FileType>5</FileType>
               <FilePath>..\BSP\Modulelayer\Light_Sensor\light_sensor_drv_i2c.h</FilePath>
             </File>
+            <File>
+              <FileName>light_sensor_drv_adc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\BSP\Modulelayer\Light_Sensor\light_sensor_drv_adc.c</FilePath>
+            </File>
+            <File>
+              <FileName>light_sensor_drv_adc.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\BSP\Modulelayer\Light_Sensor\light_sensor_drv_adc.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

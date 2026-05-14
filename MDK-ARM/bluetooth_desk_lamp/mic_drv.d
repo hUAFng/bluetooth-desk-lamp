@@ -38,3 +38,5 @@ bluetooth_desk_lamp\mic_drv.o: ../Core/Inc/adc.h
 bluetooth_desk_lamp\mic_drv.o: D:\keil5\keil_V5.40\ARM\ARMCC\Bin\..\include\string.h
 bluetooth_desk_lamp\mic_drv.o: D:\keil5\keil_V5.40\ARM\ARMCC\Bin\..\include\math.h
 bluetooth_desk_lamp\mic_drv.o: ../Core/Inc/tim.h
+bluetooth_desk_lamp\mic_drv.o: ../Core/Inc/usart.h
+bluetooth_desk_lamp\mic_drv.o: D:\keil5\keil_V5.40\ARM\ARMCC\Bin\..\include\stdio.h
