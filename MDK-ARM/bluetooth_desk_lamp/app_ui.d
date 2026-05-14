@@ -53,10 +53,10 @@ bluetooth_desk_lamp\app_ui.o: ../BSP/Modulelayer/TFT/tft_drv.h
 bluetooth_desk_lamp\app_ui.o: ../BSP/Driverlayer/spi_drv.h
 bluetooth_desk_lamp\app_ui.o: ../Core/Inc/spi.h
 bluetooth_desk_lamp\app_ui.o: ../BSP/Modulelayer/TFT/tft_fonts.h
-bluetooth_desk_lamp\app_ui.o: ../BSP/Modulelayer/Light_Sensor/light_sensor_drv_i2c.h
-bluetooth_desk_lamp\app_ui.o: ../Core/Inc/i2c.h
-bluetooth_desk_lamp\app_ui.o: ../BSP/Driverlayer/i2c_drv.h
-bluetooth_desk_lamp\app_ui.o: ../BSP/Driverlayer/led.h
+bluetooth_desk_lamp\app_ui.o: ../BSP/Modulelayer/Light_Sensor/light_sensor_drv_adc.h
 bluetooth_desk_lamp\app_ui.o: ../BSP/Driverlayer/drv_layer.h
+bluetooth_desk_lamp\app_ui.o: ../BSP/Driverlayer/led.h
 bluetooth_desk_lamp\app_ui.o: ../BSP/Driverlayer/key.h
+bluetooth_desk_lamp\app_ui.o: ../BSP/Driverlayer/i2c_drv.h
+bluetooth_desk_lamp\app_ui.o: ../Core/Inc/i2c.h
 bluetooth_desk_lamp\app_ui.o: ..\BSP\Applayer\app_ui.h

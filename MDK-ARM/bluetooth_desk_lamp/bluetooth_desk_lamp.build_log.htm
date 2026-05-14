@@ -22,29 +22,24 @@ Dialog DLL:      TCM.DLL V1.56.6.0
  
 <h2>Project:</h2>
 E:\CubeMX\coding\bluetooth_desk_lamp\MDK-ARM\bluetooth_desk_lamp.uvprojx
-Project File Date:  05/13/2026
+Project File Date:  05/14/2026
 
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 2 (build 183)', folder: 'D:\keil5\keil_V5.40\ARM\ARMCC\Bin'
 Build target 'bluetooth_desk_lamp'
-compiling mic_drv.c...
+compiling rgb_drv.c...
 ../BSP/Driverlayer/adc_drv.h(11): warning:  #1-D: last line of file ends without a newline
   #endif
-..\BSP\Modulelayer\MIC\mic_drv.h(73): warning:  #1295-D: Deprecated declaration mic_Run - give arg types
+../BSP/Modulelayer/MIC/mic_drv.h(73): warning:  #1295-D: Deprecated declaration mic_Run - give arg types
   uint8_t mic_Run();
-..\BSP\Modulelayer\MIC\mic_drv.c(319): warning:  #870-D: invalid multibyte character sequence
-              (uint8_t*)"\r\n>>> WRONG: ADCå€?å‡?ä¹?å†?ç»?! æ£€æŸ?ä»?ä¸?ç¡?ä»?:\r\n"
-..\BSP\Modulelayer\MIC\mic_drv.c(319): warning:  #870-D: invalid multibyte character sequence
-              (uint8_t*)"\r\n>>> WRONG: ADCå€?å‡?ä¹?å†?ç»?! æ£€æŸ?ä»?ä¸?ç¡?ä»?:\r\n"
-..\BSP\Modulelayer\MIC\mic_drv.c(332): warning:  #870-D: invalid multibyte character sequence
-              (uint8_t*)"\r\n>>> OK: ADCæ­?å¸?é‡?é›?åˆ?ä¿?å?!\r\n", 32, 200);
-..\BSP\Modulelayer\MIC\mic_drv.c(338): warning:  #1-D: last line of file ends without a newline
-  }
-..\BSP\Modulelayer\MIC\mic_drv.c: 6 warnings, 0 errors
+..\BSP\Modulelayer\RGB\rgb_drv.c(190): warning:  #188-D: enumerated type mixed with another type
+      if (*color >= 
+GB_COLOR_NUM) *color = 0;
+..\BSP\Modulelayer\RGB\rgb_drv.c: 3 warnings, 0 errors
 linking...
-Program Size: Code=24828 RO-data=2448 RW-data=176 ZI-data=4152  
+Program Size: Code=22980 RO-data=2128 RW-data=176 ZI-data=4192  
 FromELF: creating hex file...
-"bluetooth_desk_lamp\bluetooth_desk_lamp.axf" - 0 Error(s), 6 Warning(s).
+"bluetooth_desk_lamp\bluetooth_desk_lamp.axf" - 0 Error(s), 3 Warning(s).
 
 <h2>Software Packages used:</h2>
 

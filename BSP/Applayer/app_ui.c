@@ -111,31 +111,11 @@ void system_show_Init(void)
     last_color = 255;
 }
 
-void system_show_manual_auto(void)
+/**
+ * @brief 绘制颜色区域：颜色名称 + 色块（不含清除操作）
+ */
+static void draw_color_section(uint8_t color_idx)
 {
-    uint8_t bright = system.system_data.rgb_data.brightness * 100 / RGB_MAX_BRIGHTNESS;
-    uint8_t color_idx = (uint8_t)system.system_data.rgb_data.color;
-
-    if (bright == last_brightness && color_idx == last_color) 
-	{
-		system_show_bluetooth_status(105);
-
-		return;  //参数不变时仅判断蓝牙状态
-	}
-	
-    last_brightness = bright;
-    last_color = color_idx;
-
-    // 清空动态区
-    clear_dynamic_area();
-
-    // 亮度 + 进度条
-    char buf1[16];
-    sprintf(buf1, "BRI: %d%%", bright);
-    tft_DisplayString(4, 35, buf1, COLOR_WHITE, COLOR_BLACK);
-    draw_progress_bar(bright);
-
-    // 颜色文本 + 颜色方块
     const char *color_name[] = {
         "Red", "Green", "Blue", "White", "Warm",
         "Yellow", "Purple", "Cyan", "Orange", "Pink"
@@ -146,12 +126,60 @@ void system_show_manual_auto(void)
 
     uint16_t rgb = get_rgb565(color_idx);
     tft_FillRect(98, 68, 25, 25, rgb);
-	
+    
     // 方块边框（白色）
     tft_DrawLine(98, 68, 122, 68, COLOR_WHITE);
     tft_DrawLine(98, 93, 122, 93, COLOR_WHITE);
     tft_DrawLine(98, 68, 98, 93, COLOR_WHITE);
     tft_DrawLine(122, 68, 122, 93, COLOR_WHITE);
+}
+
+void system_show_manual_auto(void)
+{
+    uint8_t bright = system.system_data.rgb_data.brightness * 100 / RGB_MAX_BRIGHTNESS;
+    uint8_t color_idx = (uint8_t)system.system_data.rgb_data.color;
+
+    // 始终刷新蓝牙状态（轻量操作）
+    system_show_bluetooth_status(105);
+
+    if (bright == last_brightness && color_idx == last_color) 
+    {
+        return;  
+    }
+
+    // 仅亮度变化 只刷新亮度区 
+    if (color_idx == last_color)
+    {
+        last_brightness = bright;
+        tft_FillRect(0, 28, 128, 37, COLOR_BLACK);
+        char buf1[16];
+        sprintf(buf1, "BRI: %d%%", bright);
+        tft_DisplayString(4, 35, buf1, COLOR_WHITE, COLOR_BLACK);
+        draw_progress_bar(bright);
+        return;
+    }
+
+    // 仅颜色变化 只刷新颜色区 
+    if (bright == last_brightness)
+    {
+        last_color = color_idx;
+        tft_FillRect(0, 65, 128, 35, COLOR_BLACK);
+        draw_color_section(color_idx);
+        return;
+    }
+
+    // ----- 两者都变化（或首次进入）→ 全量刷新 -----
+    last_brightness = bright;
+    last_color = color_idx;
+
+    clear_dynamic_area();
+
+    char buf1[16];
+    sprintf(buf1, "BRI: %d%%", bright);
+    tft_DisplayString(4, 35, buf1, COLOR_WHITE, COLOR_BLACK);
+    draw_progress_bar(bright);
+
+    draw_color_section(color_idx);
 }
 
 void system_show_music(void)

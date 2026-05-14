@@ -192,6 +192,7 @@ void rgb_SetColor_Circle(RGB_Color_e* color)
 void rgb_PowerOn(RGB_Color_e color,uint8_t brightness)
 {
     rgb_ClearBuffer();
+    
     rgb_Display(color,brightness);
 	
 	rgb_update();

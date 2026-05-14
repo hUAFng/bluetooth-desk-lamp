@@ -15,17 +15,7 @@ typedef struct
 {
     uint8_t brightness;
     RGB_Color_e color;
-
-    float filter_lux; // （自动模式下）滤波系数，0-1，需要根据实际情况调整,越小响应越慢也越平滑
-
 }rgb_data_t;
-
-// 光照传感器数据
-typedef struct
-{
-    LS_MODE mode;
-    float lux;
-}LightSensor_data_t;
 
 // 蓝牙数据
 typedef struct
@@ -38,7 +28,6 @@ typedef struct
 {
     Cmd_e cmd;
 }asr_data_t;
-
 
 // 用于判断命令来源的枚举 在system_Control中使用
 typedef enum 
@@ -63,7 +52,6 @@ typedef enum
 typedef struct 
 {
     rgb_data_t rgb_data;
-    LightSensor_data_t ls_data;
     bt_data_t bt_data;
     asr_data_t asr_data;
 }system_data_t;

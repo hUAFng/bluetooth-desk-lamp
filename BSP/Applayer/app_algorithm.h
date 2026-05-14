@@ -21,9 +21,9 @@ typedef struct
 }led_b_work_t;
 
 
-void remap_lux_to_brightness(void);
+// void remap_lux_to_brightness(void);
 void Sys_Control_By_BTorASR(Cmd_e cmd);
 void led_blue_work_In_listen(Cmd_e cmd);
 void led_b_work_handle();
-
+uint16_t map_adc_value_to_brightness();
 #endif

@@ -12,9 +12,8 @@ void module_Init(void)
     {
         BT_Reset();
     }  
-	
 
-    ls_Init();
+    ls_adc_Init();
 
     mic_Init();
     

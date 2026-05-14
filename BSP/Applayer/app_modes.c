@@ -10,22 +10,15 @@ void sys_mode_Manual_Init()
     system_valiable_Init(); // 系统模式已经在app_algorithm.c中赋值为手动模式
 
     rgb_PowerOn(system.system_data.rgb_data.color,system.system_data.rgb_data.brightness); 
-    ls_PowerOff(); // 手动模式不使用光线传感器
+    ls_adc_PowerOff(); // 手动模式不使用光线传感器
     mic_PowerOff(); // 手动模式不使用麦克风
 }
 
 void sys_mode_Auto_Init()
 {
-	system.system_data.ls_data.mode = LS_MODE_HRES1;
-    system.system_data.ls_data.lux = 50.0f;
-	
     rgb_PowerOn(system.system_data.rgb_data.color,system.system_data.rgb_data.brightness); 
 
-	
-    if (ls_PowerOn() != HAL_OK)
-    {
-		led_work(LED_B_ON);
-    }
+    ls_adc_PowerOn();
 	
     mic_PowerOff(); // 自动模式不使用麦克风
 }
@@ -36,15 +29,17 @@ void sys_mode_Music_Init()
 
     rgb_PowerOn(system.system_data.rgb_data.color,system.system_data.rgb_data.brightness); 
 	
-    ls_PowerOff();
+    ls_adc_PowerOff();
     mic_PowerOn();
 
+	/*
     while(1)
     {
 
         HAL_Delay(50);                     // 等至少一帧DMA (256/10000=25.6ms)
         mic_DebugDumpToUART();             // 打印ADC诊断到串口
     }
+	*/
     
 }
 
@@ -80,7 +75,7 @@ void sys_mode_Auto(void)
 	{
 		rgb_SetColor_Circle(&system.system_data.rgb_data.color); // 按键3 调节颜色，循环调节
 		
-		rgb_update(); // 更新RGB显示
+		// rgb_update(); // 更新RGB显示
 	}
 	
 	ls_sample_tick++;
@@ -89,17 +84,14 @@ void sys_mode_Auto(void)
 	{
 		ls_sample_tick = 0;
 		
-		 HAL_StatusTypeDef ret = ls_MeasureLight(&system.system_data.ls_data.mode,&system.system_data.ls_data.lux);  // 测量光照强度 根据环境光强自动转换模式
+		ls_adc_work();
 		
+		system.system_data.rgb_data.brightness = map_adc_value_to_brightness();
 		
-		if (ret == HAL_OK)
-		{	
-			remap_lux_to_brightness();
-
-			rgb_Display(system.system_data.rgb_data.color,system.system_data.rgb_data.brightness);
-			
-			rgb_update();
-		}
+		rgb_Display(system.system_data.rgb_data.color,system.system_data.rgb_data.brightness);
+		
+		rgb_update();
+		
 	}
 }
 

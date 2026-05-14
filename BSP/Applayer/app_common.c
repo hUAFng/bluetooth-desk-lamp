@@ -18,14 +18,7 @@ void system_valiable_Init(void)
             .rgb_data = 
             {
                 .brightness = 20 , // 默认初始亮度
-                .color = Red, // 默认初始颜色为暖白
-                .filter_lux = 0.7f,    // 默认的滤波系数
-            },
-
-            .ls_data = 
-            {
-                .mode = LS_MODE_HRES1,
-                .lux = 50.0f
+                .color = Red, // 默认颜色
             },
         },
         

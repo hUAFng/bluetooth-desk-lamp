@@ -8,6 +8,8 @@ static led_b_work_t led_b_work;
 /**
  * @brief 映射光照强度到灯带亮度 低通滤波
  */
+ 
+ /*
 void remap_lux_to_brightness(void)
 {
     static float filtered_brightness = 60.0f;
@@ -24,8 +26,21 @@ void remap_lux_to_brightness(void)
                           (1.0f - brightness_filter) * target_brightness;
 
     system.system_data.rgb_data.brightness = (uint8_t)filtered_brightness;
-}
+}*/
 
+
+uint16_t map_adc_value_to_brightness()
+{
+    uint16_t adc_value = ls_adc_get_value();
+    float lux_percent = (float)(adc_value - LS_ADC_MIN) / (float)(LS_ADC_MAX - LS_ADC_MIN);
+
+    uint16_t bright_target = lux_percent * (RGB_MAX_BRIGHTNESS  -  RGB_MIN_BRIGHTNESS) + RGB_MIN_BRIGHTNESS;
+
+    uint16_t brightness_filtered = RGB_AUTOMODE_BRIGHTNESS_FILTER * system.system_data.rgb_data.brightness + 
+                                  (1.0f - RGB_AUTOMODE_BRIGHTNESS_FILTER) * bright_target;
+
+    return brightness_filtered;
+}
 
 // 系统控制：蓝牙、语音控制处理算法，由system_Control()调用
 void Sys_Control_By_BTorASR(Cmd_e cmd)
