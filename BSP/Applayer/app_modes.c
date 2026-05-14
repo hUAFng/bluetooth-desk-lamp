@@ -35,8 +35,7 @@ void sys_mode_Music_Init()
 	/*
     while(1)
     {
-
-        HAL_Delay(50);                     // 等至少一帧DMA (256/10000=25.6ms)
+        HAL_Delay(500);                     // 等至少一帧DMA (256/10000=25.6ms)
         mic_DebugDumpToUART();             // 打印ADC诊断到串口
     }
 	*/

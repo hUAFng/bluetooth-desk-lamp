@@ -28,9 +28,9 @@ extern TIM_HandleTypeDef htim3;
 
 #define GOERTZEL_FREQ_NUM 7
 
-#define LOUDNESS_GATE_THRESHOLD  20.0f
+#define LOUDNESS_GATE_THRESHOLD  40.0f
 #define MIC_GOERTZEL_MAX_FREQ 4800.0f
-#define GOERTZEL_ENERGY_THRESHOLD 1.0f
+#define GOERTZEL_ENERGY_THRESHOLD 500.0f
 #define LOUDNESS_TO_BRIGHTNESS_GAIN  6.0f
 /* -------------------------------------------------valiables-------------------------------------------------*/
 

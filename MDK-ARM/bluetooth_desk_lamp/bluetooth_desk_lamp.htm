@@ -3,7 +3,7 @@
 <title>Static Call Graph - [bluetooth_desk_lamp\bluetooth_desk_lamp.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image bluetooth_desk_lamp\bluetooth_desk_lamp.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060183: Last Updated: Thu May 14 17:41:16 2026
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060183: Last Updated: Thu May 14 23:14:46 2026
 <BR><P>
 <H3>Maximum Stack Usage =        392 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -645,8 +645,8 @@ Global Symbols
 <P><STRONG><a name="[72]"></a>HAL_ADC_Start_DMA</STRONG> (Thumb, 246 bytes, Stack size 32 bytes, stm32f1xx_hal_adc.o(i.HAL_ADC_Start_DMA))
 <BR><BR>[Stack]<UL><LI>Max Depth = 60<LI>Call Chain = HAL_ADC_Start_DMA &rArr; HAL_DMA_Start_IT &rArr; DMA_SetConfig
 </UL>
-<BR>[Calls]<UL><LI><a href="#[73]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_DMA_Start_IT
-<LI><a href="#[56]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ADC_Enable
+<BR>[Calls]<UL><LI><a href="#[56]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ADC_Enable
+<LI><a href="#[73]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_DMA_Start_IT
 </UL>
 <BR>[Called By]<UL><LI><a href="#[fd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mic_PowerOn
 </UL>
@@ -663,8 +663,8 @@ Global Symbols
 <P><STRONG><a name="[75]"></a>HAL_ADC_Stop_DMA</STRONG> (Thumb, 86 bytes, Stack size 8 bytes, stm32f1xx_hal_adc.o(i.HAL_ADC_Stop_DMA))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = HAL_ADC_Stop_DMA &rArr; ADC_ConversionStop_Disable
 </UL>
-<BR>[Calls]<UL><LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_DMA_Abort
-<LI><a href="#[51]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ADC_ConversionStop_Disable
+<BR>[Calls]<UL><LI><a href="#[51]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ADC_ConversionStop_Disable
+<LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_DMA_Abort
 </UL>
 <BR>[Called By]<UL><LI><a href="#[fe]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mic_PowerOff
 </UL>
@@ -778,6 +778,8 @@ Global Symbols
 <LI><a href="#[67]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_UART_Transmit
 <LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_UARTEx_RxEventCallback
 <LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;asrpro_CheckCmdTimeValid
+<LI><a href="#[123]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;system_show_music
+<LI><a href="#[124]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;system_show_manual_auto
 <LI><a href="#[61]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_Delay
 <LI><a href="#[64]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BT_GetCmd
 <LI><a href="#[e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;led_blue_work_In_listen
@@ -1105,8 +1107,8 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 52<LI>Call Chain = HAL_UART_IRQHandler &rArr; UART_Receive_IT &rArr; HAL_UARTEx_RxEventCallback &rArr; HAL_UARTEx_ReceiveToIdle_IT
 </UL>
 <BR>[Calls]<UL><LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_UARTEx_RxEventCallback
-<LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_DMA_Abort
 <LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_DMA_Abort_IT
+<LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_DMA_Abort
 <LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_UART_TxCpltCallback
 <LI><a href="#[a7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_UART_ErrorCallback
 <LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART_Receive_IT
@@ -2058,7 +2060,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;system_PowerOn
 </UL>
 
-<P><STRONG><a name="[124]"></a>system_show_manual_auto</STRONG> (Thumb, 172 bytes, Stack size 56 bytes, app_ui.o(i.system_show_manual_auto))
+<P><STRONG><a name="[124]"></a>system_show_manual_auto</STRONG> (Thumb, 198 bytes, Stack size 56 bytes, app_ui.o(i.system_show_manual_auto))
 <BR><BR>[Stack]<UL><LI>Max Depth = 336<LI>Call Chain = system_show_manual_auto &rArr; draw_color_section &rArr; tft_DisplayString &rArr; tft_DisplayChar &rArr; tft_SetAddrWindow &rArr; HAL_SPI_Transmit &rArr; SPI_EndRxTxTransaction &rArr; SPI_WaitFlagStateUntilTimeout
 </UL>
 <BR>[Calls]<UL><LI><a href="#[dc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_FillRect
@@ -2067,18 +2069,20 @@ Global Symbols
 <LI><a href="#[e3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;draw_progress_bar
 <LI><a href="#[dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;draw_color_section
 <LI><a href="#[db]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clear_dynamic_area
+<LI><a href="#[52]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GetTick
 <LI><a href="#[df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2sprintf
 </UL>
 <BR>[Called By]<UL><LI><a href="#[121]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;system_show
 </UL>
 
-<P><STRONG><a name="[123]"></a>system_show_music</STRONG> (Thumb, 128 bytes, Stack size 56 bytes, app_ui.o(i.system_show_music))
-<BR><BR>[Stack]<UL><LI>Max Depth = 288<LI>Call Chain = system_show_music &rArr; system_show_bluetooth_status &rArr; tft_DisplayString &rArr; tft_DisplayChar &rArr; tft_SetAddrWindow &rArr; HAL_SPI_Transmit &rArr; SPI_EndRxTxTransaction &rArr; SPI_WaitFlagStateUntilTimeout
+<P><STRONG><a name="[123]"></a>system_show_music</STRONG> (Thumb, 184 bytes, Stack size 64 bytes, app_ui.o(i.system_show_music))
+<BR><BR>[Stack]<UL><LI>Max Depth = 296<LI>Call Chain = system_show_music &rArr; system_show_bluetooth_status &rArr; tft_DisplayString &rArr; tft_DisplayChar &rArr; tft_SetAddrWindow &rArr; HAL_SPI_Transmit &rArr; SPI_EndRxTxTransaction &rArr; SPI_WaitFlagStateUntilTimeout
 </UL>
-<BR>[Calls]<UL><LI><a href="#[e1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_DrawLine
+<BR>[Calls]<UL><LI><a href="#[dc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_FillRect
 <LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_DisplayString
 <LI><a href="#[125]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;system_show_bluetooth_status
 <LI><a href="#[db]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clear_dynamic_area
+<LI><a href="#[52]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GetTick
 </UL>
 <BR>[Called By]<UL><LI><a href="#[121]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;system_show
 </UL>
@@ -2130,8 +2134,7 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[129]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_DrawPixel
 </UL>
-<BR>[Called By]<UL><LI><a href="#[123]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;system_show_music
-<LI><a href="#[125]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;system_show_bluetooth_status
+<BR>[Called By]<UL><LI><a href="#[125]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;system_show_bluetooth_status
 <LI><a href="#[e2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;draw_frame
 <LI><a href="#[dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;draw_color_section
 </UL>
@@ -2153,7 +2156,8 @@ Global Symbols
 <LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_SPI_Transmit
 <LI><a href="#[127]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_SetAddrWindow
 </UL>
-<BR>[Called By]<UL><LI><a href="#[124]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;system_show_manual_auto
+<BR>[Called By]<UL><LI><a href="#[123]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;system_show_music
+<LI><a href="#[124]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;system_show_manual_auto
 <LI><a href="#[125]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;system_show_bluetooth_status
 <LI><a href="#[e3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;draw_progress_bar
 <LI><a href="#[dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;draw_color_section
