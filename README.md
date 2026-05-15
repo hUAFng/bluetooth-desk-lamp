@@ -2,7 +2,7 @@
 
 ## 目录结构
 
-```c   
+```c
 [bluetooth-desk-lamp]/
 ├── Core/                          # 系统配置文件目录
 │   ├── main.c                     # 主函数
@@ -38,10 +38,9 @@
 |          ├── uart_drv.c          # 串口驱动
 |          ├── buzzer_drv.c        # 蜂鸣器驱动
 |          ├── drv_layer.c         # 底层驱动代码的统一
+|          ├── cmd.c               # 蓝牙-语音的共用指令
 |
 ├── bluetooth_desk_lamp.ioc        # cubemx的配置文件
 └── README.md                      # 说明文档
 
 ```
-
-    

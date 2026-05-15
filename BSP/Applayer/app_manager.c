@@ -59,7 +59,6 @@ void system_Init()
 {
     system_valiable_Init(); // 系统变量初始化
     module_Init();          // 模块初始化
-	
 	system_PowerOff();
 }    
 
