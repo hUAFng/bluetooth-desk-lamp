@@ -55,6 +55,7 @@ extern SPI_HandleTypeDef hspi1;
 #define COLOR_MAGENTA   0xF81F
 #define COLOR_ORANGE    0xFD20
 #define COLOR_GRAY      0x7BEF
+#define COLOR_BROWN     0xA145
 
 /* 功能定义 */
 #define TFT_SPI_HANDLE &hspi1

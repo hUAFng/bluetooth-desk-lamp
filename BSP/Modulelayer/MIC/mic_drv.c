@@ -96,6 +96,7 @@ void mic_Calibrate(void)
     for (uint8_t j = 0; j < 5;j++)
     {
         while (!mic.dma_data_ready_flag);
+        mic.dma_data_ready_flag = 0;
 
         mic_dma_buf_to_float();
 

@@ -139,8 +139,15 @@ void system_show_manual_auto(void)
     uint8_t bright = system.system_data.rgb_data.brightness * 100 / RGB_MAX_BRIGHTNESS;
     uint8_t color_idx = (uint8_t)system.system_data.rgb_data.color;
 
-    // 始终刷新蓝牙状态（轻量操作）
-    system_show_bluetooth_status(105);
+    // 始终刷新蓝牙状态
+
+    static uint32_t prev_updateBT_time ;
+
+    if (!prev_updateBT_time || HAL_GetTick() - prev_updateBT_time > 500)
+    {
+        prev_updateBT_time = HAL_GetTick();
+        system_show_bluetooth_status(105); // 每500ms刷新一次
+    }
 
     if (bright == last_brightness && color_idx == last_color) 
     {
@@ -183,26 +190,56 @@ void system_show_manual_auto(void)
 }
 
 void system_show_music(void)
-{
-	if (system.prev_mode == system.mode) return;
+{    
+    static uint32_t prev_updateBT_time ;
+
+
+    if (system.prev_mode == system.mode) 
+    {
+        if (!prev_updateBT_time || HAL_GetTick() - prev_updateBT_time > 500)
+        {
+            prev_updateBT_time = HAL_GetTick();
+
+            system_show_bluetooth_status(50);
+        }
+        return;
+    }
 	
     clear_dynamic_area();
 
     tft_DisplayString(28, 32, "ENJOY MUSIC", COLOR_WHITE, COLOR_BLACK);
-	
-	system_show_bluetooth_status(50);
 
-    // 5条不同高度的竖线
+    // 颜色循环：红-蓝-绿-紫-棕
+    static const uint16_t stack_colors[] = 
+    {
+        COLOR_RED,      // 红
+        COLOR_BLUE,     // 蓝
+        COLOR_GREEN,    // 绿
+        COLOR_MAGENTA,  // 紫
+        COLOR_BROWN     // 棕
+    };
+
+    #define SQUARE_SIZE 4
+    #define STACK_BOTTOM 114
+
     uint16_t bar_x[] = {20, 42, 64, 86, 108};
     uint16_t bar_h[] = {15, 30, 22, 35, 18};
 	
     for (int i = 0; i < 5; i++) 
-	{
+    {
         uint16_t x = bar_x[i];
-        uint16_t top = 115 - bar_h[i];   
-        tft_DrawLine(x, top, x, 114, COLOR_CYAN);
-        tft_DrawLine(x+1, top, x+1, 114, COLOR_CYAN);
+        uint8_t n = (bar_h[i] + SQUARE_SIZE - 1) / SQUARE_SIZE; // 向上取整
+
+        for (int j = 0; j < n; j++) 
+        {
+            uint16_t y = STACK_BOTTOM - (j + 1) * SQUARE_SIZE;
+            uint16_t color = stack_colors[j % 5];
+            tft_FillRect(x - 1, y, SQUARE_SIZE, SQUARE_SIZE, color);
+        }
     }
+
+    #undef SQUARE_SIZE
+    #undef STACK_BOTTOM
 }
 
 

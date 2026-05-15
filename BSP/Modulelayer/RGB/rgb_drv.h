@@ -7,7 +7,7 @@
 
 /* ---------------------------------------define---------------------------------------*/
 #define RGB_LED_NUM 10
-#define RGB_COLOR_NUM 10
+#define RGB_COLOR_NUM 9
 #define RGB_MAX_BRIGHTNESS 180
 #define RGB_MIN_BRIGHTNESS 20
 #define RGB_BRIGHTNESS_STEP 40
