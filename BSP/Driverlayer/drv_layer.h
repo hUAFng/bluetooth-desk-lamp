@@ -12,6 +12,7 @@
 #include "i2c_drv.h"
 #include "adc_drv.h"
 #include "tim.h"
+#include "cmd.h"
 
 void drv_layer_Init(void);
 

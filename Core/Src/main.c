@@ -98,12 +98,17 @@ int main(void)
   MX_USART2_UART_Init();
   MX_ADC1_Init();
   MX_TIM3_Init();
+  MX_TIM1_Init();
+  MX_ADC2_Init();
   /* USER CODE BEGIN 2 */
+  
 
   system_Init();
 
-  system_PowerOn();
-
+  // system_PowerOn(); // 正式时不要执行这句
+  
+  
+             
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -111,6 +116,8 @@ int main(void)
   while (1)
   {
     system_Run();
+	  
+	  
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */

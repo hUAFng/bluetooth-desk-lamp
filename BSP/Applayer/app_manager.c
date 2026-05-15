@@ -36,6 +36,7 @@ void system_Control(void)
     system_power_Control_key(); // 按键1控制系统开关机
 
     BT_GetCmd(&system.system_data.bt_data.cmd); // 获取蓝牙命令
+	
     if (system.system_data.bt_data.cmd != NoneCmd) //蓝牙有命令 - 优先处理蓝牙命令，不处理语音命令
     {
         Sys_Control_By_BTorASR(system.system_data.bt_data.cmd);
@@ -47,6 +48,8 @@ void system_Control(void)
         if (system.system_data.asr_data.cmd != NoneCmd)
         {
             Sys_Control_By_BTorASR(system.system_data.asr_data.cmd);
+			
+			led_blue_work_In_listen(system.system_data.asr_data.cmd);
         }
     }
 }
@@ -56,6 +59,8 @@ void system_Init()
 {
     system_valiable_Init(); // 系统变量初始化
     module_Init();          // 模块初始化
+	
+	system_PowerOff();
 }    
 
 /**
@@ -64,14 +69,12 @@ void system_Init()
 void system_PowerOn(void)
 {
     led_work(LED_G_ON); // 绿灯表示正常工作
-
-    system_valiable_Init();
-
-    system.mode = Sys_Mode_Manual;
-
-    rgb_PowerOn(system.system_data.rgb_data.color,system.system_data.rgb_data.brightness); 
-    tft_PowerOn(); 
-
+	
+	sys_mode_Manual_Init();
+	system.mode = Sys_Mode_Manual;
+	
+	tft_PowerOn(); 
+		
     system_show_Init();
 }
 
@@ -84,10 +87,11 @@ void system_PowerOff(void)
     system.mode = Sys_Mode_PowerOff;
 
     led_work(LED_G_OFF); // 绿灯表示系统关闭
+	led_work(LED_B_OFF);
 
     rgb_PowerOff(); // 灯带关闭
     tft_PowerOff(); // TFT关闭
-    ls_PowerOff();  // 光线传感器关闭
+    ls_adc_PowerOff();  // 光线传感器关闭
     mic_PowerOff(); // 麦克风关闭
     // 按键1、蓝牙、语音工作，可唤醒
 }
@@ -95,7 +99,7 @@ void system_PowerOff(void)
 // 系统运行
 void system_Run(void)
 {
-    system_Control(); // 首先处理蓝牙、语音、按键1命令，控制系统整体模式和状态
+    system_Control();
 
     switch(system.mode)
     {
@@ -109,7 +113,7 @@ void system_Run(void)
         case Sys_Mode_Auto:// 自动模式处理
 
             sys_mode_Auto();
-            
+
             break;
 
         case Sys_Mode_Music:// 音乐律动模式处理
@@ -122,8 +126,14 @@ void system_Run(void)
             break;
     }
 
+    buzzer_monitor();
+
     system_Control();
-    
+
     system_show();
+	
+	if (system.prev_mode != system.mode) system.prev_mode = system.mode;
+	
+	HAL_Delay(10);
 }
 

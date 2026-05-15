@@ -7,6 +7,10 @@
 #include "i2c.h"
 #include "string.h"
 
+#define I2C_TIMEOUT 100 // I2C超时时间 100ms
+
+void I2C_EnsureReady(I2C_HandleTypeDef* hi2c);
+
 /* 读写函数(带寄存器地址) */
 HAL_StatusTypeDef I2C_WriteByte(I2C_HandleTypeDef* hi2c , uint8_t devAddr , uint8_t regAddr,uint8_t data);
 HAL_StatusTypeDef I2C_ReadByte(I2C_HandleTypeDef* hi2c , uint8_t devAddr , uint8_t regAddr,uint8_t* data);

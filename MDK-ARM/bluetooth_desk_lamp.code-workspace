@@ -27,7 +27,17 @@
             "math.h": "c",
             "module_layer.h": "c",
             "mic_drv.h": "c",
-            "tim.h": "c"
+            "tim.h": "c",
+            "buzzer_drv.h": "c",
+            "cmd.h": "c",
+            "type_traits": "c",
+            "limits": "c",
+            "light_sensor_drv_adc.h": "c",
+            "climits": "c",
+            "cmath": "c",
+            "cstdarg": "c",
+            "cstdio": "c",
+            "cstdlib": "c"
         }
     },
     "extensions": {}

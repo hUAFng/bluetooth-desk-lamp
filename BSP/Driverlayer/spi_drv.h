@@ -7,6 +7,8 @@
 #include "main.h"
 #include "spi.h"
 
+#define SPI_TIMEOUT 100
+
 /* 发送接收函数 */
 HAL_StatusTypeDef SPI_WriteBytes(SPI_HandleTypeDef* hspi, uint8_t* pData, uint16_t size);
 HAL_StatusTypeDef SPI_ReadBytes(SPI_HandleTypeDef* hspi, uint8_t* pData, uint16_t size);

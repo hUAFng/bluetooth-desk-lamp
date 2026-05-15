@@ -3,6 +3,8 @@
 
 #include "led.h"
 
+static uint8_t led_b_work_flag = 0;
+
 
 void led_Init(void)
 {

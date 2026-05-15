@@ -1,0 +1,153 @@
+
+
+#include "light_sensor_drv_i2c.h"
+
+/* 使用不同的阈值 防止模式跳变*/
+#define LOW_LUS_THRESHOLD 10.0f    // 低光照阈值,切换到0.5lx分辨率
+#define HIGH_LUS_THRESHOLD 15.0f   // 高光照阈值,切换到1lx分辨率
+
+HAL_StatusTypeDef ls_WriteByte(uint8_t byte)
+{
+    return  I2C_WriteRaw(&LS_I2C_Handle,LS_I2C_ADDR,&byte,1);
+}
+HAL_StatusTypeDef ls_Readdata(uint8_t* buf , uint8_t len)
+{
+	return I2C_ReadRaw(&LS_I2C_Handle, LS_I2C_ADDR, buf, len);
+}
+
+/**
+ * @brief 检查BH1750传感器是否在I2C总线上存在
+ * @return HAL_OK:存在  HAL_ERROR:不存在
+ */
+HAL_StatusTypeDef ls_IsDeviceReady(void)
+{
+    I2C_EnsureReady(&LS_I2C_Handle);
+
+    if (HAL_I2C_IsDeviceReady(&LS_I2C_Handle, LS_I2C_ADDR, 3, 100) == HAL_OK)
+    {
+        return HAL_OK;
+    }
+    return HAL_ERROR;
+}
+
+
+HAL_StatusTypeDef ls_Init(void)
+{
+    if (ls_WriteByte(LS_POWON) != HAL_OK) return HAL_ERROR;      //上电
+    HAL_Delay(10); 
+
+    if (ls_WriteByte(LS_RESET) != HAL_OK) return HAL_ERROR;      //重置
+    HAL_Delay(10);
+
+    if (ls_PowerOff() != HAL_OK) return HAL_ERROR; // 默认不进入工作模式（手动模式）
+	
+	return HAL_OK;
+}
+
+
+/**
+ * @brief 切换测量模式
+ * @param mode : 使用LS_MODE枚举
+ */
+HAL_StatusTypeDef ls_SetMode(LS_MODE mode)
+{
+    uint8_t temp = 0;
+    if (mode == LS_MODE_HRES1) temp = LS_HRES_MODE1;
+    else if (mode == LS_MODE_HRES2) temp = LS_HRES_MODE2;
+    else if (mode == LS_MODE_LRES) temp = LS_LRES_MODE;
+    else if (mode == LS_MODE_SINGLE_MEAS) temp = LS_SINGLE_MEAS_MODE;
+    else return HAL_ERROR; // 无效模式
+    
+    if (ls_WriteByte(temp) != HAL_OK) return HAL_ERROR;
+
+    return HAL_OK;
+}
+
+/**
+ * @brief 测量光线强度
+ * @param mode : 测量模式
+ * @param lux :  存储测量结果的指针(光照强度单位为lx)
+ */
+HAL_StatusTypeDef ls_MeasureLight(LS_MODE* mode,float* lux)
+{
+    if(mode == NULL || lux == NULL || *mode > LS_MODE_SINGLE_MEAS) return HAL_ERROR;
+
+    uint8_t buf[2] = {0};
+    float lux_raw = 0.0f;
+
+    if (ls_Readdata(buf,2) != HAL_OK) return HAL_ERROR;
+
+    lux_raw = (buf[0] << 8) | buf[1]; //合成16位原始数据
+
+    // 计算公式
+    if (*mode == LS_MODE_HRES2) *lux = lux_raw / 1.2f / 2.0f; // 0.5lx分辨率 
+    else *lux = lux_raw / 1.2f; // 其他模式分辨率
+
+    if (ls_ChangeModeByLux(lux,mode) != HAL_OK) return HAL_ERROR;
+
+    return HAL_OK;
+}
+
+/**
+ * @brief 根据环境的测量结果来切换测量模式，适应不同的光照强度范围与测量精度，增强灯珠的控制效果
+ * @param lux : 光照强度指针
+ * @param cnt_mode : 当前模式指针
+ */
+HAL_StatusTypeDef ls_ChangeModeByLux(float* lux,LS_MODE* cnt_mode)
+{
+    if (lux == NULL || cnt_mode == NULL) return HAL_ERROR;
+
+    if (*cnt_mode == LS_MODE_HRES1) // 1lx分辨率
+    {
+        if (*lux <= LOW_LUS_THRESHOLD) 
+        {
+            *cnt_mode = LS_MODE_HRES2;
+			HAL_Delay(120);
+            return ls_SetMode(LS_MODE_HRES2); // 0.5lx分辨率,提高弱光环境的测量精度
+        }
+    }
+    else if (*cnt_mode == LS_MODE_HRES2) // 0.5lx分辨率
+    {
+        if (*lux >= HIGH_LUS_THRESHOLD) 
+        {
+            *cnt_mode = LS_MODE_HRES1;
+			HAL_Delay(120);
+            return ls_SetMode(LS_MODE_HRES1); // 1lx分辨率
+        }
+    }
+    else
+    {
+        *cnt_mode = LS_MODE_HRES1;
+        HAL_Delay(120);
+        return ls_SetMode(LS_MODE_HRES1);
+    }
+
+    return HAL_OK;
+}
+
+HAL_StatusTypeDef ls_PowerOn(void)
+{
+    if (ls_WriteByte(LS_POWON) != HAL_OK) return HAL_ERROR;
+    HAL_Delay(10); 
+
+    if (ls_WriteByte(LS_RESET) != HAL_OK) return HAL_ERROR;
+    HAL_Delay(10);
+
+    if (ls_WriteByte(LS_HRES_MODE1)!= HAL_OK) return HAL_ERROR;
+    HAL_Delay(120);
+    
+    return HAL_OK;
+}
+
+
+HAL_StatusTypeDef ls_PowerOff(void)
+{
+    // 关闭光线传感器电源
+    if (ls_WriteByte(LS_POWOFF) != HAL_OK) return HAL_ERROR;
+	return HAL_OK;
+}
+
+HAL_StatusTypeDef ls_Reset(void)
+{
+    return ls_PowerOn(); // 逻辑一致
+}

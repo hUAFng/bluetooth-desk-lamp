@@ -1,0 +1,13 @@
+bluetooth_desk_lamp\pre_processing_core.o: ../Middlewares/ST/staiotcraft_pre_processing/Src/pre_processing_core.c
+bluetooth_desk_lamp\pre_processing_core.o: ../Middlewares/ST/staiotcraft_pre_processing/Inc/pre_processing_core.h
+bluetooth_desk_lamp\pre_processing_core.o: ../Middlewares/ST/CMSIS/DSP/Include/arm_math.h
+bluetooth_desk_lamp\pre_processing_core.o: ../Drivers/CMSIS/Include/cmsis_compiler.h
+bluetooth_desk_lamp\pre_processing_core.o: D:\keil5\keil_V5.40\ARM\ARMCC\Bin\..\include\stdint.h
+bluetooth_desk_lamp\pre_processing_core.o: ../Drivers/CMSIS/Include/cmsis_armcc.h
+bluetooth_desk_lamp\pre_processing_core.o: D:\keil5\keil_V5.40\ARM\ARMCC\Bin\..\include\string.h
+bluetooth_desk_lamp\pre_processing_core.o: D:\keil5\keil_V5.40\ARM\ARMCC\Bin\..\include\math.h
+bluetooth_desk_lamp\pre_processing_core.o: D:\keil5\keil_V5.40\ARM\ARMCC\Bin\..\include\float.h
+bluetooth_desk_lamp\pre_processing_core.o: ../Middlewares/ST/staiotcraft_pre_processing/Inc/sys_functions.h
+bluetooth_desk_lamp\pre_processing_core.o: D:\keil5\keil_V5.40\ARM\ARMCC\Bin\..\include\stdio.h
+bluetooth_desk_lamp\pre_processing_core.o: D:\keil5\keil_V5.40\ARM\ARMCC\Bin\..\include\stdlib.h
+bluetooth_desk_lamp\pre_processing_core.o: ../Addons/pre_processing/params.h

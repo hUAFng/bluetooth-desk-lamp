@@ -11,7 +11,6 @@ key_t key;
 */
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 {
-    __disable_irp();
     if (GPIO_Pin == Key1_Pin)
     {
         key.key1_flag = 1;
@@ -23,8 +22,7 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
     else if (GPIO_Pin == Key3_Pin)
     {
         key.key3_flag = 1;
-    }
-    __enable_irp(); 
+    } 
 }
 
 
@@ -48,7 +46,9 @@ uint8_t key_Read(key_e KEY)
             if(key.key2_flag == 1)
             {
                 key.key2_flag = 0;
-                buzzer_work();
+				
+				buzzer_work();
+				
                 return 1;
             }
             break;
@@ -56,7 +56,9 @@ uint8_t key_Read(key_e KEY)
             if(key.key3_flag == 1)
             {
                 key.key3_flag = 0;
-                buzzer_work();
+				
+				buzzer_work();
+				
                 return 1;
             }
             break; 

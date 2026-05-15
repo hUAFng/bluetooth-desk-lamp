@@ -462,7 +462,7 @@ ARM Macro Assembler    Page 8
 Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M3 --apcs=interw
 ork --depend=bluetooth_desk_lamp\startup_stm32f103xb.d -obluetooth_desk_lamp\st
 artup_stm32f103xb.o -I.\RTE\_bluetooth_desk_lamp -ID:\keil5\keil_V5.40\package\
-ARM\CMSIS\6.2.0\CMSIS\Core\Include -ID:\keil5\keil_V5.40\package\Keil\STM32F1xx
+ARM\CMSIS\6.3.0\CMSIS\Core\Include -ID:\keil5\keil_V5.40\package\Keil\STM32F1xx
 _DFP\2.4.1\Device\Include --predefine="__MICROLIB SETA 1" --predefine="__UVISIO
 N_VERSION SETA 543" --predefine="STM32F10X_MD SETA 1" --predefine="_RTE_ SETA 1
 " --list=startup_stm32f103xb.lst startup_stm32f103xb.s

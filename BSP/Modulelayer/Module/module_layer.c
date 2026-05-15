@@ -8,9 +8,12 @@ void module_Init(void)
 
     asrpro_Init();
 
-    BT_Init();
+    if (BT_Init() != HAL_OK)
+    {
+        BT_Reset();
+    }  
 
-    ls_Init();
+    ls_adc_Init();
 
     mic_Init();
     
